@@ -1,0 +1,66 @@
+/* Navbar.css */
+
+/* Navbar Styling */
+.navbar {
+    background-color: #333; /* Dark background for navbar */
+    padding: 10px 20px; /* Spacing around the navbar */
+}
+
+/* Logo Styling */
+.navbar-logo {
+    width: 100px; /* Increase the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Reduce space between logo and title */
+}
+
+/* Title Styling */
+.navbar-brand {
+    font-size: 2.5rem; /* Further increase the font size of the title */
+    color: #b22222; /* Matching red color for the title */
+    font-family: 'Oswald', sans-serif; /* Use the Oswald font */
+    font-weight: bold; /* Make title bold */
+}
+
+/* Remove bullets from the list and align items */
+.navbar-nav {
+    list-style: none; /* Remove bullets from the list */
+    display: flex; /* Align items in a row */
+    justify-content: flex-start; /* Align items to the left */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Individual Navbar Items */
+.nav-item {
+    margin-right: 20px; /* Space between items */
+}
+
+/* Link Styles */
+.nav-link {
+    text-decoration: none; /* Remove underline from links */
+    color: #b22222; /* Matching red color for text */
+    font-family: 'Oswald', sans-serif; /* Use the Oswald font */
+    font-weight: bold; /* Make links bold */
+    font-size: 1.1rem; /* Adjust font size for consistency */
+    transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+    /* Hover Effect */
+    .nav-link:hover {
+        color: black; /* Change link color on hover to black */
+    }
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 10px; /* Adjust padding for mobile */
+    }
+
+    .nav-item {
+        margin-right: 10px; /* Reduce margin for smaller screens */
+    }
+
+    .nav-link {
+        font-size: 1rem; /* Adjust font size for mobile */
+    }
+}

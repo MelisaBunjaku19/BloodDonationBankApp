@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodDonationBankApp.Server", "BloodDonationBankApp.Server\BloodDonationBankApp.Server.csproj", "{C0CCE180-421B-46C9-B31B-EF6FA116BC8B}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "blooddonationbankapp.client", "blooddonationbankapp.client\blooddonationbankapp.client.esproj", "{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0CCE180-421B-46C9-B31B-EF6FA116BC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0CCE180-421B-46C9-B31B-EF6FA116BC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0CCE180-421B-46C9-B31B-EF6FA116BC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0CCE180-421B-46C9-B31B-EF6FA116BC8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B5AA5F-C81B-48D9-97A8-90AD6F6EC623}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A69468F3-D711-4F9D-A877-11CDE2758A3B}
+	EndGlobalSection
+EndGlobal

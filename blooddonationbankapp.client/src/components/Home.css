@@ -1,0 +1,249 @@
+/* General Styling */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap'); /* Google Font */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home {
+    font-family: 'Arial', sans-serif;
+    background-color: #333; /* Dark background */
+    color: #fff; /* Light text */
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #444; /* Dark gray */
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-family: 'Oswald', sans-serif; /* Oswald font for title */
+    font-size: 3rem;
+    color: #b22222; /* Bright red */
+    text-transform: uppercase; /* All caps */
+    letter-spacing: 2px; /* Letter spacing for style */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Slight shadow */
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #bbb; /* Light gray for contrast */
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #b22222; /* Red button */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .cta-button:hover {
+        background-color: #ff4500; /* Brighter on hover */
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+
+/* Statistics Section */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+    background-color: #222; /* Darker gray */
+    flex-wrap: wrap;
+}
+
+.stats-card {
+    background: #444; /* Dark gray */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    max-width: 300px;
+}
+
+    .stats-card h3 {
+        color: #b22222; /* Red accent */
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .stats-card p {
+        font-size: 1.1rem;
+        color: #ddd; /* Light gray */
+    }
+
+/* How It Works Section */
+.how-it-works {
+    background-color: #333; /* Dark background */
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+    .how-it-works h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 2.5rem;
+        color: #b22222; /* Red accent */
+        margin-bottom: 40px;
+    }
+
+/* Step Cards */
+.steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; /* Adds space between step cards */
+}
+
+.step {
+    background: #444; /* Dark card background */
+    border-radius: 10px;
+    padding: 30px;
+    flex: 1 1 calc(33.333% - 20px); /* Responsive layout for step cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px; /* Add some margin for spacing */
+}
+
+    .step:hover {
+        transform: translateY(-5px); /* Hover effect */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+/* Latest Updates Section */
+.latest-updates {
+    padding: 40px 20px;
+    background-color: #333; /* Dark background */
+}
+
+    .latest-updates h2 {
+        text-align: center;
+        font-family: 'Oswald', sans-serif; /* Oswald font for title */
+        color: #b22222; /* Red accent */
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+.updates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.update-card {
+    background: #444; /* Dark card */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    margin: 20px;
+    width: 300px;
+    color: #ddd; /* Light text */
+}
+
+    .update-card h3 {
+        font-family: 'Oswald', sans-serif;
+        color: #b22222; /* Red accent */
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .update-card p {
+        font-size: 1rem;
+        color: #ccc; /* Softer gray */
+    }
+
+/* Call to Action Section */
+.cta-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #222;
+}
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #b22222; /* Red accent */
+    }
+
+    .cta-section .cta-button {
+        margin: 10px;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem; /* Adjust font size */
+        letter-spacing: 1.5px;
+    }
+
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stats-card {
+        margin: 10px 0;
+        width: 90%; /* Adjust width to maintain layout */
+    }
+
+    .updates-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .update-card {
+        width: 90%; /* Adjust width for small screens */
+    }
+
+    /* Step Cards */
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px; /* Adds space between step cards */
+        padding: 40px 20px; /* Added padding for spacing */
+    }
+
+    .step {
+        background: #444; /* Dark card background */
+        border-radius: 10px;
+        padding: 40px; /* Increased padding for larger cards */
+        flex: 1 1 calc(25% - 20px); /* Responsive layout for step cards */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin: 10px; /* Add some margin for spacing */
+        font-family: 'Oswald', sans-serif; /* Use Oswald font */
+    }
+
+        .step:hover {
+            transform: translateY(-5px); /* Hover effect */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Additional Step */
+        .step.additional {
+            background: #b22222; /* Use the same bright red */
+            color: white; /* Text color */
+        }
+
+            .step.additional h4 {
+                font-size: 1.8rem; /* Increase title font size */
+                margin-bottom: 10px; /* Space below the title */
+            }
+
+            .step.additional p {
+                font-size: 1rem; /* Keep description font size consistent */
+            }
+
+}

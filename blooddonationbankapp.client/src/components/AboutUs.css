@@ -1,0 +1,252 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap');
+
+/* General Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #2e2e2e; /* Darker gray background for the entire page */
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+}
+
+/* Section Styling */
+.about-us-section,
+.faq-section {
+    background-color: #3a3a3a; /* Medium gray for sections */
+    padding: 60px 0;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Container */
+.about-us.container, .faq-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+    /* Title */
+    .about-title, .faq-section h2 {
+        font-size: 5rem;
+        color: #b22222; /* Red color for titles */
+        text-align: center;
+        margin-bottom: 40px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+/* About Card */
+.about-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #444; /* Darker gray for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+}
+
+/* Card Image and Content */
+.about-image {
+    flex: 1;
+    max-width: 45%;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.about-content {
+    flex: 2;
+    max-width: 55%;
+}
+
+    .about-content h2,
+    .faq-item h3 {
+        color: #b22222;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .about-content p,
+    .faq-item p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #eee; /* Light gray text for better contrast */
+        margin-bottom: 20px;
+    }
+
+/* Appointment Button */
+.appointment-btn {
+    display: inline-block;
+    background-color: #b22222;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+    .appointment-btn:hover {
+        background-color: #a00000;
+    }
+
+/* Info Slider */
+.info-slider {
+    margin-top: 50px;
+    background-color: #444; /* Dark gray for slider */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+    .info-slider h2 {
+        text-align: center;
+        color: #b22222;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+/* Swiper Styling */
+.mySwiper {
+    padding: 20px 0;
+}
+
+.info-card {
+    background-color: #555; /* Medium gray for cards */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .info-card img {
+        width: 100%;
+        max-width: 350px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-card h3 {
+        color: #b22222;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+
+    .info-card p {
+        font-size: 1.1rem;
+        color: #eee;
+    }
+
+/* Swiper Button Color */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #b22222;
+}
+
+/* FAQ Section */
+.faq-section {
+    background-color: #444; /* Dark gray for FAQ */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    margin-top: 50px;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+    background-color: #555; /* Background for each FAQ item */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Padding inside each item */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transition for hover effect */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+    .faq-item:hover {
+        transform: translateY(-5px); /* Slightly lift the card */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    }
+
+/* FAQ Question */
+.faq-question {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between question text and icon */
+    align-items: center; /* Center vertically */
+}
+
+    /* FAQ Question Text */
+    .faq-question h3 {
+        font-size: 1.5rem; /* Font size for the question */
+        margin: 0; /* Remove default margin */
+    }
+
+/* FAQ Icon */
+.faq-icon {
+    font-size: 1.5rem; /* Size for the icon */
+    color: #b22222; /* Red color for the icon */
+    transition: transform 0.3s; /* Transition for rotation */
+}
+
+    /* Active State for Icon */
+    .faq-icon.active {
+        transform: rotate(180deg); /* Rotate the icon when active */
+    }
+
+/* FAQ Answer */
+.faq-answer {
+    padding-top: 10px; /* Space above the answer */
+    padding-left: 20px; /* Indent the answer */
+}
+
+    /* Answer Text */
+    .faq-answer p {
+        font-size: 1.1rem; /* Font size for the answer */
+        color: #ccc; /* Light gray text for the answer */
+        line-height: 1.6; /* Line height for readability */
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-card {
+        flex-direction: column;
+    }
+
+    .about-image,
+    .about-content {
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    .info-card img {
+        max-width: 300px;
+    }
+
+    .faq-section {
+        padding: 20px; /* Reduced padding for smaller screens */
+    }
+
+    .faq-item {
+        margin-bottom: 15px; /* Reduced space between items */
+    }
+
+    /* FAQ Question */
+    .faq-question h3 {
+        font-size: 1.2rem; /* Font size for smaller screens */
+    }
+
+    .faq-about-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .faq-about-btn .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+}

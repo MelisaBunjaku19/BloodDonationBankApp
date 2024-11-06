@@ -1,0 +1,31 @@
+/* src/styles.css */
+
+.navbar {
+    background-color: #4CAF50; /* Green background */
+    overflow: hidden;
+}
+
+    .navbar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .navbar li {
+        float: left;
+    }
+
+    .navbar a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        .navbar a:hover {
+            background-color: #3e8e41; /* Darker green */
+        }
+
+.home, .about-us {
+    padding: 20px;
+}
