@@ -1,66 +1,80 @@
-/* Navbar.css */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 /* Navbar Styling */
 .navbar {
-    background-color: #333; /* Dark background for navbar */
-    padding: 10px 20px; /* Spacing around the navbar */
+    background-color: #fff;
+    padding: 15px 20px;
 }
 
 /* Logo Styling */
 .navbar-logo {
-    width: 100px; /* Increase the width of the logo */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 5px; /* Reduce space between logo and title */
+    width: 150px; /* Increase logo width */
+    height: auto;
+    margin-right: 15px;
 }
 
-/* Title Styling */
+/* Remove Title and Keep Logo Only */
 .navbar-brand {
-    font-size: 2.5rem; /* Further increase the font size of the title */
-    color: #b22222; /* Matching red color for the title */
-    font-family: 'Oswald', sans-serif; /* Use the Oswald font */
-    font-weight: bold; /* Make title bold */
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem; /* Optional: Adjust title font size */
 }
 
-/* Remove bullets from the list and align items */
+/* Navbar Item Styling */
 .navbar-nav {
-    list-style: none; /* Remove bullets from the list */
-    display: flex; /* Align items in a row */
-    justify-content: flex-start; /* Align items to the left */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-}
-
-/* Individual Navbar Items */
-.nav-item {
-    margin-right: 20px; /* Space between items */
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly; /* Ensures even spacing for all links */
+    margin: 0;
+    padding: 0;
+    flex-grow: 1; /* Allows nav items to take up available space */
 }
 
 /* Link Styles */
 .nav-link {
-    text-decoration: none; /* Remove underline from links */
-    color: #b22222; /* Matching red color for text */
-    font-family: 'Oswald', sans-serif; /* Use the Oswald font */
-    font-weight: bold; /* Make links bold */
-    font-size: 1.1rem; /* Adjust font size for consistency */
-    transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
+    text-decoration: none;
+    color: #b22222;
+    font-family: 'Nunito', sans-serif; /* Nunito for links */
+    font-weight: bold;
+    font-size: 1.2rem; /* Increase the font size */
+    transition: color 0.3s ease-in-out;
+    padding: 10px 15px; /* Adding padding for more clickable area */
 }
 
-    /* Hover Effect */
     .nav-link:hover {
-        color: black; /* Change link color on hover to black */
+        color: black;
     }
+
+/* Navbar Toggler for Mobile */
+.navbar-toggler {
+    border-color: #b22222;
+}
 
 /* Responsive Navbar */
 @media (max-width: 768px) {
     .navbar {
-        padding: 10px 10px; /* Adjust padding for mobile */
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .navbar-brand {
+        display: none; /* Hide title on smaller screens */
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .nav-item {
-        margin-right: 10px; /* Reduce margin for smaller screens */
+        margin-bottom: 10px;
     }
 
     .nav-link {
-        font-size: 1rem; /* Adjust font size for mobile */
+        font-size: 1.3rem; /* Increase font size for mobile */
     }
 }

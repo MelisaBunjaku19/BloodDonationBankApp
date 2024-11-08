@@ -1,13 +1,15 @@
-/* eslint-disable no-unused-vars */
 // src/App.jsx
 
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';// make sure to import Routes
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import About from "./components/About";
 import Navbar from "./components/Navbar";
 import Help from "./components/Help";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Footer from "./components/Footer"; // Import the Footer component
 
 const App = () => {
     return (
@@ -18,7 +20,10 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/help" element={<Help />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                 </Routes>
+                <Footer /> {/* Add Footer at the bottom */}
             </div>
         </Router>
     );

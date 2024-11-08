@@ -1,7 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Help.css';  // Custom styles for Help section
+import assistance from '../assets/images/assistance.png';
+import HowItWorks from "./HowItWorks"; // Correct path
 
 const Help = () => {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -40,8 +41,11 @@ const Help = () => {
             <div className="help-hero">
                 <div className="hero-content">
                     <h1>Need Assistance?</h1>
-                    <p>Your questions about blood donation are important to us. We’re here to guide you.</p>
+                    <p>Your questions about blood donation are important to us. We are here to guide you.</p>
                     <Link to="/donate" className="cta-button">Become a Donor</Link>
+                </div>
+                <div className="hero-image">
+                    <img src={assistance} alt="Assistance" />
                 </div>
             </div>
 
@@ -71,29 +75,8 @@ const Help = () => {
                 </div>
             </div>
 
-            {/* Contact and Additional Information Section */}
-            <div className="help-contact">
-                <h2>Need Further Assistance?</h2>
-                <div className="contact-options">
-                    <div className="contact-card">
-                        <h3>Contact Us</h3>
-                        <p>Call our support team at 1-800-DONATE or email us at support@blooddonationbank.org for any inquiries.</p>
-                        <Link to="/contact" className="cta-button">Get in Touch</Link>
-                    </div>
-                    <div className="contact-card">
-                        <h3>Find a Donation Center</h3>
-                        <p>Locate the nearest blood donation center or schedule a mobile donation truck visit.</p>
-                        <Link to="/donate" className="cta-button">Find a Center</Link>
-                    </div>
-                </div>
-            </div>
-
-            {/* Call to Action */}
-            <div className="help-cta">
-                <h2>Ready to Save Lives?</h2>
-                <p>Your blood donation can save up to three lives. Join us in this life-saving mission today.</p>
-                <Link to="/donate" className="cta-button">Donate Now</Link>
-            </div>
+            {/* How It Works Component */}
+            <HowItWorks />
         </div>
     );
 };

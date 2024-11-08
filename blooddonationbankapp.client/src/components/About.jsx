@@ -1,5 +1,6 @@
+// src/pages/AboutUs.jsx
 import React, { useState } from 'react';
-import aboutImage from '../assets/images/donation.png';
+import aboutImage from '../assets/images/logo.png';
 import './AboutUs.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -8,6 +9,9 @@ import { Navigation } from 'swiper/modules';
 import aboutImage1 from '../assets/images/about1.jpg';
 import aboutImage2 from '../assets/images/about2.jpg';
 import aboutImage3 from '../assets/images/about3.jpg';
+
+// Import the OurStaff component
+import OurStaff from '../components/OurStaff';
 
 const AboutUs = () => {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -21,7 +25,7 @@ const AboutUs = () => {
             {/* About Us Section */}
             <section className="about-us-section">
                 <div className="about-us container">
-                    <h1 className="about-title">About Our Blood Donation Bank</h1>
+                    <h1 className="about-title">About Us</h1>
                     <div className="about-card">
                         <img src={aboutImage} alt="Blood Donation" className="about-image" />
                         <div className="about-content">
@@ -88,6 +92,7 @@ const AboutUs = () => {
                     </div>
                 </div>
             </section>
+
             <section className="faq-section">
                 <div className="faq-container">
                     <h2>Frequently Asked Questions</h2>
@@ -127,6 +132,8 @@ const AboutUs = () => {
                 </div>
             </section>
 
+            {/* Include OurStaff Component after FAQ Section */}
+            <OurStaff />
         </div>
     );
 };

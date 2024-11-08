@@ -1,5 +1,5 @@
 /* General Styling */
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap'); /* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;600&display=swap');
 
 * {
     margin: 0;
@@ -8,39 +8,54 @@
 }
 
 .home {
-    font-family: 'Arial', sans-serif;
-    background-color: #333; /* Dark background */
-    color: #fff; /* Light text */
+    font-family: 'Nunito', sans-serif;
+    background-color: #fff;
+    color: #000; /* Changed text color to black */
     padding: 20px;
     line-height: 1.6;
 }
 
 /* Hero Section */
 .hero {
-    background-color: #444; /* Dark gray */
+    background-color: #fff; /* Set background to white */
     padding: 100px 20px;
     text-align: center;
 }
 
-.hero-content h1 {
-    font-family: 'Oswald', sans-serif; /* Oswald font for title */
-    font-size: 3rem;
-    color: #b22222; /* Bright red */
-    text-transform: uppercase; /* All caps */
-    letter-spacing: 2px; /* Letter spacing for style */
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Slight shadow */
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
-    color: #bbb; /* Light gray for contrast */
-    margin-bottom: 20px;
+.hero-content {
+    flex: 1;
+    max-width: 50%;
+    text-align: left;
+    padding-right: 20px;
 }
+
+    .hero-content h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3rem;
+        color: #000; /* Changed text color to black */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-shadow: none; /* Remove shadow for a cleaner look */
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        color: #555; /* Light gray for paragraph text */
+        margin-bottom: 20px;
+    }
 
 .cta-button {
-    background-color: #b22222; /* Red button */
-    color: #fff;
+    background-color: #ddd;
+    color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -50,8 +65,21 @@
 }
 
     .cta-button:hover {
-        background-color: #ff4500; /* Brighter on hover */
-        transform: translateY(-2px); /* Slight lift on hover */
+        background-color: #ccc;
+        transform: translateY(-2px);
+    }
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 100%;
+}
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
     }
 
 /* Statistics Section */
@@ -59,79 +87,67 @@
     display: flex;
     justify-content: space-around;
     padding: 40px 20px;
-    background-color: #222; /* Darker gray */
+    background-color: #fff; /* Set background to white */
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .stats-card {
-    background: #444; /* Dark gray */
+    background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     flex: 1;
     margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 300px;
 }
 
     .stats-card h3 {
-        color: #b22222; /* Red accent */
+        color: #000; /* Changed text color to black */
         font-size: 2.5rem;
         margin-bottom: 10px;
     }
 
     .stats-card p {
         font-size: 1.1rem;
-        color: #ddd; /* Light gray */
+        color: #555; /* Light gray for paragraph text */
     }
 
 /* How It Works Section */
-.how-it-works {
-    background-color: #333; /* Dark background */
-    padding: 60px 20px;
-    text-align: center;
-    color: #fff;
-}
-
-    .how-it-works h2 {
-        font-family: 'Oswald', sans-serif;
-        font-size: 2.5rem;
-        color: #b22222; /* Red accent */
-        margin-bottom: 40px;
-    }
 
 /* Step Cards */
 .steps {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px; /* Adds space between step cards */
+    gap: 20px;
 }
 
 .step {
-    background: #444; /* Dark card background */
+    background: #f9f9f9;
     border-radius: 10px;
     padding: 30px;
-    flex: 1 1 calc(33.333% - 20px); /* Responsive layout for step cards */
+    flex: 1 1 calc(33.333% - 20px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 10px; /* Add some margin for spacing */
+    margin: 10px;
 }
 
     .step:hover {
-        transform: translateY(-5px); /* Hover effect */
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
 /* Latest Updates Section */
 .latest-updates {
     padding: 40px 20px;
-    background-color: #333; /* Dark background */
+    background-color: #fff; /* Set background to white */
 }
 
     .latest-updates h2 {
         text-align: center;
-        font-family: 'Oswald', sans-serif; /* Oswald font for title */
-        color: #b22222; /* Red accent */
+        font-family: 'Montserrat', sans-serif;
+        color: #000; /* Changed text color to black */
         font-size: 2.5rem;
         margin-bottom: 40px;
     }
@@ -143,38 +159,39 @@
 }
 
 .update-card {
-    background: #444; /* Dark card */
+    background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px;
     width: 300px;
-    color: #ddd; /* Light text */
+    color: #000; /* Changed text color to black */
 }
 
     .update-card h3 {
-        font-family: 'Oswald', sans-serif;
-        color: #b22222; /* Red accent */
+        font-family: 'Montserrat', sans-serif;
+        color: #000; /* Changed text color to black */
         font-size: 1.8rem;
         margin-bottom: 15px;
     }
 
     .update-card p {
         font-size: 1rem;
-        color: #ccc; /* Softer gray */
+        color: #555; /* Light gray for paragraph text */
     }
 
 /* Call to Action Section */
 .cta-section {
     text-align: center;
     padding: 40px 20px;
-    background-color: #222;
+    background-color: #fff; /* Set background to white */
 }
 
     .cta-section h2 {
+        font-family: 'Montserrat', sans-serif;
         font-size: 2.5rem;
         margin-bottom: 20px;
-        color: #b22222; /* Red accent */
+        color: #000; /* Changed text color to black */
     }
 
     .cta-section .cta-button {
@@ -183,8 +200,13 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .hero-content h1 {
-        font-size: 2.5rem; /* Adjust font size */
+        font-size: 2.5rem;
         letter-spacing: 1.5px;
     }
 
@@ -195,7 +217,7 @@
 
     .stats-card {
         margin: 10px 0;
-        width: 90%; /* Adjust width to maintain layout */
+        width: 90%;
     }
 
     .updates-container {
@@ -204,46 +226,30 @@
     }
 
     .update-card {
-        width: 90%; /* Adjust width for small screens */
+        width: 90%;
     }
 
-    /* Step Cards */
     .steps {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px; /* Adds space between step cards */
-        padding: 40px 20px; /* Added padding for spacing */
+        padding: 40px 20px;
     }
 
     .step {
-        background: #444; /* Dark card background */
-        border-radius: 10px;
-        padding: 40px; /* Increased padding for larger cards */
-        flex: 1 1 calc(25% - 20px); /* Responsive layout for step cards */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        margin: 10px; /* Add some margin for spacing */
-        font-family: 'Oswald', sans-serif; /* Use Oswald font */
+        flex: 1 1 calc(50% - 20px);
+        padding: 40px;
     }
-
-        .step:hover {
-            transform: translateY(-5px); /* Hover effect */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
 
         /* Additional Step */
         .step.additional {
-            background: #b22222; /* Use the same bright red */
-            color: white; /* Text color */
+            background: #f9f9f9;
+            color: #000; /* Changed text color to black */
         }
 
             .step.additional h4 {
-                font-size: 1.8rem; /* Increase title font size */
-                margin-bottom: 10px; /* Space below the title */
+                font-size: 1.8rem;
+                margin-bottom: 10px;
             }
 
             .step.additional p {
-                font-size: 1rem; /* Keep description font size consistent */
+                font-size: 1rem;
             }
-
 }

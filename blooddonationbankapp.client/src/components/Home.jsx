@@ -3,7 +3,7 @@
 import React from 'react';
 import './Home.css';
 import CountUp from 'react-countup';
-import HowItWorks from './HowItWorks'; // Import the HowItWorks component
+import heroImage from '../assets/images/hero-image.jpg';
 
 // Reusable StatsCard component
 const StatsCard = ({ count, label }) => (
@@ -28,10 +28,16 @@ const Home = () => {
         <div className="home">
             {/* Hero Section */}
             <section className="hero">
-                <div className="hero-content">
-                    <h1>Welcome to the Blood Donation Management System</h1>
-                    <p>Together, we can save lives by ensuring blood is available for those in need.</p>
-                    <button className="cta-button">Join as a Donor</button>
+                <div className="hero-container">
+                    {/* Text and Image Content in the same container */}
+                    <div className="hero-content">
+                        <h1>Welcome to the Blood Donation Management System</h1>
+                        <p>Together, we can save lives by ensuring blood is available for those in need.</p>
+                        <button className="cta-button">Join as a Donor</button>
+                    </div>
+                    <div className="hero-image">
+                        <img src={heroImage} alt="Blood donation" />
+                    </div>
                 </div>
             </section>
 
@@ -44,7 +50,7 @@ const Home = () => {
             </section>
 
             {/* How It Works Section */}
-            <HowItWorks /> {/* Include HowItWorks component here */}
+            {/* Include HowItWorks component here */}
 
             {/* Latest Updates Section */}
             <section className="latest-updates">
@@ -66,11 +72,7 @@ const Home = () => {
             </section>
 
             {/* Call to Action Section */}
-            <section className="cta-section">
-                <h2>Ready to Make a Difference?</h2>
-                <button className="cta-button">Register as a Donor</button>
-                <button className="cta-button">Find Nearby Drives</button>
-            </section>
+         
         </div>
     );
 };

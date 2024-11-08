@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';  // Importing custom CSS styles for the navbar
-import logo from '../assets/images/logo.png'; // Update with the correct path
+import logo from '../assets/images/logo2.png'; // Update with the correct path
 
 const Navbar = () => {
     return (
@@ -9,7 +9,7 @@ const Navbar = () => {
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <img src={logo} alt="Logo" className="navbar-logo" />
-                    Blood Donation Bank
+
                 </Link>
                 <button
                     className="navbar-toggler"
@@ -29,9 +29,7 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/about">About Us</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/services">Services</Link>
-                        </li>
+                        
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact</Link>
                         </li>
@@ -41,7 +39,16 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/donate">Donate Now</Link>
                         </li>
-
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/centers">Centers</Link>
+                        </li>
+                        {/* Added Login and Register links */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/login">Login</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/register">Register</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
