@@ -1,18 +1,63 @@
-.footer {
-    background-color: #333;
-    color: #fff;
-    padding: 40px 0;
-    text-align: center;
+/* General reset for the page */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure the body and html take up the full height */
+    display: flex;
+    flex-direction: column; /* Make the body a flex container */
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
+/* Content wrapper to ensure it stretches and pushes footer to the bottom */
+.content {
+    flex: 1; /* This ensures content takes up all available space */
+}
+
+/* Footer styles */
+footer {
+    width: 100%; /* Ensure footer fills the full width */
+    background-color: #808080; /* Gray background */
+    color: #fff; /* White text */
+    padding: 20px 0; /* Adjust padding to your preference */
+    text-align: center;
+    position: relative; /* Ensure it's positioned correctly */
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box; /* Ensure padding is included in width */
+    margin: 0; /* Remove any default margin */
+}
+
+    /* Footer text styling */
+    footer p {
+        margin: 0; /* Remove margin */
+        font-size: 1rem;
+        color: #fff; /* White text */
+    }
+
+    /* Links inside the footer */
+    footer a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Footer container for additional content like logos, links, etc. */
 .footer-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    max-width: 1200px;
+    max-width: 100%; /* Remove the max-width constraint to stretch the container */
     margin: 0 auto;
+    padding: 0 15px; /* Prevent content from touching edges */
+    box-sizing: border-box; /* Prevent padding from expanding width */
 }
 
+/* Footer sections */
 .footer-logo-section, .footer-links, .footer-resources, .footer-contact {
     flex: 1 1 200px;
     margin: 15px;
@@ -47,11 +92,7 @@
                 color: #ff4757;
             }
 
-.footer-contact p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
+/* Footer bottom section */
 .footer-bottom {
     border-top: 1px solid #444;
     padding: 20px 0;
@@ -60,6 +101,7 @@
     align-items: center;
 }
 
+/* Footer social links */
 .footer-socials a {
     color: #ccc;
     margin: 0 10px;
@@ -70,3 +112,19 @@
     .footer-socials a:hover {
         color: #ff4757;
     }
+
+/* Ensure the footer is always at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+main {
+    flex: 1; /* This ensures the content grows and pushes footer down */
+}
+
+footer {
+    width: 100%; /* Ensure footer fills the full width */
+    margin: 0; /* Remove any margin */
+}

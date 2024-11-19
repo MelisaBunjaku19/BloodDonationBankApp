@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Import necessary libraries and CSS
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -43,9 +44,9 @@ const Footer = () => {
                 {/* Contact Information */}
                 <div className="footer-contact">
                     <h4>Contact Us</h4>
-                    <p>123 Blood Drive, Health City</p>
+                    <p>10000 Blood Donation, Prishtine</p>
                     <p>Email: support@blooddonationbank.org</p>
-                    <p>Phone: (123) 456-7890</p>
+                    <p>Phone: (+383) 44 678 978</p>
                 </div>
             </div>
 

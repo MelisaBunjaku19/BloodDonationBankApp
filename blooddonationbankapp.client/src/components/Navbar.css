@@ -1,67 +1,73 @@
-/* Import Google Fonts */
+/* Navbar.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
-/* Navbar Styling */
 .navbar {
     background-color: #fff;
     padding: 15px 20px;
 }
 
-/* Logo Styling */
 .navbar-logo {
-    width: 150px; /* Increase logo width */
+    width: 150px;
     height: auto;
     margin-right: 15px;
 }
 
-/* Remove Title and Keep Logo Only */
 .navbar-brand {
     display: flex;
     align-items: center;
-    font-size: 1.5rem; /* Optional: Adjust title font size */
 }
 
-/* Navbar Item Styling */
 .navbar-nav {
-    list-style: none;
     display: flex;
-    justify-content: space-evenly; /* Ensures even spacing for all links */
-    margin: 0;
-    padding: 0;
-    flex-grow: 1; /* Allows nav items to take up available space */
+    justify-content: space-evenly;
+    flex-grow: 1;
 }
 
-/* Link Styles */
 .nav-link {
     text-decoration: none;
     color: #b22222;
-    font-family: 'Nunito', sans-serif; /* Nunito for links */
+    font-family: 'Nunito', sans-serif;
     font-weight: bold;
-    font-size: 1.2rem; /* Increase the font size */
+    font-size: 1.2rem;
+    padding: 10px 15px;
     transition: color 0.3s ease-in-out;
-    padding: 10px 15px; /* Adding padding for more clickable area */
 }
 
     .nav-link:hover {
         color: black;
     }
 
-/* Navbar Toggler for Mobile */
+/* Specific styling for the logout button */
+.logout-button {
+    background: none;
+    border: none;
+    color: #b22222;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+    .logout-button:hover {
+        color: black;
+    }
+
 .navbar-toggler {
     border-color: #b22222;
 }
 
-/* Responsive Navbar */
 @media (max-width: 768px) {
     .navbar {
         padding: 10px 20px;
-        display: flex;
         justify-content: space-between;
     }
 
     .navbar-brand {
-        display: none; /* Hide title on smaller screens */
+        display: none;
     }
 
     .navbar-nav {
@@ -74,7 +80,27 @@
         margin-bottom: 10px;
     }
 
-    .nav-link {
-        font-size: 1.3rem; /* Increase font size for mobile */
+    .nav-link, .logout-button {
+        font-size: 1.3rem;
     }
+    .nav-item .nav-link {
+        color: #fff !important; /* Ensure text is visible */
+    }
+
+    .nav-item .dropdown-toggle {
+        color: #fff !important; /* Ensure dropdown button text is visible */
+    }
+
+    .nav-item .dropdown-menu {
+        background-color: #333; /* Adjust the background if necessary */
+        padding: 10px;
+    }
+
+    .nav-item .dropdown-item {
+        color: #000; /* Ensure dropdown items are readable */
+    }
+
+        .nav-item .dropdown-item:hover {
+            background-color: #f1f1f1; /* Add hover effect */
+        }
 }

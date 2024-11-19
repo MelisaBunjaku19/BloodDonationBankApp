@@ -1,11 +1,12 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+// src/pages/Home.jsx
 import React from 'react';
+import { useLocation } from 'react-router-dom';  // Import useLocation
 import './Home.css';
 import CountUp from 'react-countup';
 import heroImage from '../assets/images/hero-image.jpg';
 
-// Reusable StatsCard component
 const StatsCard = ({ count, label }) => (
     <div className="stats-card">
         <h3>
@@ -15,7 +16,6 @@ const StatsCard = ({ count, label }) => (
     </div>
 );
 
-// Reusable UpdateCard component
 const UpdateCard = ({ title, description }) => (
     <div className="update-card">
         <h3>{title}</h3>
@@ -24,12 +24,16 @@ const UpdateCard = ({ title, description }) => (
 );
 
 const Home = () => {
+    const location = useLocation();  // Get the location object to access passed state
+    const successMessage = location.state?.message;
+
     return (
         <div className="home">
-            {/* Hero Section */}
+            {/* Display success message if available */}
+            {successMessage && <div className="success-message">{successMessage}</div>}
+
             <section className="hero">
                 <div className="hero-container">
-                    {/* Text and Image Content in the same container */}
                     <div className="hero-content">
                         <h1>Welcome to the Blood Donation Management System</h1>
                         <p>Together, we can save lives by ensuring blood is available for those in need.</p>
@@ -49,9 +53,6 @@ const Home = () => {
                 <StatsCard count={8} label="Blood Types Available" />
             </section>
 
-            {/* How It Works Section */}
-            {/* Include HowItWorks component here */}
-
             {/* Latest Updates Section */}
             <section className="latest-updates">
                 <h2>Latest Updates</h2>
@@ -70,9 +71,6 @@ const Home = () => {
                     />
                 </div>
             </section>
-
-            {/* Call to Action Section */}
-         
         </div>
     );
 };

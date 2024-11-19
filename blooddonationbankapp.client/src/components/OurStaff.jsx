@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import staff1 from '../assets/images/staff1.jpg';
 import staff2 from '../assets/images/staff4.jpg';
@@ -22,13 +23,13 @@ const OurStaff = () => {
                 <div className="staff-list">
                     {/* Staff Member 1 */}
                     <div className="staff-member" onClick={() => toggleStaffInfo(0)}>
-                        <img src={staff1} alt="Dr. John Doe - Blood Donation Specialist" className="staff-image" />
-                        <h3>Dr. John Doe</h3>
+                        <img src={staff1} alt="Dr. Eva Doe - Blood Donation Specialist" className="staff-image" />
+                        <h3>Dr. Eva Doe</h3>
                         <span className="staff-toggle-icon">{activeStaff === 0 ? '-' : '+'}</span>
                         {activeStaff === 0 && (
                             <div className="staff-info">
                                 <p className="fade-in">
-                                    Dr. John Doe is a respected blood donation specialist with over 10 years of experience. His expertise in donor health and blood safety protocols has significantly contributed to maintaining high standards in blood collection. Dr. Doe is passionate about educating communities on the importance of blood donation and often leads local drives. Outside of work, he enjoys mentoring medical students and running marathons to raise awareness for blood donation causes.
+                                    Dr. Eva Doe is a respected blood donation specialist with over 10 years of experience. His expertise in donor health and blood safety protocols has significantly contributed to maintaining high standards in blood collection. Dr. Doe is passionate about educating communities on the importance of blood donation and often leads local drives. Outside of work, he enjoys mentoring medical students and running marathons to raise awareness for blood donation causes.
                                 </p>
                             </div>
                         )}

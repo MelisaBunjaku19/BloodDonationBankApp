@@ -1,0 +1,169 @@
+/* Make sure to reset some default styles for body and html */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.contactUsSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 60px 20px;
+    background-color: #f7f7f7; /* Softer background for a modern look */
+    gap: 20px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 100%; /* Ensures full width on all screen sizes */
+    box-sizing: border-box;
+    margin: 0 auto; /* Ensure center alignment if content is smaller */
+}
+
+    .contactUsSection:hover {
+        background-color: #ffffff; /* Slight highlight on hover */
+    }
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    color: #b22222;
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+    letter-spacing: 1.2px; /* Modern typographic feel */
+}
+
+.contactForm,
+.mapContainer {
+    flex: 1;
+    background-color: #ffffff; /* Clean and minimal background */
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Deeper shadow for elevation */
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    height: 100%; /* Ensure the containers take the full height of the parent */
+    max-width: 100%; /* Ensures full width on all screen sizes */
+    box-sizing: border-box;
+}
+
+    .contactForm:hover,
+    .mapContainer:hover {
+        transform: translateY(-5px); /* Subtle lift on hover */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.mapContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0;
+    height: 100%; /* Ensures the map container fills the height of its parent */
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    min-height: 400px;
+    max-height: 100%; /* Ensure the map does not overflow */
+}
+
+.formGroup {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+    .formGroup label {
+        font-family: 'Nunito', sans-serif;
+        color: #555;
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .formGroup input,
+    .formGroup textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 1rem;
+        color: #333;
+        background-color: #ffffff;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .formGroup input:hover,
+        .formGroup textarea:hover {
+            border-color: #b22222; /* Highlight on hover */
+        }
+
+        .formGroup input:focus,
+        .formGroup textarea:focus {
+            border-color: #b22222;
+            box-shadow: 0 0 8px rgba(178, 34, 34, 0.5);
+        }
+
+.submitButton {
+    background-color: #b22222;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center;
+    margin-top: 25px;
+}
+
+    .submitButton:hover {
+        background-color: #a00000;
+        transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+.responseMessage {
+    margin-top: 25px;
+    font-family: 'Nunito', sans-serif;
+    color: #555;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Ensuring full-width and no unwanted margin in footer */
+footer {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Optional for consistent padding on all pages */
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main {
+    flex: 1;
+}

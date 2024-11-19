@@ -5,14 +5,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Nunito', sans-serif; /* Ensure fallback font is applied globally */
 }
 
-.home {
+html {
     font-family: 'Nunito', sans-serif;
-    background-color: #fff;
-    color: #000; /* Changed text color to black */
-    padding: 20px;
-    line-height: 1.6;
+    font-display: swap; /* Ensure font swap happens correctly */
+}
+
+body {
+    font-family: 'Nunito', sans-serif; /* This should apply the correct font family */
 }
 
 /* Hero Section */
