@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
@@ -11,17 +13,21 @@ const Navbar = ({ onLogout }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding JWT token
+            // Ensure the decoded token has the username or other relevant information
             setUser({
-                userName: decodedToken?.userName,
-                fullName: decodedToken?.fullName,
+                userName: decodedToken?.sub,  // "sub" is often the username or email in JWT payload
+                fullName: decodedToken?.fullName,  // assuming "fullName" is part of the JWT token payload
+                email: decodedToken?.email,  // assuming "email" is part of the JWT token payload
+                image: decodedToken?.image,  // assuming "image" is part of the JWT token payload
             });
         }
     }, []);
 
     const handleLogout = () => {
-        onLogout();
-        navigate('/login');
+        localStorage.removeItem('token'); // Remove the token from localStorage
+        onLogout();  // You can notify the parent component about the logout
+        navigate('/login'); // Redirect to the login page after logout
     };
 
     return (
@@ -48,7 +54,7 @@ const Navbar = ({ onLogout }) => {
                         <li className="nav-item"><Link className="nav-link" to="/help">Help</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/donate">Donate Now</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/blog">Blogs</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/centers">Centers</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/drives">Find a Drive</Link></li>
                     </ul>
                     {user && (
                         <ul className="navbar-nav">
@@ -62,6 +68,7 @@ const Navbar = ({ onLogout }) => {
                                     <FaUserCircle className="profile-icon" /> {user.fullName || user.userName}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   
                                     <li>
                                         <button className="dropdown-item" onClick={handleLogout}>
                                             Logout

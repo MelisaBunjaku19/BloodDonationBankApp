@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { Mail, Lock } from 'lucide-react';
 import './Login.css';
 
 function Login({ onLoginSuccess }) {
@@ -20,7 +20,7 @@ function Login({ onLoginSuccess }) {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            navigate('/'); // Redirect to homepage if already logged in
+            navigate('/'); // Redirect to profile if already logged in
         }
     }, [navigate]);
 
@@ -53,7 +53,7 @@ function Login({ onLoginSuccess }) {
             const response = await axios.post('https://localhost:7003/api/auth/login', formData);
             localStorage.setItem('token', response.data.token);
             onLoginSuccess(); // Notify parent of successful login
-            navigate('/'); // Redirect to homepage
+            navigate('/'); // Redirect to profile
         } catch (error) {
             setErrorMessage('Invalid credentials. Please try again.');
         }
@@ -75,7 +75,7 @@ function Login({ onLoginSuccess }) {
                                 onChange={handleChange}
                                 required
                             />
-                            <FaEnvelope className="icon" />
+                            <Mail className="icon" />
                         </div>
                         <div className="input-group">
                             <label>Password</label>
@@ -86,7 +86,7 @@ function Login({ onLoginSuccess }) {
                                 onChange={handleChange}
                                 required
                             />
-                            <FaLock className="icon" />
+                            <Lock className="icon" />
                         </div>
                         <button className="login-button" type="submit">
                             Login

@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import { FaUserAlt, FaEnvelope, FaLock } from 'react-icons/fa';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import './Register.css';
 
 function Register() {
@@ -12,10 +13,10 @@ function Register() {
         password: '',
         confirmPassword: '',
     });
-
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [animationData, setAnimationData] = useState(null);
-    const [currentRole, setCurrentRole] = useState('donor'); // Track the current role
+    const [currentRole, setCurrentRole] = useState('donor');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,12 +25,10 @@ function Register() {
                 const response = await fetch(
                     'https://lottie.host/8298fad3-7fb7-41a3-805d-1f4d8385e7ab/Chf5MW1TC3.json'
                 );
-                if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setAnimationData(data);
             } catch (error) {
                 console.error('Failed to load animation', error);
-                setAnimationData(null);
             }
         };
         fetchAnimation();
@@ -43,19 +42,15 @@ function Register() {
     const handleRoleChange = () => {
         const roles = ['donor', 'doctor', 'organization'];
         const currentIndex = roles.indexOf(currentRole);
-        if (currentIndex < roles.length - 1) {
-            setCurrentRole(roles[currentIndex + 1]);
-        }
+        setCurrentRole(roles[(currentIndex + 1) % roles.length]);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (formData.password !== formData.confirmPassword) {
             alert('Passwords do not match');
             return;
         }
-
         try {
             setIsLoading(true);
             await axios.post('https://localhost:7003/api/auth/register', formData);
@@ -67,26 +62,22 @@ function Register() {
         }
     };
 
+    const togglePasswordVisibility = () => setIsPasswordVisible((prev) => !prev);
+
     return (
         <div className="register-container">
             <div className="register-inner-container">
                 <div className="image-section">
-                    {animationData && <Lottie animationData={animationData} loop={true} />}
+                    {animationData && <Lottie animationData={animationData} loop />}
                 </div>
 
                 <div className="form-section">
-                    {/* Role Selection - Moved to the top */}
                     <div className="role-options">
-                        {currentRole === 'donor' && (
-                            <p>
-                                <Link onClick={handleRoleChange}>Register as a Doctor/Nurse</Link>
-                            </p>
-                        )}
-                        {currentRole === 'doctor' && (
-                            <p>
-                                <Link onClick={handleRoleChange}>Register as an Organization</Link>
-                            </p>
-                        )}
+                        <p>
+                            <Link onClick={handleRoleChange}>
+                                Register as a {currentRole === 'donor' ? 'Doctor/Nurse' : currentRole === 'doctor' ? 'Organization' : 'Donor'}
+                            </Link>
+                        </p>
                     </div>
 
                     <h2>Register</h2>
@@ -100,7 +91,7 @@ function Register() {
                                 onChange={handleChange}
                                 required
                             />
-                            <FaUserAlt className="icon" />
+                            <User className="icon" />
                         </div>
 
                         <div className="input-group">
@@ -112,31 +103,51 @@ function Register() {
                                 onChange={handleChange}
                                 required
                             />
-                            <FaEnvelope className="icon" />
+                            <Mail className="icon" />
                         </div>
 
                         <div className="input-group">
                             <label>Password</label>
                             <input
-                                type="password"
+                                type={isPasswordVisible ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
                             />
-                            <FaLock className="icon" />
+                            <Lock className="icon" />
                         </div>
 
                         <div className="input-group">
                             <label>Confirm Password</label>
                             <input
-                                type="password"
+                                type={isPasswordVisible ? 'text' : 'password'}
                                 name="confirmPassword"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 required
                             />
-                            <FaLock className="icon" />
+                            <Lock className="icon" />
+                        </div>
+
+                        <div className="show-password-container">
+                            <input
+                                type="checkbox"
+                                id="showPasswordToggle"
+                                checked={isPasswordVisible}
+                                onChange={togglePasswordVisibility}
+                            />
+                            <label htmlFor="showPasswordToggle">
+                                {isPasswordVisible ? (
+                                    <>
+                                        <EyeOff className="eye-icon" /> Hide Password
+                                    </>
+                                ) : (
+                                    <>
+                                        <Eye className="eye-icon" /> Show Password
+                                    </>
+                                )}
+                            </label>
                         </div>
 
                         <button
@@ -148,7 +159,6 @@ function Register() {
                         </button>
                     </form>
 
-                    {/* Back to Login */}
                     <div className="back-to-login">
                         <p>
                             <Link to="/login" className="back-to-login-link">
@@ -156,7 +166,6 @@ function Register() {
                             </Link>
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>

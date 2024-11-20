@@ -320,3 +320,70 @@ html, body {
         width: 100%; /* Make staff cards full width on mobile */
     }
 }
+
+.newsletter-section {
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    color: #b22222;
+    margin-bottom: 20px;
+}
+
+.newsletter-description {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.newsletter-input {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.newsletter-btn {
+    background-color: #b22222;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .newsletter-btn:hover {
+        background-color: #a00000;
+    }
+
+.success-message {
+    color: green;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: red;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 20px;
+}
+

@@ -1,22 +1,39 @@
-/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
-    // Handle logout
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            setUser({
+                userName: decodedToken?.sub,  // username or email from the token
+                fullName: decodedToken?.fullName,
+                email: decodedToken?.email,
+                image: decodedToken?.image,
+            });
+        }
+    }, []);
+
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove the token from localStorage
-        navigate('/login'); // Redirect to the login page after logout
+        localStorage.removeItem('token'); // Remove token on logout
+        navigate('/login'); // Redirect to login
     };
+
+    if (!user) {
+        return <div>Loading...</div>; // Show loading state while fetching user
+    }
 
     return (
         <div className="user-profile">
             <h1>User Profile</h1>
-            <p>Welcome, [User's Name]!</p> {/* You can display the user's name or other details here */}
-
+            <img src={user.image || 'default-avatar.png'} alt="Profile" />
+            <p><strong>Name:</strong> {user.fullName}</p>
+            <p><strong>Email:</strong> {user.email}</p>
             <button onClick={handleLogout}>Logout</button>
         </div>
     );

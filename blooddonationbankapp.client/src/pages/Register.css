@@ -51,55 +51,58 @@ html, body {
     margin-bottom: 20px;
 }
 
-    .input-group label {
-        font-size: 1rem;
-        color: #333;
-    }
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    font-size: 1rem;
+    color: #333;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    padding-right: 50px; /* Room for the icon */
+}
 
-    .input-group input {
-        width: 100%;
-        padding: 10px 40px 10px 10px; /* Add space for the icon */
-        border-radius: 5px;
-        border: 1px solid #aaa;
-        font-size: 1rem;
-        color: #333;
-        background-color: #ffffff;
-    }
+.input-group .icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #b71c1c;
+    font-size: 1.4rem;
+    pointer-events: none;
+}
 
-    .input-group .icon {
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #b71c1c; /* Red for icons */
-        font-size: 1.2rem;
-    }
+/* "Show Password" Styling */
+.show-password-container {
+    display: flex;
+    align-items: center;
+    margin-top: -10px; /* Align closer to input */
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+    gap: 8px;
+}
 
-    /* Eye icon for password visibility */
-   
+    .show-password-container input[type="checkbox"] {
+        accent-color: #b71c1c; /* Checkbox color to match theme */
+        cursor: pointer;
+    }
 
 /* Register Button Styling */
 .register-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #b71c1c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
+    margin-top: 20px; /* Create space after toggles */
 }
 
-    .register-button:hover {
-        background-color: #d32f2f;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .input-group {
+        margin-bottom: 15px;
     }
 
-    .register-button:disabled {
-        background-color: #e0e0e0;
-        cursor: not-allowed;
+    .show-password-container {
+        font-size: 0.8rem;
     }
+}
 
 /* Success and Error Messages */
 .message {
@@ -167,5 +170,24 @@ html, body {
     .role-options a:hover,
     .back-to-login-link:hover {
         color: #d32f2f; /* Darker red on hover */
+    }
+.register-button {
+    background-color: #b71c1c; /* Bright red color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+    .register-button:hover {
+        background-color: #a31313; /* Slightly darker red for hover effect */
+    }
+
+    .register-button:disabled {
+        background-color: #e57373; /* Lighter red for disabled state */
+        cursor: not-allowed;
     }
 

@@ -42,7 +42,7 @@ body {
     .hero-content h1 {
         font-family: 'Montserrat', sans-serif;
         font-size: 3rem;
-        color: #000; /* Changed text color to black */
+        color: #b20d33; /* Blood red color */
         text-transform: uppercase;
         letter-spacing: 2px;
         margin-bottom: 20px;
@@ -106,7 +106,7 @@ body {
 }
 
     .stats-card h3 {
-        color: #000; /* Changed text color to black */
+        color: #b20d33; /* Blood red color */
         font-size: 2.5rem;
         margin-bottom: 10px;
     }
@@ -149,9 +149,16 @@ body {
     .latest-updates h2 {
         text-align: center;
         font-family: 'Montserrat', sans-serif;
-        color: #000; /* Changed text color to black */
+        color: #b20d33; /* Blood red color */
         font-size: 2.5rem;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+    }
+
+    .latest-updates p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 20px;
     }
 
 .updates-container {
@@ -172,7 +179,7 @@ body {
 
     .update-card h3 {
         font-family: 'Montserrat', sans-serif;
-        color: #000; /* Changed text color to black */
+        color: #b20d33; /* Blood red color */
         font-size: 1.8rem;
         margin-bottom: 15px;
     }
@@ -180,6 +187,22 @@ body {
     .update-card p {
         font-size: 1rem;
         color: #555; /* Light gray for paragraph text */
+    }
+
+.latest-updates .cta-button {
+    background-color: #b20d33; /* Blood red color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .latest-updates .cta-button:hover {
+        background-color: #9b182d;
+        transform: translateY(-2px);
     }
 
 /* Call to Action Section */
@@ -193,65 +216,234 @@ body {
         font-family: 'Montserrat', sans-serif;
         font-size: 2.5rem;
         margin-bottom: 20px;
-        color: #000; /* Changed text color to black */
+        color: #b20d33; /* Blood red color */
     }
 
     .cta-section .cta-button {
         margin: 10px;
     }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-container {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Testimonials Section */
+.testimonials {
+    padding: 60px 20px;
+    background-color: #f9f0f0; /* Soft red-ish background */
+    text-align: center;
+    color: #fff;
+}
 
-    .hero-content h1 {
+    .testimonials h2 {
+        font-family: 'Montserrat', sans-serif;
         font-size: 2.5rem;
-        letter-spacing: 1.5px;
+        margin-bottom: 40px;
+        color: #b20d33; /* Blood red color */
     }
 
-    .stats {
+.testimonial-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease-in-out;
+    animation: fadeInUp 1.2s forwards;
+    color: #333;
+    position: relative;
+    z-index: 1;
+}
+
+    .testimonial-card h4 {
+        font-size: 1.4rem;
+        color: #b20d33; /* Blood red for the name */
+        margin-top: 10px;
+    }
+
+    .testimonial-card p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        background: #e4f0f5; /* Light red hover effect */
+    }
+
+    .testimonial-card:nth-child(1) {
+        animation-delay: 0.4s;
+    }
+
+    .testimonial-card:nth-child(2) {
+        animation-delay: 0.8s;
+    }
+
+    .testimonial-card:nth-child(3) {
+        animation-delay: 1.2s;
+    }
+
+    .testimonial-card:nth-child(4) {
+        animation-delay: 1.6s;
+    }
+
+    .testimonial-card:nth-child(5) {
+        animation-delay: 2s;
+    }
+
+    .testimonial-card:nth-child(6) {
+        animation-delay: 2.4s;
+    }
+
+    .testimonial-card:nth-child(7) {
+        animation-delay: 2.8s;
+    }
+
+/* Add sliding animation for testimonials */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.newsletter-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.newsletter-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.newsletter-left {
+    flex: 1;
+    max-width: 500px;
+}
+
+.newsletter-right {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.newsletter-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    color: #b22222;
+    margin-bottom: 20px;
+}
+
+.newsletter-description {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.newsletter-input {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    font-family: 'Nunito', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+    .newsletter-input:focus {
+        border-color: #b22222;
+        outline: none;
+    }
+
+.newsletter-btn {
+    background-color: #b22222;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .newsletter-btn:hover {
+        background-color: #a00000;
+    }
+
+.success-message {
+    color: green;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.error-message {
+    color: red;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.newsletter-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .newsletter-content {
         flex-direction: column;
-        align-items: center;
+        text-align: center;
     }
 
-    .stats-card {
-        margin: 10px 0;
-        width: 90%;
+    .newsletter-left {
+        max-width: 100%;
     }
 
-    .updates-container {
-        flex-direction: column;
-        align-items: center;
+    .newsletter-right {
+        max-width: 100%;
+        margin-top: 20px;
     }
 
-    .update-card {
-        width: 90%;
+    .newsletter-btn {
+        width: 100%;
     }
 
-    .steps {
-        padding: 40px 20px;
+    .newsletter-input {
+        width: 100%;
     }
-
-    .step {
-        flex: 1 1 calc(50% - 20px);
-        padding: 40px;
-    }
-
-        /* Additional Step */
-        .step.additional {
-            background: #f9f9f9;
-            color: #000; /* Changed text color to black */
-        }
-
-            .step.additional h4 {
-                font-size: 1.8rem;
-                margin-bottom: 10px;
-            }
-
-            .step.additional p {
-                font-size: 1rem;
-            }
 }

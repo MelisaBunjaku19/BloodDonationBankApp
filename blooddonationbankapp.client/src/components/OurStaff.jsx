@@ -10,10 +10,11 @@ import staff7 from '../assets/images/staff7.jpg'; // New staff image
 import staff8 from '../assets/images/staff8.jpg'; // New staff image
 
 const OurStaff = () => {
-    const [activeStaff, setActiveStaff] = useState(null);
+    const [activeStaff, setActiveStaff] = useState(null); // Track the active staff member
 
+    // Toggle staff info based on index
     const toggleStaffInfo = (index) => {
-        setActiveStaff(activeStaff === index ? null : index);
+        setActiveStaff(activeStaff === index ? null : index); // If same index, collapse, else show new staff
     };
 
     return (
@@ -127,7 +128,7 @@ const OurStaff = () => {
                         {activeStaff === 7 && (
                             <div className="staff-info">
                                 <p className="fade-in">
-                                    Dr. Ahmed Khan specializes in blood storage and safety, ensuring that all units meet rigorous standards before transfusion. With a focus on quality control, Dr. Khan has developed protocols that enhance blood longevity and reduce contamination risks. His work ensures that donated blood reaches patients in optimal condition. In his spare time, Dr. Khan enjoys cycling and exploring new advancements in biomedical technology.
+                                    Dr. Ahmed Khan specializes in blood storage and safety, ensuring that all units meet rigorous standards before transfusion. With a focus on quality control, Dr. Khan has developed protocols that enhance blood longevity and reduce contamination risks. His work ensures that donated blood reaches patients in optimal condition. In his spare time, Dr. Khan enjoys cycling and exploring new advancements in medical technology.
                                 </p>
                             </div>
                         )}

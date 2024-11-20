@@ -1,11 +1,15 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 // src/pages/Home.jsx
 import React from 'react';
-import { useLocation } from 'react-router-dom';  // Import useLocation
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import './Home.css';
 import CountUp from 'react-countup';
 import heroImage from '../assets/images/hero-image.jpg';
+
+// Import the Subscriber component
+import Subscriber from '../components/Subscriber';
 
 const StatsCard = ({ count, label }) => (
     <div className="stats-card">
@@ -23,8 +27,15 @@ const UpdateCard = ({ title, description }) => (
     </div>
 );
 
+const TestimonialCard = ({ name, quote }) => (
+    <div className="testimonial-card">
+        <p className="quote">"{quote}"</p>
+        <h4>- {name}</h4>
+    </div>
+);
+
 const Home = () => {
-    const location = useLocation();  // Get the location object to access passed state
+    const location = useLocation(); // Get the location object to access passed state
     const successMessage = location.state?.message;
 
     return (
@@ -37,7 +48,7 @@ const Home = () => {
                     <div className="hero-content">
                         <h1>Welcome to the Blood Donation Management System</h1>
                         <p>Together, we can save lives by ensuring blood is available for those in need.</p>
-                        <button className="cta-button">Join as a Donor</button>
+                        <a href="/donate" className="cta-button">Join as a Donor</a>
                     </div>
                     <div className="hero-image">
                         <img src={heroImage} alt="Blood donation" />
@@ -58,10 +69,6 @@ const Home = () => {
                 <h2>Latest Updates</h2>
                 <div className="updates-container">
                     <UpdateCard
-                        title="Upcoming Blood Donation Drive"
-                        description="Join us next month for new blood donation drives at multiple locations."
-                    />
-                    <UpdateCard
                         title="New Partnership"
                         description="We partnered with local hospitals to improve the blood distribution network."
                     />
@@ -69,7 +76,35 @@ const Home = () => {
                         title="Volunteer Programs"
                         description="Become a part of our volunteer team to help organize and manage our donation drives."
                     />
+                    <UpdateCard
+                        title="Our Blogs"
+                        description="See the latest blogs and get informed about everything related to blood donation!"
+                    />
                 </div>
+            </section>
+
+            {/* Testimonial Section */}
+            <section className="testimonials">
+                <h2>What Our Donors Say</h2>
+                <div className="testimonial-container">
+                    <TestimonialCard
+                        name="John Doe"
+                        quote="Donating blood is an incredibly fulfilling experience. I feel proud to help those in need!"
+                    />
+                    <TestimonialCard
+                        name="Jane Smith"
+                        quote="I never realized how important it is until I saw the impact my donation made. Highly recommend!"
+                    />
+                    <TestimonialCard
+                        name="Michael Johnson"
+                        quote="A simple act of kindness can save lives. I donate blood as often as I can!"
+                    />
+                </div>
+            </section>
+
+            {/* Subscriber Section */}
+            <section className="subscriber-section">
+                <Subscriber />
             </section>
         </div>
     );

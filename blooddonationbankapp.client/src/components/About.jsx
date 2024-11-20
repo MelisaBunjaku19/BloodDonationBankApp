@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // src/pages/AboutUs.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import aboutImage from '../assets/images/logo.png';
 import './AboutUs.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,11 +10,16 @@ import { Navigation } from 'swiper/modules';
 import aboutImage1 from '../assets/images/about1.jpg';
 import aboutImage2 from '../assets/images/about2.jpg';
 import aboutImage3 from '../assets/images/about3.jpg';
+import aboutImage4 from '../assets/images/about4.jpg'; // Add missing images
+import aboutImage5 from '../assets/images/about5.webp';
+import aboutImage6 from '../assets/images/about6.jpg';
+import aboutImage7 from '../assets/images/about7.jpg';
 
-// Import the OurStaff component
+// Import the OurStaff and Subscriber components
 import OurStaff from '../components/OurStaff';
+import Subscriber from '../components/Subscriber';
 
-const AboutUs = () => {
+const About = () => {
     return (
         <div>
             {/* About Us Section */}
@@ -37,9 +42,7 @@ const AboutUs = () => {
                                 we aim to save lives every day.
                             </p>
 
-                            <a href="/appointments" className="btn btn-primary appointment-btn">
-                                Make an Appointment
-                            </a>
+                         
                         </div>
                     </div>
 
@@ -82,16 +85,62 @@ const AboutUs = () => {
                                         Our team ensures a safe, clean, and welcoming environment for all blood donors.
                                     </p>
                                 </div>
+
+                            </SwiperSlide>
+
+                            {/* New Slides */}
+                            <SwiperSlide>
+                                <div className="info-card">
+                                    <img src={aboutImage4} alt="Find Nearby Blood Drives" />
+                                    <h3>Find Nearby Blood Drives</h3>
+                                    <p>
+                                        Easily locate blood drives in your area and sign up to donate. We help you find donation events close to you, anytime.
+                                    </p>
+                                </div>
+                            </SwiperSlide>
+
+                            <SwiperSlide>
+                                <div className="info-card">
+                                    <img src={aboutImage5} alt="Donate Blood Online" />
+                                    <h3>Donate Blood Online</h3>
+                                    <p>
+                                        Schedule an appointment online for blood donation, or donate from the comfort of your home by opting for mobile donation services.
+                                    </p>
+                                </div>
+                            </SwiperSlide>
+
+                            <SwiperSlide>
+                                <div className="info-card">
+                                    <img src={aboutImage7} alt="Blog and Pamphlets" />
+                                    <h3>Educational Blogs & Pamphlets</h3>
+                                    <p>
+                                        Stay informed with our latest blogs, pamphlets, and materials about blood donation, health benefits, and related updates.
+                                    </p>
+                                </div>
+                            </SwiperSlide>
+
+                            <SwiperSlide>
+                                <div className="info-card">
+                                    <img src={aboutImage6} alt="Real-time Updates" />
+                                    <h3>Real-time Updates</h3>
+                                    <p>
+                                        Receive real-time updates on the latest blood donation events, news, and urgent donation requests in your area.
+                                    </p>
+                                </div>
                             </SwiperSlide>
                         </Swiper>
+
                     </div>
                 </div>
             </section>
 
-            {/* Include OurStaff Component after Info Slider */}
+
+
+            {/* Include OurStaff and Subscriber Components */}
             <OurStaff />
+          
         </div>
     );
 };
 
-export default AboutUs;
+export default About;

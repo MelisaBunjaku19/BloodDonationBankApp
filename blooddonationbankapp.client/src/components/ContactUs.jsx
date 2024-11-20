@@ -78,10 +78,10 @@ const ContactUs = () => {
             <div className={styles.mapContainer}>
                 <iframe
                     className={styles.map}
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509437!2d144.9537353153169!3d-37.81627944202195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577cbf07b13ef95!2sGoogle!5e0!3m2!1sen!2s!4v1614652784232!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3295.4290650197787!2d21.1665!3d42.6729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135ebc84c424b953%3A0x7f0304e1540b04b9!2sPristina%2C%20Kosovo!5e0!3m2!1sen!2s!4v1614652784232!5m2!1sen!2s"
                     allowFullScreen
                     loading="lazy"
-                ></iframe>
+                />
             </div>
         </div>
     );

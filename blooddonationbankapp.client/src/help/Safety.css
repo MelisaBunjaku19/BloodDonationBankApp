@@ -1,0 +1,76 @@
+/* Base Styles */
+.help-safety {
+    font-family: 'Nunito', sans-serif;
+    color: #333;
+    padding: 60px 20px;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+    .help-safety h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3rem;
+        color: #b22222;
+        margin-bottom: 40px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+/* Catalog-style List of Safety Measures */
+.safety-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Individual Safety Item Style */
+.safety-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .safety-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .safety-item.active {
+        background-color: #f4f4f4;
+    }
+
+/* Tick and Error Icon Styling */
+.icon {
+    font-size: 2rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+/* Valid and Invalid Item Styling */
+.safety-item.valid {
+    background-color: #d4edda; /* Light Green */
+}
+
+.safety-item.invalid {
+    background-color: #f8d7da; /* Light Red */
+}
+
+.safety-item.valid .icon {
+    color: #28a745; /* Green for tick */
+}
+
+.safety-item.invalid .icon {
+    color: #dc3545; /* Red for error */
+}
+
+.safety-item p {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+}

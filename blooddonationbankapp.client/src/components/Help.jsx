@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Help.css';  // Custom styles for Help section
 import assistance from '../assets/images/assistance.png';
 import HowItWorks from "./HowItWorks"; // Correct path
+ // Import the BloodDonationLocations component
+import Safety from '../help/Safety';
 
 const Help = () => {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -37,13 +38,12 @@ const Help = () => {
     ];
 
     return (
-        <div className="help-page">
+        <div className="help-page">  {/* This is the outer wrapper */}
             {/* Hero Section */}
             <div className="help-hero">
                 <div className="hero-content">
                     <h1>Need Assistance?</h1>
                     <p>Your questions about blood donation are important to us. We are here to guide you.</p>
-                    <Link to="/donate" className="cta-button">Become a Donor</Link>
                 </div>
                 <div className="hero-image">
                     <img src={assistance} alt="Assistance" />
@@ -78,7 +78,11 @@ const Help = () => {
 
             {/* How It Works Component */}
             <HowItWorks />
-        </div>
+
+        
+            {/* Blood Donation Locations Component */}
+            <Safety />  {/* Add the Blood Donation Locations component here */}
+        </div>  
     );
 };
 
