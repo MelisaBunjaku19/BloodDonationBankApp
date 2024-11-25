@@ -100,7 +100,6 @@
 }
 
 /* Register Link Styling */
-/* Register Link Styling */
 .register-link {
     margin-top: 15px;
     font-size: 1rem;
@@ -120,7 +119,6 @@
             text-decoration: underline;
             color: #b71c1c; /* Slightly darker red on hover */
         }
-
 
 /* Image Section Styling */
 .image-section {
@@ -167,4 +165,20 @@ footer {
     .image-section {
         display: none; /* Hide the image section on smaller screens */
     }
+}
+
+/* Success Message Styling */
+.success-message {
+    color: #4caf50; /* Green color for success */
+    font-size: 1rem;
+    margin-top: 20px; /* Increased margin-top to provide space between the form and message */
+    text-align: center;
+    font-weight: bold;
+    background-color: #e8f5e9; /* Light green background for success */
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners for the success box */
+    border: 1px solid #4caf50; /* Border matching the green */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for emphasis */
+    display: block; /* Ensure it is displayed */
+    z-index: 1000; /* Ensure it appears on top of other content */
 }

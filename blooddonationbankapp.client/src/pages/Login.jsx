@@ -13,6 +13,7 @@ function Login({ onLoginSuccess }) {
         password: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');  // Success message state
     const [animationData, setAnimationData] = useState(null);
     const navigate = useNavigate();
 
@@ -53,7 +54,14 @@ function Login({ onLoginSuccess }) {
             const response = await axios.post('https://localhost:7003/api/auth/login', formData);
             localStorage.setItem('token', response.data.token);
             onLoginSuccess(); // Notify parent of successful login
-            navigate('/'); // Redirect to profile
+
+            setSuccessMessage("Login successful! Redirecting...");  // Show success message
+
+            // Redirect after a brief delay
+            setTimeout(() => {
+                navigate('/'); // Redirect to profile
+            }, 1500); // 1.5 seconds delay
+
         } catch (error) {
             setErrorMessage('Invalid credentials. Please try again.');
         }
@@ -66,6 +74,7 @@ function Login({ onLoginSuccess }) {
                     <form onSubmit={handleSubmit}>
                         <h2>Login</h2>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        {successMessage && <p className="success-message">{successMessage}</p>}  {/* Show success message */}
                         <div className="input-group">
                             <label>Email</label>
                             <input

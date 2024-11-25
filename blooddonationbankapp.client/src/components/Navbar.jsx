@@ -13,21 +13,20 @@ const Navbar = ({ onLogout }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding JWT token
-            // Ensure the decoded token has the username or other relevant information
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
             setUser({
-                userName: decodedToken?.sub,  // "sub" is often the username or email in JWT payload
-                fullName: decodedToken?.fullName,  // assuming "fullName" is part of the JWT token payload
-                email: decodedToken?.email,  // assuming "email" is part of the JWT token payload
-                image: decodedToken?.image,  // assuming "image" is part of the JWT token payload
+                userName: decodedToken?.sub,
+                fullName: decodedToken?.fullName,
+                email: decodedToken?.email,
+                image: decodedToken?.image,
             });
         }
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove the token from localStorage
-        onLogout();  // You can notify the parent component about the logout
-        navigate('/login'); // Redirect to the login page after logout
+        localStorage.removeItem('token');
+        onLogout();
+        navigate('/login');
     };
 
     return (
@@ -68,7 +67,9 @@ const Navbar = ({ onLogout }) => {
                                     <FaUserCircle className="profile-icon" /> {user.fullName || user.userName}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                   
+                                    <li>
+                                        <Link className="dropdown-item" to="/profile">Profile</Link>
+                                    </li>
                                     <li>
                                         <button className="dropdown-item" onClick={handleLogout}>
                                             Logout
@@ -84,4 +85,4 @@ const Navbar = ({ onLogout }) => {
     );
 };
 
-export default Navbar;
+export default Navbar; 
