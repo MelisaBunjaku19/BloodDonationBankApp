@@ -1,0 +1,74 @@
+.blog-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* White background for the details page */
+    box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
+}
+
+.blog-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #b71c1c; /* Blood-red color */
+    text-align: center;
+    margin-bottom: 20px; /* Adds space below the title */
+}
+
+.blog-details-image {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.blog-summary {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: justify;
+    margin-top: 10px;
+}
+
+.blog-content {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.read-more-btn {
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-top: 30px; /* Adds more space above the button */
+    display: inline-block; /* Ensures the button stays in line with text */
+    text-align: center;
+    width: auto; /* Ensures the button width adapts to content */
+    transition: background-color 0.3s ease; /* Adds smooth hover effect */
+}
+
+    .read-more-btn:hover {
+        background-color: #e04d50;
+    }
+
+    .read-more-btn:focus {
+        outline: none; /* Removes the focus outline */
+    }
+.back-to-blogs {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-link {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #e63946; /* Red color */
+    transition: color 0.3s ease;
+}
+
+    .back-link:hover {
+        color: #d32f2f; /* Darker red on hover */
+    }

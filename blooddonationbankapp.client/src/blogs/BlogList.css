@@ -1,0 +1,97 @@
+﻿/* Blog Container */
+.blog-container {
+    padding: 20px;
+    background-color: #f7f9fc;
+}
+
+/* Blog Heading */
+.blog-heading {
+    text-align: center;
+    color: darkred;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Grid Layout for Blogs */
+.blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between grid items */
+    margin: 0 auto;
+}
+
+/* Blog Card Styling */
+.blog-card {
+    display: flex;
+    flex-direction: column; /* Vertical layout */
+    justify-content: space-between; /* Space between content and button */
+    align-items: center; /* Center button horizontally */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    /* Hover Effect for Blog Card */
+    .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+/* Blog Image Styling */
+.blog-image {
+    width: 100%; /* Ensures it stays inside the card */
+    height: 200px; /* Uniform height */
+    object-fit: cover; /* Prevents distortion */
+    border-bottom: 1px solid #f2f2f2;
+}
+
+/* Blog Title */
+.blog-title {
+    font-size: 1.6rem;
+    color: darkred;
+    font-weight: 600;
+    text-align: center;
+    margin: 15px 10px; /* Adds space between elements */
+    line-height: 1.4;
+}
+
+/* Blog Summary */
+.blog-summary {
+    color: #6c757d;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: justify;
+    margin: 0 10px 20px; /* Adds bottom space */
+}
+
+/* Read More Button */
+.read-more {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #e63946, #d32f2f); /* Gradient effect */
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Smooth transition for color */
+    align-self: center;
+    margin: 20px 0;
+}
+
+    /* Hover Effect for Read More */
+    .read-more:hover {
+        background: white; /* Change background to white */
+        color: #e63946; /* Change text color to red */
+        transform: translateY(-2px); /* Adds slight lift on hover */
+    }
+
+    /* Focus and Active State */
+    .read-more:focus,
+    .read-more:active {
+        outline: none;
+        transform: translateY(0);
+    }

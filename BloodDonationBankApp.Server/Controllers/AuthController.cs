@@ -26,52 +26,24 @@ public class AuthController : ControllerBase
         _signInManager = signInManager;
         _configuration = configuration;
     }
-
     // Register API
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterModel model)
     {
-        // Validate password
         if (model.Password != model.ConfirmPassword)
             return BadRequest("Passwords do not match");
-
-        if (model.Password.Length < 6) // Example: Minimum length check for security
-            return BadRequest("Password must be at least 6 characters long");
-
-        // Validate Role
-        if (!await RoleExists(model.Role))
-            return BadRequest($"Role '{model.Role}' is not valid.");
-
-        if (model.Role == "Admin")
-        {
-            // Only allow admins to create admins (replace this with your logic)
-            var requestingUser = await _userManager.GetUserAsync(User);
-            if (requestingUser == null || !await _userManager.IsInRoleAsync(requestingUser, "Admin"))
-            {
-                return Unauthorized(new { message = "Only admins can create other admins." });
-            }
-        }
-
-        var user = new ApplicationUser
-        {
-            UserName = model.Email,
-            Email = model.Email,
-            FullName = model.FullName
-        };
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
         var result = await _userManager.CreateAsync(user, model.Password);
-
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
         }
-
         // Assign role to user
         var roleResult = await _userManager.AddToRoleAsync(user, model.Role);
         if (!roleResult.Succeeded)
         {
             return BadRequest(roleResult.Errors);
         }
-
         return Ok(new { Message = "User created successfully" });
     }
 

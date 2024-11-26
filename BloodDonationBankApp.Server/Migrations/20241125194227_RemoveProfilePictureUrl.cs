@@ -5,7 +5,7 @@
 namespace BloodDonationBankApp.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class RemoveProfilePictureUrlFromApplicationUser : Migration
+    public partial class RemoveProfilePictureUrl : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

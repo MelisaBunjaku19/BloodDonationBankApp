@@ -11,6 +11,9 @@ import Register from './pages/Register';
 import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
 import AdminDashboard from './pages/AdminDashboard';
+import BlogList from './blogs/BlogList'; // Page to show a list of blogs
+import BlogDetails from './blogs/BlogDetails'; // Page for individual blog details
+// Page for creating a new blog
 
 // Utility to decode JWT tokens
 const decodeJWT = (token) => {
@@ -144,6 +147,17 @@ const App = () => {
                             )
                         }
                     />
+
+                    {/* Blog Routes */}
+                    <Route
+                        path="/blogs"
+                        element={isAuthenticated ? <BlogList /> : <Navigate to="/login" />}
+                    />
+                    <Route
+                        path="/blogs/:id"
+                        element={isAuthenticated ? <BlogDetails /> : <Navigate to="/login" />}
+                    />
+                 
                 </Routes>
             </main>
             {/* Only render Footer if we are not on the /admin route */}

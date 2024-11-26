@@ -3,6 +3,7 @@ using BloodDonationBankApp.Server.Models;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace BloodDonationBankApp.Server.Data
 {
@@ -15,6 +16,7 @@ namespace BloodDonationBankApp.Server.Data
         }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
 
     }
 }

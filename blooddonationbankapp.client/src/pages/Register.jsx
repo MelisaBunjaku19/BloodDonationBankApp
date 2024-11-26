@@ -16,7 +16,6 @@ function Register() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [animationData, setAnimationData] = useState(null);
-    const [currentRole, setCurrentRole] = useState('donor');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,12 +36,6 @@ function Register() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
-
-    const handleRoleChange = () => {
-        const roles = ['donor', 'doctor', 'organization'];
-        const currentIndex = roles.indexOf(currentRole);
-        setCurrentRole(roles[(currentIndex + 1) % roles.length]);
     };
 
     const handleSubmit = async (e) => {
@@ -72,14 +65,6 @@ function Register() {
                 </div>
 
                 <div className="form-section">
-                    <div className="role-options">
-                        <p>
-                            <Link onClick={handleRoleChange}>
-                                Register as a {currentRole === 'donor' ? 'Doctor/Nurse' : currentRole === 'doctor' ? 'Organization' : 'Donor'}
-                            </Link>
-                        </p>
-                    </div>
-
                     <h2>Register</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">

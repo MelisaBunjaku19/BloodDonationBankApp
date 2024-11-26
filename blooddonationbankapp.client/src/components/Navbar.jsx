@@ -52,7 +52,7 @@ const Navbar = ({ onLogout }) => {
                         <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/help">Help</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/donate">Donate Now</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/blog">Blogs</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/blogs">Blogs</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/drives">Find a Drive</Link></li>
                     </ul>
                     {user && (
