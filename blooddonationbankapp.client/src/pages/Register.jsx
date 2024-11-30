@@ -15,6 +15,7 @@ function Register() {
     });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState([]);
     const [animationData, setAnimationData] = useState(null);
     const navigate = useNavigate();
 
@@ -37,23 +38,50 @@ function Register() {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match');
+
+        // Client-side validation
+        if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
+            setErrors(['All fields are required.']);
             return;
         }
+
+        if (formData.password !== formData.confirmPassword) {
+            setErrors(['Passwords do not match.']);
+            return;
+        }
+
         try {
             setIsLoading(true);
-            await axios.post('https://localhost:7003/api/auth/register', formData);
+            setErrors([]);
+
+            // Log formData to check its structure before sending
+            console.log('Form Data being sent:', formData);
+
+            const response = await axios.post(
+                'https://localhost:7003/api/auth/register',
+                formData,  // Make sure formData matches expected structure on the server
+                {
+                    headers: {
+                        'Content-Type': 'application/json',  // Ensure correct content type
+                    }
+                }
+            );
+
+            // On successful registration, redirect to the login page
             navigate('/login');
         } catch (error) {
-            alert('Error during registration: ' + (error.response?.data?.message || error.message));
+            const errorMessage =
+                error.response?.data?.message ||
+                error.response?.data?.errors?.join(', ') ||
+                'An unexpected error occurred.';
+            setErrors([errorMessage]);
         } finally {
             setIsLoading(false);
         }
     };
+
 
     const togglePasswordVisibility = () => setIsPasswordVisible((prev) => !prev);
 
@@ -66,6 +94,15 @@ function Register() {
 
                 <div className="form-section">
                     <h2>Register</h2>
+                    {errors.length > 0 && (
+                        <div className="error-messages">
+                            {errors.map((error, index) => (
+                                <p key={index} className="error-message">
+                                    {error}
+                                </p>
+                            ))}
+                        </div>
+                    )}
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
                             <label>Full Name</label>

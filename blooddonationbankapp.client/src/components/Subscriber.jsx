@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-// Import image from your assets folder
-import bloodDonationImage from '../assets/images/subscriber.png';
- // Adjust the path if necessary
+import React, { useState, useEffect } from 'react';
+import Lottie from 'lottie-react'; // Import Lottie
+import bloodDonationAnimation from '../assets/animations/bloodDonationAnimation.json'; // Import the downloaded JSON file
 
 const Subscriber = () => {
     const [email, setEmail] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(true); // Loading state for animation
+
+    // No need for useEffect to fetch animation, as it's now imported locally
+    useEffect(() => {
+        // Simulate loading for 1 second to show Lottie animation
+        setTimeout(() => setLoading(false), 1000);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +37,11 @@ const Subscriber = () => {
             setErrorMessage('An error occurred. Please try again later.');
         }
     };
+
+    // Show loading text until animation data is ready
+    if (loading) {
+        return <div>Loading animation...</div>;
+    }
 
     return (
         <section className="newsletter-section">
@@ -57,10 +68,13 @@ const Subscriber = () => {
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </div>
                 <div className="newsletter-right">
-                    <img
-                        src={bloodDonationImage} // Using the imported image
-                        alt="Blood Donation"
-                        className="newsletter-image"
+                    {/* Lottie Animation */}
+                    <Lottie
+                        animationData={bloodDonationAnimation} // Using the local JSON file
+                        loop={true}
+                        autoplay={true}
+                        height={400}
+                        width={400}
                     />
                 </div>
             </div>

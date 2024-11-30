@@ -167,3 +167,75 @@
     }
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: #9a0c29;
+    color: #ffffff;
+    font-weight: 600;
+}
+s
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #17a2b8;
+}
+
+    .edit-btn:hover {
+        background-color: #138496;
+    }
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+
+.save-btn {
+    background-color: #28a745;
+}
+
+    .save-btn:hover {
+        background-color: #218838;
+    }
+
+.cancel-btn {
+    background-color: #6c757d;
+}
+
+    .cancel-btn:hover {
+        background-color: #5a6268;
+    }
