@@ -104,52 +104,56 @@ function Register() {
                         </div>
                     )}
                     <form onSubmit={handleSubmit}>
-                        <div className="input-group">
-                            <label>Full Name</label>
-                            <input
-                                type="text"
-                                name="fullName"
-                                value={formData.fullName}
-                                onChange={handleChange}
-                                required
-                            />
-                            <User className="icon" />
-                        </div>
+                        <div className="form-columns">
+                            <div className="form-column">
+                                <div className="input-group">
+                                    <label>Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        value={formData.fullName}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <User className="icon" />
+                                </div>
+                                <div className="input-group">
+                                    <label>Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <Mail className="icon" />
+                                </div>
+                            </div>
 
-                        <div className="input-group">
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                            <Mail className="icon" />
-                        </div>
-
-                        <div className="input-group">
-                            <label>Password</label>
-                            <input
-                                type={isPasswordVisible ? 'text' : 'password'}
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                            <Lock className="icon" />
-                        </div>
-
-                        <div className="input-group">
-                            <label>Confirm Password</label>
-                            <input
-                                type={isPasswordVisible ? 'text' : 'password'}
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                            />
-                            <Lock className="icon" />
+                            <div className="form-column">
+                                <div className="input-group">
+                                    <label>Password</label>
+                                    <input
+                                        type={isPasswordVisible ? 'text' : 'password'}
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <Lock className="icon" />
+                                </div>
+                                <div className="input-group">
+                                    <label>Confirm Password</label>
+                                    <input
+                                        type={isPasswordVisible ? 'text' : 'password'}
+                                        name="confirmPassword"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <Lock className="icon" />
+                                </div>
+                            </div>
                         </div>
 
                         <div className="show-password-container">
@@ -180,6 +184,7 @@ function Register() {
                             {isLoading ? 'Registering...' : 'Register'}
                         </button>
                     </form>
+
 
                     <div className="back-to-login">
                         <p>

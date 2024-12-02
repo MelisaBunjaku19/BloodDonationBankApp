@@ -87,23 +87,7 @@ namespace BloodDonationBankApp.Server.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
-        // PUT: api/Blog/5 (Admin-only endpoint to update a blog)
-        [HttpPut("{id}")]
-        [Authorize(Roles = "ADMIN")]
-        public async Task<IActionResult> UpdateBlog(int id, Blog updatedBlog)
-        {
-            var blog = await _context.Blogs.FindAsync(id);
-            if (blog == null) return NotFound();
-
-            blog.Title = updatedBlog.Title;
-            blog.Content = updatedBlog.Content;
-            blog.Summary = updatedBlog.Summary;
-            blog.ImageUrl = updatedBlog.ImageUrl;
-
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
+       
 
 
 

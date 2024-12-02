@@ -1,0 +1,114 @@
+body {
+    font-family: 'Montserrat', 'Nunito', sans-serif;
+}
+
+.donate-now-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 36px; /* Increased size for more prominence */
+    font-weight: 700; /* Added bolder weight */
+    color: darkred;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Nunito', sans-serif; /* Ensuring Nunito font */
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.donate-now-guest-message {
+    text-align: center;
+    font-size: 16px;
+}
+
+.login-button {
+    color: darkred;
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+    .login-button:hover {
+        color: red;
+    }
+
+.donate-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: darkred;
+        box-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+    }
+
+.submit-button {
+    background: darkred;
+    color: #fff;
+    padding: 12px 25px; /* Increased padding for button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;s
+    font-size: 16px;
+    font-weight: bold;
+    align-self: flex-start;
+    margin-top: 20px;
+}
+
+    .submit-button:hover {
+        background: #a80000; /* Darker red shade on hover */
+    }
+
+.message {
+    margin-top: 20px;
+    font-size: 16px;
+    color: green;
+    text-align: center;
+}

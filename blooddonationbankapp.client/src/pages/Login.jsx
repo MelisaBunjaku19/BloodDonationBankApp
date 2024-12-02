@@ -52,20 +52,20 @@ function Login({ onLoginSuccess }) {
         e.preventDefault();
         try {
             const response = await axios.post('https://localhost:7003/api/auth/login', formData);
-            localStorage.setItem('token', response.data.token);
-            onLoginSuccess(); // Notify parent of successful login
+            const { token, user } = response.data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user)); // Store user details locally
+            onLoginSuccess();
 
-            setSuccessMessage("Login successful! Redirecting...");  // Show success message
-
-            // Redirect after a brief delay
+            setSuccessMessage("Login successful! Redirecting...");
             setTimeout(() => {
                 navigate('/'); // Redirect to profile
-            }, 1500); // 1.5 seconds delay
-
+            }, 1500);
         } catch (error) {
             setErrorMessage('Invalid credentials. Please try again.');
         }
     };
+
 
     return (
         <div className="login-container">

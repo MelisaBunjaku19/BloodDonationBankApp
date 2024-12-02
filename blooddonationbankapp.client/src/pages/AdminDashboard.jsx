@@ -2,34 +2,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { FaUserCircle, FaSignOutAlt, FaBars, FaBell, FaCog } from 'react-icons/fa'; // Admin icons
-import './admin.css'; // Import CSS
-import UsersTable from '../components/UsersTable'; // Import the UsersTable component
+import { Line, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { FaUserCircle, FaSignOutAlt, FaBars, FaBell, FaCog } from 'react-icons/fa';
+import './admin.css';
+import UsersTable from '../components/UsersTable';
 import BlogsTable from '../components/BlogsTable';
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const AdminDashboard = ({ adminName, onLogout }) => {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const [activeSection, setActiveSection] = useState('dashboard'); // Track active section
+    const [activeSection, setActiveSection] = useState('dashboard');
     const [showNotifications, setShowNotifications] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
 
-    const toggleSidebar = () => {
-        setIsSidebarCollapsed(!isSidebarCollapsed);
-    };
+    const toggleSidebar = () => setIsSidebarCollapsed(!isSidebarCollapsed);
+    const toggleNotifications = () => setShowNotifications(!showNotifications);
+    const toggleSettings = () => setShowSettings(!showSettings);
 
-    const toggleNotifications = () => {
-        setShowNotifications(!showNotifications);
-    };
-
-    const toggleSettings = () => {
-        setShowSettings(!showSettings);
-    };
-
-    // Sample chart data
-    const data = {
+    // Chart data
+    const donationData = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         datasets: [
             {
@@ -42,9 +35,38 @@ const AdminDashboard = ({ adminName, onLogout }) => {
         ],
     };
 
+    const bloodStockData = {
+        labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+        datasets: [
+            {
+                data: [25, 15, 30, 10, 50, 5, 20, 8], // Replace with real data
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF',
+                    '#FF9F40',
+                    '#FF6384',
+                    '#36A2EB',
+                ],
+            },
+        ],
+    };
+
+    const bloodStockSummary = [
+        { group: 'A+', units: 25 },
+        { group: 'A-', units: 15 },
+        { group: 'B+', units: 30 },
+        { group: 'B-', units: 10 },
+        { group: 'O+', units: 50 },
+        { group: 'O-', units: 5 },
+        { group: 'AB+', units: 20 },
+        { group: 'AB-', units: 8 },
+    ];
+
     return (
-        <div className={`admin-dashboard ${isSidebarCollapsed ? 'collapsed' : ''}`}>
-            {/* Sidebar */}
+        <div className={`admin-panel ${isSidebarCollapsed ? 'collapsed' : ''}`}>
             <div className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
                 <button
                     className="toggle-btn"
@@ -54,64 +76,57 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     <FaBars size={20} style={{ color: '#fff' }} />
                 </button>
                 <h2 className={`sidebar-title ${isSidebarCollapsed ? 'collapsed' : ''}`}>
-                    Blood Bank Admin
+                    {isSidebarCollapsed ? '' : 'Blood Bank Admin'}
                 </h2>
                 <ul>
                     <li onClick={() => setActiveSection('dashboard')}><a href="#">Dashboard</a></li>
-                    <li onClick={() => setActiveSection('donors')}><a href="#">Donors</a></li>
-                    <li onClick={() => setActiveSection('recentDonations')}><a href="#">Recent Donations</a></li>
+                    <li onClick={() => setActiveSection('recentDonations')}><a href="#">Donations</a></li>
                     <li onClick={() => setActiveSection('manageBloodBanks')}><a href="#">Manage Blood Banks</a></li>
                     <li onClick={() => setActiveSection('adminTasks')}><a href="#">Admin Tasks</a></li>
-                    <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Inventory Management</a></li>
-                    <li onClick={() => setActiveSection('donorHistory')}><a href="#">Donor Medical History</a></li>
+                    <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Inventory</a></li>
+                    <li onClick={() => setActiveSection('donorHistory')}><a href="#">Donor History</a></li>
                     <li onClick={() => setActiveSection('blogs')}><a href="#">Blogs</a></li>
                     <li onClick={() => setActiveSection('users')}><a href="#">Users</a></li>
                 </ul>
             </div>
 
-            {/* Main Content */}
             <div className="main-content">
-                {/* Admin Header */}
                 <div className="admin-header">
                     <div className="admin-info">
                         <FaUserCircle size={30} style={{ color: '#b20d33', marginRight: '10px' }} />
                         <strong>{adminName}</strong>
                     </div>
                     <div className="admin-actions">
-                        <div className="notifications-wrapper">
-                            <FaBell
-                                size={20}
-                                style={{ color: '#b20d33', cursor: 'pointer', marginRight: '20px' }}
-                                onClick={toggleNotifications}
-                            />
-                            {showNotifications && (
-                                <div className="notifications-panel active">
-                                    <h4>Notifications</h4>
-                                    <ul>
-                                        <li>New donor registered: John Doe</li>
-                                        <li>Low stock alert: B-</li>
-                                        <li>Urgent request: 2 units of O-</li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
-                        <div className="settings-dropdown">
-                            <FaCog
-                                size={20}
-                                style={{ color: '#b20d33', cursor: 'pointer', marginRight: '20px' }}
-                                onClick={toggleSettings}
-                            />
-                            {showSettings && (
-                                <div className="settings-panel active">
-                                    <h4>Settings</h4>
-                                    <ul>
-                                        <li><a href="#">Account Settings</a></li>
-                                        <li><a href="#">Privacy Settings</a></li>
-                                        <li><a href="#">System Preferences</a></li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
+                        <FaBell
+                            size={20}
+                            style={{ color: '#b20d33', cursor: 'pointer', marginRight: '20px' }}
+                            onClick={toggleNotifications}
+                        />
+                        {showNotifications && (
+                            <div className="notifications-panel active">
+                                <h4>Notifications</h4>
+                                <ul>
+                                    <li>New donor registered: John Doe</li>
+                                    <li>Low stock alert: B-</li>
+                                    <li>Urgent request: 2 units of O-</li>
+                                </ul>
+                            </div>
+                        )}
+                        <FaCog
+                            size={20}
+                            style={{ color: '#b20d33', cursor: 'pointer', marginRight: '20px' }}
+                            onClick={toggleSettings}
+                        />
+                        {showSettings && (
+                            <div className="settings-panel active">
+                                <h4>Settings</h4>
+                                <ul>
+                                    <li><a href="#">Account Settings</a></li>
+                                    <li><a href="#">Privacy Settings</a></li>
+                                    <li><a href="#">System Preferences</a></li>
+                                </ul>
+                            </div>
+                        )}
                         <button className="logout-btn" onClick={onLogout}>
                             <FaSignOutAlt size={20} style={{ marginRight: '5px' }} />
                             Logout
@@ -119,26 +134,34 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     </div>
                 </div>
 
-                {/* Dashboard Sections */}
                 <div className="dashboard-sections">
-                    {/* Conditional rendering of sections based on activeSection */}
                     {activeSection === 'dashboard' && (
                         <div>
-                            <h2>Welcome to the Admin Dashboard</h2>
-                            <p>Here's an overview of your system.</p>
+                            <h2>Dashboard Overview</h2>
+                            <div className="chart-container">
+                                <div className="chart">
+                                    <Line data={donationData} options={{ responsive: true }} />
+                                </div>
+                                <div className="chart">
+                                    <Pie data={bloodStockData} />
+                                </div>
+                            </div>
+                            <div className="blood-stock-summary">
+                                <h3>Blood Stock Summary</h3>
+                                <ul>
+                                    {bloodStockSummary.map((stock, index) => (
+                                        <li key={index}>
+                                            {stock.group}: {stock.units} units
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     )}
 
-                    {activeSection === 'users' && <UsersTable />} {/* Render UsersTable when 'users' is active */}
-
-                    {/* Add more conditional sections here as needed */}
-                    {activeSection === 'donors' && <div>Donors Content</div>}
-                    {activeSection === 'recentDonations' && <div>Recent Donations Content</div>}
-                    {activeSection === 'manageBloodBanks' && <div>Manage Blood Banks Content</div>}
-                    {activeSection === 'adminTasks' && <div>Admin Tasks Content</div>}
-                    {activeSection === 'bloodInventory' && <div>Blood Inventory Content</div>}
-                    {activeSection === 'donorHistory' && <div>Donor Medical History Content</div>}
+                    {activeSection === 'users' && <UsersTable />}
                     {activeSection === 'blogs' && <BlogsTable />}
+                    {/* Add other sections as needed */}
                 </div>
             </div>
         </div>

@@ -29,6 +29,10 @@ const Navbar = ({ onLogout }) => {
         navigate('/login');
     };
 
+    const handleProfileClick = () => {
+        navigate('/profile'); // Navigate to the Profile page
+    };
+
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
@@ -68,7 +72,9 @@ const Navbar = ({ onLogout }) => {
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-                                        <Link className="dropdown-item" to="/profile">Profile</Link>
+                                        <button className="dropdown-item" onClick={handleProfileClick}>
+                                            Profile
+                                        </button>
                                     </li>
                                     <li>
                                         <button className="dropdown-item" onClick={handleLogout}>
@@ -85,4 +91,4 @@ const Navbar = ({ onLogout }) => {
     );
 };
 
-export default Navbar; 
+export default Navbar;

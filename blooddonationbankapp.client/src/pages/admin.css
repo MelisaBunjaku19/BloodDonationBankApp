@@ -1,49 +1,62 @@
-/* Sidebar Styles */
-.sidebar {
+/* Scoped to admin-panel */
+.admin-panel .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     width: 250px;
     height: 100%;
-    background-color: #b20d33; /* Blood red color for sidebar */
+    background-color: #b20d33;
     color: white;
     padding-top: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Optional: shadow */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    transition: all 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
 }
 
-    .sidebar.collapsed {
+    .admin-panel .sidebar.collapsed {
         width: 60px;
     }
 
-    .sidebar ul {
+    .admin-panel .sidebar ul {
         list-style: none;
         padding: 0;
     }
 
-        .sidebar ul li {
+        .admin-panel .sidebar ul li {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #9a0c29;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-            .sidebar ul li a {
+            .admin-panel .sidebar ul li a {
                 color: white;
                 text-decoration: none;
                 display: block;
                 font-weight: 600;
+                text-align: center;
+                flex-grow: 1;
             }
 
-            .sidebar ul li:hover {
+            .admin-panel .sidebar ul li:hover {
                 background-color: #9a0c29;
             }
 
-/* Sidebar Toggle Button */
-.toggle-btn {
+    .admin-panel .sidebar.collapsed ul li span {
+        display: none;
+    }
+
+    .admin-panel .sidebar.collapsed ul li i {
+        font-size: 1.5rem;
+    }
+
+.admin-panel .toggle-btn {
     position: absolute;
     top: 50%;
-    right: -15px;
+    right: -25px;
     transform: translateY(-50%);
     background-color: #dc3545;
     border: none;
@@ -51,191 +64,182 @@
     padding: 10px;
     cursor: pointer;
     z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-    .toggle-btn:hover {
-        background-color: #c82333;
-    }
-
-/* Main Content */
-.main-content {
+.admin-panel .main-content {
     margin-left: 250px;
     padding: 20px;
-    background-color: #f4f4f9;
+    background-color: #fff;
+    flex-grow: 1;
     transition: margin-left 0.3s ease-in-out;
 }
 
-    .main-content.collapsed {
-        margin-left: 60px;
-    }
+.admin-panel .sidebar.collapsed + .main-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
 
-/* Header Styles */
-.admin-header {
+.admin-panel .admin-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 999;
-    background: #fff; /* Header background for better contrast */
+    background: white;
     padding: 10px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Admin Actions */
-.admin-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* Spacing between items */
-}
-
-/* Notifications Dropdown */
-.notifications-wrapper {
-    position: relative;
-}
-
-.notifications-panel {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    width: 300px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    display: none; /* Initially hidden */
-    animation: fadeIn 0.3s ease-in-out;
-    z-index: 10;
-}
-
-    .notifications-panel.active {
-        display: block; /* Show on click */
-    }
-
-    .notifications-panel h4 {
-        margin-bottom: 10px;
-    }
-
-    .notifications-panel ul {
-        list-style: none;
-        padding: 0;
-    }
-
-        .notifications-panel ul li {
-            padding: 5px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-            .notifications-panel ul li:last-child {
-                border-bottom: none;
-            }
-
-/* Logout & Settings */
-.settings-dropdown,
-.logout-btn {
-    position: relative;
-    display: inline-block;
-}
-
-.settings-panel {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    display: none;
-    z-index: 10;
-}
-
-    .settings-panel.active {
-        display: block; /* Display dropdown when active */
-    }
-
-/* Fade-in Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-table {
+    z-index: 999;
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+}
+
+.admin-panel .table-container {
+    width: 100%;
+    margin: 0 auto;
     background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+.admin-panel h2 {
+    text-align: center;
+    color: white;
 }
 
-th {
-    background-color: #9a0c29;
-    color: #ffffff;
-    font-weight: 600;
-}
-s
-tr:nth-child(even) {
-    background-color: #f8f9fa;
+.admin-panel .create-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-.edit-btn, .delete-btn, .save-btn, .cancel-btn {
-    padding: 8px 12px;
-    margin: 0 5px;
+.admin-panel .create-btn {
+    background-color: #800000;
+    color: white;
     border: none;
-    border-radius: 4px;
-    color: #ffffff;
-    font-weight: 500;
+    padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
-.edit-btn {
-    background-color: #17a2b8;
-}
-
-    .edit-btn:hover {
-        background-color: #138496;
+    .admin-panel .create-btn:hover {
+        background-color: #a40000;
     }
 
-.delete-btn {
-    background-color: #dc3545;
+.admin-panel .form-container {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-    .delete-btn:hover {
-        background-color: #c82333;
+.admin-panel input,
+.admin-panel textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.admin-panel textarea {
+    height: 100px;
+}
+
+.admin-panel button {
+    background-color: #800000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .admin-panel button:hover {
+        background-color: #a40000;
     }
 
-.save-btn {
-    background-color: #28a745;
+.admin-panel .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ddd;
 }
 
-    .save-btn:hover {
-        background-color: #218838;
+    .admin-panel .styled-table th,
+    .admin-panel .styled-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
     }
 
-.cancel-btn {
-    background-color: #6c757d;
+    .admin-panel .styled-table th {
+        background-color: #800000;
+        color: white;
+    }
+
+    .admin-panel .styled-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+.admin-panel .users-table-title {
+    color: #b20d33;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-    .cancel-btn:hover {
-        background-color: #5a6268;
+.admin-panel .users-table-wrapper {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.admin-panel .users-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.admin-panel .users-table-container th {
+    background-color: darkred;
+    color: white;
+    font-weight: 600;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+}
+
+.admin-panel .users-table-container td {
+    background-color: white;
+    color: #333;
+    padding: 12px 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+.admin-panel .users-action-buttons button {
+    padding: 6px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .admin-panel .users-action-buttons button.delete {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .admin-panel .users-action-buttons button.edit {
+        background-color: #f39c12;
+        color: white;
     }

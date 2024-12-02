@@ -11,16 +11,17 @@ import Register from './pages/Register';
 import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
 import AdminDashboard from './pages/AdminDashboard';
-import BlogList from './blogs/BlogList'; // Page to show a list of blogs
-import BlogDetails from './blogs/BlogDetails'; // Page for individual blog details
-// Page for creating a new blog
+import BlogList from './blogs/BlogList';
+import BlogDetails from './blogs/BlogDetails';
+import Profile from './components/Profile'; // Import Profile component
+import DonateNow from './components/DonateNow'; // Import DonateNow component
 
 // Utility to decode JWT tokens
 const decodeJWT = (token) => {
     try {
-        const payload = token.split('.')[1]; // Extract payload
-        const decodedPayload = atob(payload); // Decode Base64
-        return JSON.parse(decodedPayload); // Parse JSON
+        const payload = token.split('.')[1];
+        const decodedPayload = atob(payload);
+        return JSON.parse(decodedPayload);
     } catch (error) {
         console.error('Invalid token', error);
         return null;
@@ -31,33 +32,30 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState([]);
     const [adminName, setAdminName] = useState('');
-    const [loading, setLoading] = useState(true); // New loading state to block rendering
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const location = useLocation(); // Hook to access current location
+    const location = useLocation();
 
-    // Check token on initial load
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             const decodedToken = decodeJWT(token);
             if (decodedToken && decodedToken.exp > Date.now() / 1000) {
                 setIsAuthenticated(true);
-
-                // Extract roles and set state
                 const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
                 const roleList = Array.isArray(roles) ? roles : [roles];
                 setUserRole(roleList);
 
                 if (roleList.includes('ADMIN')) {
                     setAdminName(decodedToken.name || 'Admin User');
-                    navigate('/admin'); // Redirect to Admin Dashboard
+                    navigate('/admin');
                 }
             } else {
-                localStorage.removeItem('token'); // Expired or invalid token
+                localStorage.removeItem('token');
                 setIsAuthenticated(false);
             }
         }
-        setLoading(false); // Once done, stop loading
+        setLoading(false);
     }, [navigate]);
 
     const handleLogout = () => {
@@ -65,7 +63,7 @@ const App = () => {
         setIsAuthenticated(false);
         setUserRole([]);
         setAdminName('');
-        navigate('/login'); // Redirect to login after logout
+        navigate('/login');
     };
 
     const handleLoginSuccess = () => {
@@ -74,37 +72,30 @@ const App = () => {
             const decodedToken = decodeJWT(token);
             if (decodedToken) {
                 setIsAuthenticated(true);
-
-                // Extract roles and set state
                 const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
                 const roleList = Array.isArray(roles) ? roles : [roles];
                 setUserRole(roleList);
 
                 if (roleList.includes('ADMIN')) {
                     setAdminName(decodedToken.name || 'Admin User');
-                    navigate('/admin'); // Redirect to Admin Dashboard
+                    navigate('/admin');
                 } else {
-                    navigate('/'); // Redirect to Home
+                    navigate('/');
                 }
             }
         }
     };
 
-    // Don't render anything if loading is true
     if (loading) {
-        return <div>Loading...</div>; // Display a loading message or spinner
+        return <div>Loading...</div>;
     }
 
     return (
         <div className="app">
-            {/* Only render Navbar and Footer if we are not on the /admin route */}
             {isAuthenticated && !location.pathname.includes('/admin') && <Navbar onLogout={handleLogout} />}
             <main>
                 <Routes>
-                    <Route
-                        path="/"
-                        element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
-                    />
+                    <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
                     <Route
                         path="/admin"
                         element={
@@ -115,52 +106,26 @@ const App = () => {
                             )
                         }
                     />
-                    <Route
-                        path="/about"
-                        element={isAuthenticated ? <About /> : <Navigate to="/login" />}
-                    />
-                    <Route
-                        path="/help"
-                        element={isAuthenticated ? <Help /> : <Navigate to="/login" />}
-                    />
-                    <Route
-                        path="/contact"
-                        element={isAuthenticated ? <ContactUs /> : <Navigate to="/login" />}
-                    />
+                    <Route path="/about" element={isAuthenticated ? <About /> : <Navigate to="/login" />} />
+                    <Route path="/help" element={isAuthenticated ? <Help /> : <Navigate to="/login" />} />
+                    <Route path="/contact" element={isAuthenticated ? <ContactUs /> : <Navigate to="/login" />} />
                     <Route
                         path="/login"
-                        element={
-                            isAuthenticated ? (
-                                <Navigate to="/" />
-                            ) : (
-                                <Login onLoginSuccess={handleLoginSuccess} />
-                            )
-                        }
+                        element={isAuthenticated ? <Navigate to="/" /> : <Login onLoginSuccess={handleLoginSuccess} />}
                     />
                     <Route
                         path="/register"
-                        element={
-                            isAuthenticated ? (
-                                <Navigate to="/" />
-                            ) : (
-                                <Register onRegisterSuccess={handleLoginSuccess} />
-                            )
-                        }
+                        element={isAuthenticated ? <Navigate to="/" /> : <Register onRegisterSuccess={handleLoginSuccess} />}
                     />
-
-                    {/* Blog Routes */}
-                    <Route
-                        path="/blogs"
-                        element={isAuthenticated ? <BlogList /> : <Navigate to="/login" />}
-                    />
+                    <Route path="/blogs" element={isAuthenticated ? <BlogList /> : <Navigate to="/login" />} />
                     <Route
                         path="/blogs/:id"
                         element={isAuthenticated ? <BlogDetails /> : <Navigate to="/login" />}
                     />
-                 
+                    <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+                    <Route path="/donate" element={<DonateNow />} /> {/* New route for donation page */}
                 </Routes>
             </main>
-            {/* Only render Footer if we are not on the /admin route */}
             {isAuthenticated && !location.pathname.includes('/admin') && <Footer />}
         </div>
     );
