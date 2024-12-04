@@ -101,9 +101,8 @@ const UsersTable = () => {
         } catch (err) {
             console.error("Error details:", err.response?.data || err.message);
             alert(`Failed to save changes: ${err.response?.data || err.message}`);
-        } // <-- Added semicolon here to close the catch block properly
+        }
     };
-
 
     const handleCancel = () => {
         setEditingUserId(null);
@@ -131,9 +130,9 @@ const UsersTable = () => {
         <div className="users-table-wrapper">
             <h2 className="users-table-title text-center">Manage Users</h2>
             <div className="users-table-container">
-                <table className="table table-dark table-bordered text-center">
+                <table className="table">
                     <thead>
-                        <tr>
+                        <tr className="users-table-header">
                             <th>ID</th>
                             <th>Full Name</th>
                             <th>Email</th>
@@ -151,9 +150,8 @@ const UsersTable = () => {
                                         <input
                                             type="text"
                                             value={editedUser.fullName || ""}
-                                            onChange={(e) =>
-                                                handleFieldChange(e, "fullName")
-                                            }
+                                            onChange={(e) => handleFieldChange(e, "fullName")}
+                                            className="form-control"
                                         />
                                     ) : (
                                         user.fullName
@@ -164,9 +162,8 @@ const UsersTable = () => {
                                         <input
                                             type="email"
                                             value={editedUser.email || ""}
-                                            onChange={(e) =>
-                                                handleFieldChange(e, "email")
-                                            }
+                                            onChange={(e) => handleFieldChange(e, "email")}
+                                            className="form-control"
                                         />
                                     ) : (
                                         user.email
@@ -177,9 +174,8 @@ const UsersTable = () => {
                                         <input
                                             type="text"
                                             value={editedUser.userName || ""}
-                                            onChange={(e) =>
-                                                handleFieldChange(e, "userName")
-                                            }
+                                            onChange={(e) => handleFieldChange(e, "userName")}
+                                            className="form-control"
                                         />
                                     ) : (
                                         user.userName
@@ -190,6 +186,7 @@ const UsersTable = () => {
                                         <select
                                             value={editedUser.roles?.[0] || ""}
                                             onChange={handleRoleChange}
+                                            className="form-control"
                                         >
                                             <option value="USER">User</option>
                                             <option value="ADMIN">Admin</option>
@@ -217,7 +214,7 @@ const UsersTable = () => {
                                     ) : (
                                         <>
                                             <button
-                                                className="users-edit-btn btn btn-primary btn-sm"
+                                                className="users-edit-btn btn btn-danger btn-sm"
                                                 onClick={() => handleEditClick(user)}
                                             >
                                                 Edit
@@ -237,6 +234,7 @@ const UsersTable = () => {
                 </table>
             </div>
         </div>
+
     );
 };
 

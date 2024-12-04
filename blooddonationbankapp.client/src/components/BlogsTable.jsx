@@ -76,13 +76,6 @@ const BlogsTable = () => {
         <div className="table-container">
             <h3>Manage Blogs</h3>
 
-            {/* Create Blog Button */}
-            <div className="create-btn-container">
-                <button className="create-btn" onClick={() => document.getElementById('createBlogForm').style.display = 'block'}>
-                    Create Blog
-                </button>
-            </div>
-
             {/* Create Blog Form */}
             <div id="createBlogForm" className="form-container">
                 <h4>Create New Blog</h4>
@@ -125,9 +118,10 @@ const BlogsTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {blogs.map((blog) => (
+                        {blogs.map((blog, index) => (
                             <tr key={blog.id}>
-                                <td>{blog.id}</td>
+                                {/* Assigning the ID sequentially starting from 1 */}
+                                <td>{index + 1}</td>
                                 <td>{blog.title}</td>
                                 <td>{blog.summary}</td>
                                 <td>

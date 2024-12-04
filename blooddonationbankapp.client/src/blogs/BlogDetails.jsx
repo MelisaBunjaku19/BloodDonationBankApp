@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
 import './BlogDetails.css';
 

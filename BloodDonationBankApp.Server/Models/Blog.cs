@@ -10,8 +10,6 @@
         public string ImageUrl { get; set; } // Image URL
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-        public ICollection<Like> Likes { get; set; } = new List<Like>();
         // Timestamp
     }
 }

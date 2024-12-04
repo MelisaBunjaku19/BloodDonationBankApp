@@ -3,11 +3,22 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Line, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { FaUserCircle, FaSignOutAlt, FaBars, FaBell, FaCog } from 'react-icons/fa';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { FaUserCircle, FaSignOutAlt, FaBars, FaBell, FaCog, FaTint, FaHeartbeat } from 'react-icons/fa';
 import './admin.css';
 import UsersTable from '../components/UsersTable';
 import BlogsTable from '../components/BlogsTable';
+import DonationTable from '../components/DonationTable';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
@@ -21,7 +32,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
     const toggleNotifications = () => setShowNotifications(!showNotifications);
     const toggleSettings = () => setShowSettings(!showSettings);
 
-    // Chart data
+    // Chart Data
     const donationData = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         datasets: [
@@ -39,7 +50,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
         labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
         datasets: [
             {
-                data: [25, 15, 30, 10, 50, 5, 20, 8], // Replace with real data
+                data: [25, 15, 30, 10, 50, 5, 20, 8],
                 backgroundColor: [
                     '#FF6384',
                     '#36A2EB',
@@ -54,15 +65,11 @@ const AdminDashboard = ({ adminName, onLogout }) => {
         ],
     };
 
-    const bloodStockSummary = [
-        { group: 'A+', units: 25 },
-        { group: 'A-', units: 15 },
-        { group: 'B+', units: 30 },
-        { group: 'B-', units: 10 },
-        { group: 'O+', units: 50 },
-        { group: 'O-', units: 5 },
-        { group: 'AB+', units: 20 },
-        { group: 'AB-', units: 8 },
+    // Quick Stats
+    const quickStats = [
+        { label: 'Total Donations', value: 540, icon: <FaTint size={30} style={{ color: '#b20d33' }} /> },
+        { label: 'Active Donors', value: 120, icon: <FaHeartbeat size={30} style={{ color: '#b20d33' }} /> },
+        { label: 'Lives Saved', value: 1620, icon: <FaHeartbeat size={30} style={{ color: '#b20d33' }} /> },
     ];
 
     return (
@@ -80,11 +87,9 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                 </h2>
                 <ul>
                     <li onClick={() => setActiveSection('dashboard')}><a href="#">Dashboard</a></li>
-                    <li onClick={() => setActiveSection('recentDonations')}><a href="#">Donations</a></li>
-                    <li onClick={() => setActiveSection('manageBloodBanks')}><a href="#">Manage Blood Banks</a></li>
+                    <li onClick={() => setActiveSection('donationRequests')}><a href="#">Donation Requests</a></li>
                     <li onClick={() => setActiveSection('adminTasks')}><a href="#">Admin Tasks</a></li>
-                    <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Inventory</a></li>
-                    <li onClick={() => setActiveSection('donorHistory')}><a href="#">Donor History</a></li>
+                    <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Stock</a></li>
                     <li onClick={() => setActiveSection('blogs')}><a href="#">Blogs</a></li>
                     <li onClick={() => setActiveSection('users')}><a href="#">Users</a></li>
                 </ul>
@@ -138,6 +143,17 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     {activeSection === 'dashboard' && (
                         <div>
                             <h2>Dashboard Overview</h2>
+                            <div className="quick-stats">
+                                {quickStats.map((stat, index) => (
+                                    <div key={index} className="stat-widget">
+                                        {stat.icon}
+                                        <div>
+                                            <h4>{stat.value}</h4>
+                                            <p>{stat.label}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                             <div className="chart-container">
                                 <div className="chart">
                                     <Line data={donationData} options={{ responsive: true }} />
@@ -146,22 +162,12 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                                     <Pie data={bloodStockData} />
                                 </div>
                             </div>
-                            <div className="blood-stock-summary">
-                                <h3>Blood Stock Summary</h3>
-                                <ul>
-                                    {bloodStockSummary.map((stock, index) => (
-                                        <li key={index}>
-                                            {stock.group}: {stock.units} units
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
                         </div>
                     )}
 
                     {activeSection === 'users' && <UsersTable />}
                     {activeSection === 'blogs' && <BlogsTable />}
-                    {/* Add other sections as needed */}
+                    {activeSection === 'donationRequests' && <DonationTable />}
                 </div>
             </div>
         </div>

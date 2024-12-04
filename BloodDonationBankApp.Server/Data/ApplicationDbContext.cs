@@ -15,8 +15,8 @@ namespace BloodDonationBankApp.Server.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Like> Likes { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+   
+        public DbSet<DonationRequest> DonationRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

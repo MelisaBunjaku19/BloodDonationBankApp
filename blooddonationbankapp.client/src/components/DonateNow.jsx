@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaPhone, FaTint, FaClock, FaMapMarkerAlt, FaCalendar, FaWeight } from 'react-icons/fa';
-import './DonateNow.css';
+import { FaUser, FaEnvelope, FaPhone, FaTint, FaClock, FaMapMarkerAlt, FaCalendar, FaWeight, FaHeartbeat, FaCheckCircle } from 'react-icons/fa'; import './DonateNow.css';
 
 const DonateNow = () => {
     const [donorInfo, setDonorInfo] = useState({
@@ -21,19 +23,32 @@ const DonateNow = () => {
     });
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            const decodedToken = JSON.parse(atob(token.split('.')[1]));
-            setIsLoggedIn(true);
-            setDonorInfo({
-                ...donorInfo,
-                email: decodedToken?.email || '',
-                firstName: decodedToken?.firstName || '',
-                lastName: decodedToken?.lastName || '',
-            });
+            try {
+                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+                setIsLoggedIn(true);
+                setDonorInfo((prevInfo) => ({
+                    ...prevInfo,
+                    email: decodedToken?.email || '',
+                    firstName: decodedToken?.firstName || '',
+                    lastName: decodedToken?.lastName || '',
+                    phoneNumber: decodedToken?.phoneNumber || '',
+                    bloodType: decodedToken?.bloodType || '',
+                    address: decodedToken?.address || '',
+                    dateOfBirth: decodedToken?.dateOfBirth || '',
+                    weight: decodedToken?.weight || '',
+                    lastDonationDate: decodedToken?.lastDonationDate || '',
+                    medicalConditions: decodedToken?.medicalConditions || '',
+                }));
+            } catch (error) {
+                console.error('Error decoding token:', error);
+                setIsLoggedIn(false);
+            }
         }
     }, []);
 
@@ -46,28 +61,51 @@ const DonateNow = () => {
         e.preventDefault();
         setLoading(true);
 
+        const apiEndpoint = "https://localhost:7003/api/DonationRequest";
+        const payload = {
+            ...donorInfo,
+            preferredTime: `${donorInfo.preferredHour}:${donorInfo.preferredMinute} ${donorInfo.preferredPeriod}`,
+        };
+
+        console.log("Payload being sent:", payload);
+
         try {
-            setTimeout(() => {
-                alert('Thank you for your donation request!');
-                setLoading(false);
-                setDonorInfo({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    phoneNumber: '',
-                    bloodType: '',
-                    address: '',
-                    preferredHour: '',
-                    preferredMinute: '',
-                    preferredPeriod: 'AM',
-                    dateOfBirth: '',
-                    weight: '',
-                    lastDonationDate: '',
-                    medicalConditions: '',
-                });
-            }, 2000);
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error details:", errorData);
+                throw new Error(`Error: ${errorData.message || 'Failed to submit the donation request'}`);
+            }
+
+            const result = await response.json();
+            alert('Thank you for your donation request!');
+            setDonorInfo({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phoneNumber: '',
+                bloodType: '',
+                address: '',
+                preferredHour: '',
+                preferredMinute: '',
+                preferredPeriod: 'AM',
+                dateOfBirth: '',
+                weight: '',
+                lastDonationDate: '',
+                medicalConditions: '',
+            });
+            setShowSuccessMessage(true);
         } catch (error) {
-            alert('There was an error submitting your donation request. Please try again.');
+            console.error('Error submitting the donation request:', error.message);
+            alert(`There was an error submitting your donation request: ${error.message}`);
+        } finally {
             setLoading(false);
         }
     };
@@ -226,6 +264,17 @@ const DonateNow = () => {
                                     onChange={handleChange}
                                 />
                             </div>
+                            <div className="form-group">
+                                <label htmlFor="address"><FaMapMarkerAlt /> Address:</label>
+                                <input
+                                    type="text"
+                                    id="address"
+                                    name="address"
+                                    value={donorInfo.address}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
                         </div>
                         <div className="form-row">
                             <div className="form-group">
@@ -239,30 +288,36 @@ const DonateNow = () => {
                                     required
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="medicalConditions">Medical Conditions (Optional):</label>
-                                <select
-                                    id="medicalConditions"
-                                    name="medicalConditions"
-                                    value={donorInfo.medicalConditions}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Select any medical conditions</option>
-                                    <option value="Diabetes">Diabetes</option>
-                                    <option value="Hypertension">Hypertension</option>
-                                    <option value="Asthma">Asthma</option>
-                                    <option value="None">None</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <div className="form-group">
+                                    <label htmlFor="medicalConditions">Medical Conditions (Optional):</label>
+                                    <select
+                                        id="medicalConditions"
+                                        name="medicalConditions"
+                                        value={donorInfo.medicalConditions}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Select any medical conditions</option>
+                                        <option value="Diabetes">Diabetes</option>
+                                        <option value="Hypertension">Hypertension</option>
+                                        <option value="Asthma">Asthma</option>
+                                        <option value="None">None</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-row">
-                            <button type="submit" className="submit-button" disabled={loading}>
-                                {loading ? 'Submitting...' : 'Submit Donation Request'}
-                            </button>
-                        </div>
+                        <button type="submit" className="submit-btn" disabled={loading}>
+                            {loading ? 'Submitting...' : 'Submit Donation Request'}
+                        </button>
                     </form>
+                 
                 </>
+            )}
+            {/* Success message */}
+            {showSuccessMessage && (
+                <div className="success-message">
+                    <FaCheckCircle className="success-icon" />
+                    <span>Your donation request has been submitted successfully!</span>
+                </div>
             )}
         </div>
     );
