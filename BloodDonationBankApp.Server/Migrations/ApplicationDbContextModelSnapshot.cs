@@ -158,6 +158,47 @@ namespace BloodDonationBankApp.Server.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("BloodDonationBankApp.Server.Models.BloodDrive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DriveEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DriveStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FacilityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BloodDrives");
+                });
+
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.DonationRequest", b =>
                 {
                     b.Property<int>("Id")

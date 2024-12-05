@@ -1,0 +1,138 @@
+/* Import Montserrat and Nunito fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Nunito:wght@400;600&display=swap');
+
+.find-drive {
+    display: flex;
+    height: 100vh;
+    font-family: 'Nunito', sans-serif; /* Set default font */
+}
+
+.sidebar {
+    width: 30%;
+    background: #f7f7f7;
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+    .sidebar h2 {
+        margin-bottom: 20px;
+        color: #e74c3c; /* Red color for the title */
+        font-family: 'Montserrat', sans-serif; /* Montserrat for headers */
+    }
+
+.search-box {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+    .search-box input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px 0 0 4px;
+        outline: none;
+    }
+
+    .search-box button {
+        padding: 10px;
+        border: none;
+        background: #ff4757; /* Red color for the button */
+        color: white;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        font-family: 'Montserrat', sans-serif; /* Montserrat for button */
+    }
+
+        .search-box button:hover {
+            background: #e84141;
+        }
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.facility-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.facility-card {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-family: 'Nunito', sans-serif; /* Nunito for the facility card */
+}
+
+    .facility-card h3 {
+        margin: 0;
+        color: #333;
+        font-family: 'Montserrat', sans-serif; /* Montserrat for headings */
+    }
+
+    .facility-card p {
+        color: #666; /* Light grey color for general text */
+        font-family: 'Nunito', sans-serif;
+    }
+
+        .facility-card p.status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 12px; /* Rounded container */
+            display: inline-block;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .facility-card p.status-available {
+            background-color: #28a745; /* Green background for available */
+            color: white; /* White text */
+        }
+
+        .facility-card p.status-not-available {
+            background-color: #e74c3c; /* Red background for not available */
+            color: white; /* White text */
+        }
+
+.no-results {
+    text-align: center;
+    color: #999;
+}
+
+/* Map container styles */
+.map-container {
+    flex: 1;
+    position: relative;
+    width: 70%;
+    height: 100%;
+}
+
+/* Style for error message */
+.error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+/* Facility status styles */
+.status-available {
+    color: #28a745; /* Green color for Available */
+    font-weight: bold;
+}
+
+.status-not-available {
+    color: #e74c3c; /* Red color for Not Available */
+    font-weight: bold;
+}
+
+/* For status text inside the list */
+.facility-card p.status {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    margin-top: 10px;
+}

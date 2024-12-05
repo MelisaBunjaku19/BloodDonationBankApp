@@ -18,6 +18,8 @@ namespace BloodDonationBankApp.Server.Data
    
         public DbSet<DonationRequest> DonationRequests { get; set; }
 
+        public DbSet<BloodDrive> BloodDrives { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

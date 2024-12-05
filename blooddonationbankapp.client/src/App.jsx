@@ -14,7 +14,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import BlogList from './blogs/BlogList';
 import BlogDetails from './blogs/BlogDetails';
 import Profile from './components/Profile'; // Import Profile component
-import DonateNow from './components/DonateNow'; // Import DonateNow component
+import DonateNow from './components/DonateNow';
+import FindDrive from './components/FindDrive';// Import DonateNow component
 
 // Utility to decode JWT tokens
 const decodeJWT = (token) => {
@@ -124,6 +125,7 @@ const App = () => {
                     />
                     <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
                     <Route path="/donate" element={<DonateNow />} /> {/* New route for donation page */}
+                    <Route path="/drives" element={<FindDrive />} /> {/* New route for donation page */}
                 </Routes>
             </main>
             {isAuthenticated && !location.pathname.includes('/admin') && <Footer />}

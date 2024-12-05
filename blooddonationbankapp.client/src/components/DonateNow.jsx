@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaPhone, FaTint, FaClock, FaMapMarkerAlt, FaCalendar, FaWeight, FaHeartbeat, FaCheckCircle } from 'react-icons/fa'; import './DonateNow.css';
+import './DonateNow.css';
 
 const DonateNow = () => {
     const [donorInfo, setDonorInfo] = useState({
@@ -117,6 +118,12 @@ const DonateNow = () => {
     return (
         <div className="donate-now-container">
             <h2 className="title">Donate Blood Now</h2>
+
+            {/* GIF Display */}
+            <div className="donation-now-section">
+             
+            </div>
+
             {!isLoggedIn ? (
                 <div className="donate-now-guest-message">
                     <p>

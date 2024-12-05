@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 // src/pages/AboutUs.jsx
 import React from 'react';
-import aboutImage from '../assets/images/logo.png';
+import aboutImage from '../assets/images/about.jpg';
 import './AboutUs.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,7 +11,7 @@ import aboutImage1 from '../assets/images/about1.jpg';
 import aboutImage2 from '../assets/images/about2.jpg';
 import aboutImage3 from '../assets/images/about3.jpg';
 import aboutImage4 from '../assets/images/about4.jpg'; // Add missing images
-import aboutImage5 from '../assets/images/about5.webp';
+
 import aboutImage6 from '../assets/images/about6.jpg';
 import aboutImage7 from '../assets/images/about7.jpg';
 
@@ -99,15 +99,7 @@ const About = () => {
                                 </div>
                             </SwiperSlide>
 
-                            <SwiperSlide>
-                                <div className="info-card">
-                                    <img src={aboutImage5} alt="Donate Blood Online" />
-                                    <h3>Donate Blood Online</h3>
-                                    <p>
-                                        Schedule an appointment online for blood donation, or donate from the comfort of your home by opting for mobile donation services.
-                                    </p>
-                                </div>
-                            </SwiperSlide>
+                       
 
                             <SwiperSlide>
                                 <div className="info-card">

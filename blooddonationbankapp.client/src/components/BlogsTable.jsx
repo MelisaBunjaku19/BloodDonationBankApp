@@ -7,6 +7,7 @@ const BlogsTable = () => {
     const [newBlog, setNewBlog] = useState({ title: '', content: '', summary: '', imageUrl: '' });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showCreateForm, setShowCreateForm] = useState(false); // To toggle the form visibility
 
     useEffect(() => {
         fetchBlogs();
@@ -63,6 +64,7 @@ const BlogsTable = () => {
             });
             setNewBlog({ title: '', content: '', summary: '', imageUrl: '' });
             fetchBlogs();
+            setShowCreateForm(false); // Hide the form after creating
         } catch (error) {
             console.error('Error creating new blog:', error.response || error.message);
             alert("Failed to create new blog.");
@@ -75,35 +77,6 @@ const BlogsTable = () => {
     return (
         <div className="table-container">
             <h3>Manage Blogs</h3>
-
-            {/* Create Blog Form */}
-            <div id="createBlogForm" className="form-container">
-                <h4>Create New Blog</h4>
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={newBlog.title}
-                    onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
-                />
-                <input
-                    type="text"
-                    placeholder="Summary"
-                    value={newBlog.summary}
-                    onChange={(e) => setNewBlog({ ...newBlog, summary: e.target.value })}
-                />
-                <textarea
-                    placeholder="Content"
-                    value={newBlog.content}
-                    onChange={(e) => setNewBlog({ ...newBlog, content: e.target.value })}
-                ></textarea>
-                <input
-                    type="text"
-                    placeholder="Image URL"
-                    value={newBlog.imageUrl}
-                    onChange={(e) => setNewBlog({ ...newBlog, imageUrl: e.target.value })}
-                />
-                <button onClick={handleCreate}>Create Blog</button>
-            </div>
 
             {/* Blog Table */}
             <div className="table-wrapper">
@@ -130,13 +103,111 @@ const BlogsTable = () => {
                                     </a>
                                 </td>
                                 <td className="action-buttons">
-                                    <button className="delete-btn" onClick={() => handleDelete(blog.id)}>Delete</button>
+                                    {/* Delete Button */}
+                                    <button className="action-btn delete-btn" onClick={() => handleDelete(blog.id)}>Delete</button>
+
+                                    {/* Create Blog Button */}
+                                    <button className="action-btn create-btn" onClick={() => setShowCreateForm(!showCreateForm)}>
+                                        {showCreateForm ? 'Cancel' : 'Create Blog'}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+
+            {/* Create Blog Form - toggles visibility */}
+            {showCreateForm && (
+                <div id="createBlogForm" className="form-container">
+                    <h4>Create New Blog</h4>
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        value={newBlog.title}
+                        onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Summary"
+                        value={newBlog.summary}
+                        onChange={(e) => setNewBlog({ ...newBlog, summary: e.target.value })}
+                    />
+                    <textarea
+                        placeholder="Content"
+                        value={newBlog.content}
+                        onChange={(e) => setNewBlog({ ...newBlog, content: e.target.value })}
+                    ></textarea>
+                    <input
+                        type="text"
+                        placeholder="Image URL"
+                        value={newBlog.imageUrl}
+                        onChange={(e) => setNewBlog({ ...newBlog, imageUrl: e.target.value })}
+                    />
+                    <button onClick={handleCreate}>Create Blog</button>
+                </div>
+            )}
+
+            {/* Inline CSS for buttons */}
+            <style jsx>{`
+                .action-buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between; /* Ensures the buttons are spaced apart evenly */
+                    gap: 10px;
+                }
+
+                .action-btn {
+                    width: 120px; /* Smaller width for more UI/UX-friendly buttons */
+                    padding: 8px 14px;
+                    font-size: 13px;
+                    cursor: pointer;
+                    border: none;
+                    border-radius: 5px;
+                    transition: background-color 0.3s ease, transform 0.2s;
+                    color: white;
+                }
+
+                .delete-btn {
+                    background-color: black;
+                }
+
+                .create-btn {
+                    background-color: black;
+                }
+
+                .delete-btn:hover,
+                .create-btn:hover {
+                    background-color: #333; /* Darker black for hover effect */
+                    transform: scale(1.05); /* Subtle scale effect on hover */
+                }
+
+                .action-btn:focus {
+                    outline: none;
+                }
+
+                .form-container input,
+                .form-container textarea {
+                    width: 100%;
+                    padding: 10px;
+                    margin: 10px 0;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+
+                .form-container button {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                .form-container button:hover {
+                    background-color: #388e3c;
+                }
+            `}</style>
         </div>
     );
 };
