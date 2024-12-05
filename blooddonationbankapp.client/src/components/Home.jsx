@@ -1,15 +1,11 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
+﻿/* eslint-disable react/prop-types */
 // src/pages/Home.jsx
-import React from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Home.css';
 import CountUp from 'react-countup';
 import heroImage from '../assets/images/hero-image.jpg';
-
-// Import the Subscriber component
-import Subscriber from '../components/Subscriber';
+import Chat from '../components/Chat';  // Import the Chat component
 
 const StatsCard = ({ count, label }) => (
     <div className="stats-card">
@@ -35,8 +31,13 @@ const TestimonialCard = ({ name, quote }) => (
 );
 
 const Home = () => {
-    const location = useLocation(); // Get the location object to access passed state
+    const location = useLocation();
     const successMessage = location.state?.message;
+    const [isChatOpen, setIsChatOpen] = useState(false);
+
+    const toggleChat = () => {
+        setIsChatOpen(!isChatOpen);
+    };
 
     return (
         <div className="home">
@@ -102,10 +103,8 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Subscriber Section */}
-            <section className="subscriber-section">
-                <Subscriber />
-            </section>
+            {/* Chat Component */}
+            <Chat isChatOpen={isChatOpen} toggleChat={toggleChat} />
         </div>
     );
 };

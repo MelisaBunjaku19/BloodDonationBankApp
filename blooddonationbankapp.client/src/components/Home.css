@@ -446,4 +446,106 @@ body {
     .newsletter-input {
         width: 100%;
     }
+
+
+    /* Chat Pop-up Styling */
+    .chat-popup {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 350px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        max-height: 500px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .chat-header {
+        background-color: #b20d33; /* Blood Red */
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        text-align: center;
+    }
+
+    .chat-body {
+        padding: 15px;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    .message {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        background-color: #f1f1f1;
+        max-width: 80%;
+    }
+
+        .message.bot {
+            background-color: #e0e0e0;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.user {
+            background-color: #b20d33; /* Blood Red */
+            color: white;
+            margin-right: auto;
+        }
+
+    .chat-input {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+        .chat-input input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .chat-input button {
+            width: 15%;
+            padding: 10px;
+            background-color: #b20d33; /* Blood red */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+            .chat-input button:hover {
+                background-color: #9b182d;
+            }
+
+    /* Chat Button */
+    .chat-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #b20d33; /* Blood red */
+        color: white;
+        font-size: 24px;
+        padding: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+        .chat-button:hover {
+            background-color: #9b182d;
+        }
+
 }

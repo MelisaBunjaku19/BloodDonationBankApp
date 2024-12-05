@@ -192,6 +192,20 @@
         grid-template-columns: 1fr;
     }
 
+    /* Define the animation for the plus sign */
+    @keyframes plusAnimation {
+        0% {
+            transform: scale(0);
+        }
+
+        50% {
+            transform: scale(1.5);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 
 
 }

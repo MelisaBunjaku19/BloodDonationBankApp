@@ -19,6 +19,8 @@ import './admin.css';
 import UsersTable from '../components/UsersTable';
 import BlogsTable from '../components/BlogsTable';
 import DonationTable from '../components/DonationTable';
+import DrivesTable from '../components/DrivesTable';
+import BloodStock from '../components/BloodStock';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
@@ -92,6 +94,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Stock</a></li>
                     <li onClick={() => setActiveSection('blogs')}><a href="#">Blogs</a></li>
                     <li onClick={() => setActiveSection('users')}><a href="#">Users</a></li>
+                    <li onClick={() => setActiveSection('drive')}><a href="#">Drive Management</a></li>
                 </ul>
             </div>
 
@@ -168,6 +171,8 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     {activeSection === 'users' && <UsersTable />}
                     {activeSection === 'blogs' && <BlogsTable />}
                     {activeSection === 'donationRequests' && <DonationTable />}
+                    {activeSection === 'drive' && <DrivesTable />}
+                    {activeSection === 'bloodInventory' && <BloodStock />}
                 </div>
             </div>
         </div>
