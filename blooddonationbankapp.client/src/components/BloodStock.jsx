@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Card, Badge, Alert, Spinner } from "react-bootstrap"; // Bootstrap components for modern design
 import "../pages/admin.css";
 
 const BloodStock = () => {
     const [donations, setDonations] = useState([]);
     const [bloodStock, setBloodStock] = useState({});
-    const [newDonationType, setNewDonationType] = useState(null); // Tracks which blood type has received a new donation
+    const [newDonations, setNewDonations] = useState([]); // Tracks new donations for notifications
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -29,6 +30,7 @@ const BloodStock = () => {
                 const donationsData = response.data;
                 setDonations(donationsData);
 
+                // Calculate blood stock
                 const stock = donationsData.reduce((acc, donation) => {
                     const { bloodType } = donation;
                     acc[bloodType] = (acc[bloodType] || 0) + 1;
@@ -36,12 +38,10 @@ const BloodStock = () => {
                 }, {});
                 setBloodStock(stock);
 
-                // Highlight the latest donation
+                // Identify new donations
                 if (donationsData.length > 0) {
-                    const latestBloodType = donationsData[donationsData.length - 1].bloodType;
-                    setNewDonationType(latestBloodType);
-
-                    setTimeout(() => setNewDonationType(null), 2000); // Reset after 2 seconds to prevent repetitive animation
+                    const latestDonations = donationsData.slice(-3); // Last 3 donations for notifications
+                    setNewDonations(latestDonations);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 401) {
@@ -67,44 +67,80 @@ const BloodStock = () => {
     }, [token]);
 
     if (loading) {
-        return <div>Loading blood stock...</div>;
+        return (
+            <div className="loading-container">
+                <Spinner animation="border" variant="primary" />
+                <p>Loading blood stock...</p>
+            </div>
+        );
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <Alert variant="danger">{error}</Alert>;
     }
 
     return (
         <div className="blood-stock-container" style={styles.bankContainer}>
-            <h2 style={styles.title}>Blood Bank Stock</h2>
+            <h2 style={styles.title}>Blood Bank Dashboard</h2>
+
+            {/* Notifications Section */}
+            <div style={styles.notifications}>
+                <h4>New Donation Requests</h4>
+                {newDonations.length > 0 ? (
+                    newDonations.map((donation, index) => (
+                        <Alert key={index} variant="info">
+                            <strong>{donation.bloodType}</strong> donation received from{" "}
+                            <strong>{`${donation.firstName} ${donation.lastName}`}</strong>.
+                        </Alert>
+                    ))
+                ) : (
+                    <Alert variant="secondary">No new donation requests.</Alert>
+                )}
+            </div>
+
+            {/* Blood Stock Section */}
             <div style={styles.bloodGrid}>
                 {Object.keys(bloodStock).length === 0 ? (
-                    <div style={styles.noData}>No donation requests found</div>
+                    <Alert variant="warning">No donation data available.</Alert>
                 ) : (
                     Object.entries(bloodStock).map(([bloodType, count]) => (
-                        <div
+                        <Card
                             key={bloodType}
                             style={{
-                                ...styles.bloodCard,
-                                animation: bloodType === newDonationType ? "pop 0.6s ease" : "none", // Only show animation once
+                                ...styles.card,
+                                border:
+                                    count >= MAX_STOCK
+                                        ? "2px solid #e74c3c"
+                                        : "2px solid #6a1b21",
                             }}
                         >
-                            <div style={styles.bloodType}>{bloodType}</div>
-                            <div style={styles.vial}>
-                                <div
-                                    style={{
-                                        ...styles.fill,
-                                        height: `${Math.min(count * 10, 100)}%`,
-                                    }}
-                                />
-                            </div>
-                            <div style={styles.count}>
-                                {count} units{" "}
-                                {count >= MAX_STOCK && (
-                                    <span style={styles.outOfStock}> (Out of Stock)</span>
-                                )}
-                            </div>
-                        </div>
+                            <Card.Body>
+                                <Card.Title style={styles.cardTitle}>
+                                    {bloodType}
+                                    {count >= MAX_STOCK && (
+                                        <Badge bg="danger" style={styles.badge}>
+                                            Full
+                                        </Badge>
+                                    )}
+                                </Card.Title>
+                                <div style={styles.vial}>
+                                    <div
+                                        style={{
+                                            ...styles.fill,
+                                            height: `${Math.min(count * 10, 100)}%`,
+                                        }}
+                                    />
+                                </div>
+                                <Card.Text>
+                                    {count} units{" "}
+                                    {count < MAX_STOCK ? (
+                                        <Badge bg="warning">Low</Badge>
+                                    ) : (
+                                        <Badge bg="danger">Out of Stock</Badge>
+                                    )}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     ))
                 )}
             </div>
@@ -112,20 +148,24 @@ const BloodStock = () => {
     );
 };
 
-// Styles for the blood bank
+// Styles
 const styles = {
     bankContainer: {
         padding: "20px",
-        backgroundColor: "#2c3e50",
+        backgroundColor: "#f7f9fc",
         borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        margin: "20px",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        margin: "20px auto",
         textAlign: "center",
+        maxWidth: "900px",
     },
     title: {
-        color: "#fff",
-        fontSize: "1.8rem",
+        color: "#2c3e50",
+        fontSize: "2rem",
         marginBottom: "20px",
+    },
+    notifications: {
+        marginBottom: "30px",
     },
     bloodGrid: {
         display: "flex",
@@ -133,53 +173,37 @@ const styles = {
         justifyContent: "center",
         gap: "20px",
     },
-    bloodCard: {
-        width: "150px",
-        backgroundColor: "#8e1e2f",
-        padding: "15px",
+    card: {
+        width: "200px",
+        backgroundColor: "#fff",
         borderRadius: "10px",
         textAlign: "center",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        position: "relative",
-        animation: "none", // Default animation style
+        boxShadow: "0 2px 6px rgba(0, 0, 0, 0.15)",
     },
-    bloodType: {
+    cardTitle: {
         fontSize: "1.5rem",
-        color: "#fff",
+        color: "#8e1e2f",
         marginBottom: "10px",
-        fontWeight: "bold",
     },
     vial: {
         width: "60px",
         height: "120px",
-        backgroundColor: "#fff",
+        backgroundColor: "#ddd",
         borderRadius: "10px",
         margin: "0 auto",
         overflow: "hidden",
-        border: "2px solid #6a1b21",
+        border: "2px solid #bbb",
         position: "relative",
     },
     fill: {
-        backgroundColor: "#d32f2f",
+        backgroundColor: "#e74c3c",
         width: "100%",
         position: "absolute",
         bottom: "0",
         transition: "height 0.6s ease",
     },
-    count: {
-        marginTop: "10px",
-        color: "#ffcc00",
-        fontSize: "1.1rem",
-        fontWeight: "bold",
-    },
-    noData: {
-        color: "#ffcc00",
-        fontSize: "1.2rem",
-        fontWeight: "bold",
-    },
-    outOfStock: {
-        color: "#ff6f61",
-        fontWeight: "bold",
+    badge: {
+        marginLeft: "10px",
     },
 };
 
