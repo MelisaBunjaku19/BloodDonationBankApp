@@ -145,10 +145,30 @@ const BloodStock = () => {
     const handleRequestModalClose = () => setShowRequestModal(false);
 
     const handleRequestBlood = async () => {
-        // Implement logic to make a blood request (API call)
-        console.log(`Requesting blood for type: ${bloodTypeToRequest}`);
-        setShowRequestModal(false);
+        try {
+            const response = await axios.post(
+                "https://localhost:7003/api/Blood/RequestBlood",
+                {
+                    bloodType: bloodTypeToRequest,
+                    requestedBy: "Admin", // Replace with dynamic user info if available
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(response.data);
+            alert(response.data.message); // Show success message
+            fetchDonations(); // Refresh the stock
+        } catch (error) {
+            console.error("Error requesting blood: ", error);
+            alert("Failed to request blood. Please try again later.");
+        } finally {
+            setShowRequestModal(false);
+        }
     };
+
 
     // Modal for Blood Import
     const handleImportModalShow = () => setShowImportModal(true);
@@ -210,28 +230,29 @@ const BloodStock = () => {
                             key={bloodType}
                             style={{
                                 ...styles.card,
-                                border:
-                                    count >= MAX_STOCK
-                                        ? "2px solid #e74c3c"
-                                        : count === 0
-                                            ? "2px solid #7f8c8d" // Out of stock styling
-                                            : "2px solid #6a1b21",
+                                border: count >= MAX_STOCK
+                                    ? "2px solid #e74c3c" // Red border for full stock
+                                    : count === 0
+                                        ? "2px solid #7f8c8d" // Gray border for out-of-stock
+                                        : "2px solid #6a1b21", // Default border for other counts
+                                backgroundColor: count >= MAX_STOCK ? "#f8d7da" : "#ffffff", // Light red background for full stock
                             }}
                         >
                             <Card.Body>
                                 <Card.Title style={styles.cardTitle}>
                                     {bloodType}
-                                    {count === 0 && (
-                                        <Badge bg="secondary" style={styles.badge}>
-                                            Out of Stock
-                                        </Badge>
-                                    )}
+                                    {count === 0 ? (
+                                        <Badge bg="secondary" style={styles.badge}>Out of Stock</Badge>
+                                    ) : count >= MAX_STOCK ? (
+                                        <Badge bg="danger" style={styles.badge}>Full Stock</Badge>
+                                    ) : null}
                                 </Card.Title>
                                 <div style={styles.vial}>
                                     <div
                                         style={{
                                             ...styles.fill,
                                             height: `${Math.min(count * 10, 100)}%`,
+                                            backgroundColor: count >= MAX_STOCK ? "#e74c3c" : "#1dd1a1", // Red for full stock
                                         }}
                                     />
                                 </div>
@@ -239,12 +260,15 @@ const BloodStock = () => {
                                     {count} units{" "}
                                     {count === 0 ? (
                                         <Badge bg="secondary">Out of Stock</Badge>
+                                    ) : count >= MAX_STOCK ? (
+                                        <Button variant="warning" disabled>Request Blood</Button> // Disable button when full stock
                                     ) : (
                                         <Button variant="warning" onClick={() => handleRequestModalShow(bloodType)}>Request Blood</Button>
                                     )}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+
                     ))
                 )}
             </div>

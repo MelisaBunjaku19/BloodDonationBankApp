@@ -21,6 +21,7 @@ import BlogsTable from '../components/BlogsTable';
 import DonationTable from '../components/DonationTable';
 import DrivesTable from '../components/DrivesTable';
 import BloodStock from '../components/BloodStock';
+import BloodRequest from '../components/BloodRequest';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
@@ -174,6 +175,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     {activeSection === 'donationRequests' && <DonationTable />}
                     {activeSection === 'drive' && <DrivesTable />}
                     {activeSection === 'bloodInventory' && <BloodStock />}
+                    {activeSection === 'requests' && <BloodRequest/>}
                 </div>
             </div>
         </div>
