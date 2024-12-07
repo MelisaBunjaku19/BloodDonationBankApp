@@ -70,6 +70,21 @@ const DonationTable = () => {
         setFilteredDonations(filtered);
     }, [selectedBloodType, selectedCondition, donations]);
 
+    // Delete donation handler
+    const handleDeleteDonation = async (donationId) => {
+        try {
+            await axios.delete(`https://localhost:7003/api/DonationRequest/${donationId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            setDonations(donations.filter(donation => donation.id !== donationId)); // Remove deleted donation from the state
+            setFilteredDonations(filteredDonations.filter(donation => donation.id !== donationId)); // Remove from filtered list as well
+        } catch (error) {
+            setError('Failed to delete the donation request');
+        }
+    };
+
     if (loading) {
         return <div>Loading donations...</div>;
     }
@@ -128,12 +143,13 @@ const DonationTable = () => {
                         <th style={styles.tableHeader}>Date of Birth</th>
                         <th style={styles.tableHeader}>Last Donation</th>
                         <th style={styles.tableHeader}>Medical Conditions</th>
+                        <th style={styles.tableHeader}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredDonations.length === 0 ? (
                         <tr>
-                            <td colSpan="11" style={styles.noData}>No donation requests found</td>
+                            <td colSpan="12" style={styles.noData}>No donation requests found</td>
                         </tr>
                     ) : (
                         filteredDonations.map((donation) => (
@@ -149,6 +165,14 @@ const DonationTable = () => {
                                 <td style={styles.tableData}>{donation.dateOfBirth}</td>
                                 <td style={styles.tableData}>{donation.lastDonationDate}</td>
                                 <td style={styles.tableData}>{donation.medicalConditions}</td>
+                                <td style={styles.tableData}>
+                                    <button
+                                        onClick={() => handleDeleteDonation(donation.id)}
+                                        style={styles.deleteButton}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
                         ))
                     )}
@@ -157,7 +181,6 @@ const DonationTable = () => {
         </div>
     );
 };
-
 
 // Inline styles
 const styles = {
@@ -226,6 +249,18 @@ const styles = {
         padding: '20px',
         fontSize: '1.1rem',
         fontWeight: 'bold',
+    },
+    deleteButton: {
+        backgroundColor: '#e74c3c',
+        color: '#fff',
+        border: 'none',
+        padding: '6px 16px',  // Adjust padding to make it look more balanced
+        borderRadius: '4px',
+        cursor: 'pointer',
+        fontSize: '1rem',
+        whiteSpace: 'nowrap',  // Prevent the text from wrapping
+        display: 'inline-flex', // Make sure the button behaves like a button, not block
+        alignItems: 'center',  // Ensure the button's content is centered
     },
 };
 

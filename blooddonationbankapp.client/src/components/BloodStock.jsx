@@ -19,7 +19,8 @@ const BloodStock = () => {
     const [showRequestModal, setShowRequestModal] = useState(false); // State for Blood Request Modal
     const [showImportModal, setShowImportModal] = useState(false); // State for Blood Import Modal
     const [bloodTypeToRequest, setBloodTypeToRequest] = useState(""); // Blood type for request
-    const [quantityToImport, setQuantityToImport] = useState(0); // Quantity for blood import
+    const [quantityToImport, setQuantityToImport] = useState(0);
+    const [quantityToRequest, setQuantityToRequest] = useState(0); // Quantity for blood import
     const [token, setToken] = useState(localStorage.getItem("token"));
 
     const MAX_STOCK = 10; // Define max stock per blood type
@@ -143,7 +144,6 @@ const BloodStock = () => {
     };
 
     const handleRequestModalClose = () => setShowRequestModal(false);
-
     const handleRequestBlood = async () => {
         try {
             const response = await axios.post(
@@ -151,6 +151,7 @@ const BloodStock = () => {
                 {
                     bloodType: bloodTypeToRequest,
                     requestedBy: "Admin", // Replace with dynamic user info if available
+                    quantity: quantityToRequest, // Send quantity here
                 },
                 {
                     headers: {
@@ -168,6 +169,7 @@ const BloodStock = () => {
             setShowRequestModal(false);
         }
     };
+
 
 
     // Modal for Blood Import
@@ -299,7 +301,14 @@ const BloodStock = () => {
                         </Form.Group>
                         <Form.Group controlId="formQuantity">
                             <Form.Label>Quantity</Form.Label>
-                            <Form.Control type="number" min="1" placeholder="Enter quantity" />
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                placeholder="Enter quantity"
+                                value={quantityToRequest}
+                                onChange={(e) => setQuantityToRequest(e.target.value)}
+                            />
+
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -331,8 +340,12 @@ const BloodStock = () => {
                                 min="1"
                                 placeholder="Enter quantity"
                                 value={quantityToImport}
-                                onChange={(e) => setQuantityToImport(e.target.value)}
+                                onChange={(e) => {
+                                    const value = Math.max(1, parseInt(e.target.value) || 0);
+                                    setQuantityToImport(value);
+                                }}
                             />
+
                         </Form.Group>
                     </Form>
                 </Modal.Body>

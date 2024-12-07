@@ -1,4 +1,5 @@
 ﻿using BloodBankApp.Models;
+using BloodDonationBankApp.Server.Controllers;
 using BloodDonationBankApp.Server.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace BloodDonationBankApp.Server.Data
         public DbSet<DonationRequest> DonationRequests { get; set; }
 
         public DbSet<BloodDrive> BloodDrives { get; set; }
+        public DbSet<BloodRequest> BloodRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

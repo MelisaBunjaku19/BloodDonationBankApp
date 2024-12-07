@@ -4,6 +4,7 @@ using BloodDonationBankApp.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodDonationBankApp.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207172424_CreateBloodRequestTable")]
+    partial class CreateBloodRequestTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +57,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts", (string)null);
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Controllers.BloodRequest", b =>
@@ -81,7 +84,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodRequests", (string)null);
+                    b.ToTable("BloodRequests");
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.ApplicationUser", b =>
@@ -182,7 +185,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs", (string)null);
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.BloodDrive", b =>
@@ -223,7 +226,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodDrives", (string)null);
+                    b.ToTable("BloodDrives");
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.DonationRequest", b =>
@@ -286,7 +289,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DonationRequests", (string)null);
+                    b.ToTable("DonationRequests");
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.Subscriber", b =>
@@ -306,7 +309,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscribers", (string)null);
+                    b.ToTable("Subscribers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

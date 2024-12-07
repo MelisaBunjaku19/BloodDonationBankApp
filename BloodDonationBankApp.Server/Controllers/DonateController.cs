@@ -51,5 +51,29 @@ namespace BloodDonationBankApp.Server.Controllers
                 return StatusCode(500, new { message = "An error occurred while retrieving the donation requests", error = ex.Message });
             }
         }
+
+        // DELETE endpoint to delete a donation request by ID
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]  // Only admins can delete donation requests
+        public IActionResult DeleteDonationRequest(int id)
+        {
+            try
+            {
+                var donation = _context.DonationRequests.Find(id);
+                if (donation == null)
+                {
+                    return NotFound(new { message = "Donation request not found" });
+                }
+
+                _context.DonationRequests.Remove(donation);
+                _context.SaveChanges();
+                return Ok(new { message = "Donation request deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while deleting the donation request", error = ex.Message });
+            }
+        }
     }
 }
+
