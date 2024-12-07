@@ -95,6 +95,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     <li onClick={() => setActiveSection('blogs')}><a href="#">Blogs</a></li>
                     <li onClick={() => setActiveSection('users')}><a href="#">Users</a></li>
                     <li onClick={() => setActiveSection('drive')}><a href="#">Drive Management</a></li>
+                    <li onClick={() => setActiveSection('requests')}><a href="#">Blood Requests</a></li>
                 </ul>
             </div>
 

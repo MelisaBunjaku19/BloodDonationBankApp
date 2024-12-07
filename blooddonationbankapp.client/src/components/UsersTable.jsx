@@ -14,6 +14,7 @@ const UsersTable = () => {
         email: '',
         roles: [] // Default empty array
     });
+    const [roleFilter, setRoleFilter] = useState(""); // State for selected role filter
 
     // Fetch users on initial load
     useEffect(() => {
@@ -81,8 +82,6 @@ const UsersTable = () => {
                 }
             );
 
-            console.log("Response:", response.data);
-
             if (response.status === 200) {
                 const updatedUsers = users.map((user) =>
                     user.id === editingUserId ? { ...user, ...updatedUser } : user
@@ -99,7 +98,6 @@ const UsersTable = () => {
                 alert("Failed to update user.");
             }
         } catch (err) {
-            console.error("Error details:", err.response?.data || err.message);
             alert(`Failed to save changes: ${err.response?.data || err.message}`);
         }
     };
@@ -123,12 +121,32 @@ const UsersTable = () => {
         }));
     };
 
+    const filteredUsers = roleFilter
+        ? users.filter((user) => user.roles?.includes(roleFilter))
+        : users;
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p className="error">{error}</p>;
 
     return (
         <div className="users-table-wrapper">
             <h2 className="users-table-title text-center">Manage Users</h2>
+
+            {/* Role Filter Dropdown */}
+            <div className="filter-container">
+                <label htmlFor="roleFilter">Filter by Role: </label>
+                <select
+                    id="roleFilter"
+                    value={roleFilter}
+                    onChange={(e) => setRoleFilter(e.target.value)}
+                    className="form-control"
+                >
+                    <option value="">All</option>
+                    <option value="USER">User</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+
             <div className="users-table-container">
                 <table className="table">
                     <thead>
@@ -142,7 +160,7 @@ const UsersTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => (
+                        {filteredUsers.map((user, index) => (
                             <tr key={user.id}>
                                 <td>{index + 1}</td>
                                 <td>
@@ -234,7 +252,6 @@ const UsersTable = () => {
                 </table>
             </div>
         </div>
-
     );
 };
 

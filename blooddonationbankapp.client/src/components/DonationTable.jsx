@@ -1,32 +1,42 @@
-/* eslint-disable no-unused-vars */
+﻿/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import "../pages/admin.css";
 
 const DonationTable = () => {
     const [donations, setDonations] = useState([]);
+    const [filteredDonations, setFilteredDonations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Get the token from localStorage
+    // Filters
+    const [selectedBloodType, setSelectedBloodType] = useState('');
+    const [selectedCondition, setSelectedCondition] = useState('');
+
     const token = localStorage.getItem("token");
+
+    const medicalConditionsOptions = [
+        'Diabetes',
+        'Hypertension',
+        'Asthma',
+        'None',
+        'Other',
+    ];
 
     useEffect(() => {
         const fetchDonations = async () => {
             try {
                 const response = await axios.get('https://localhost:7003/api/DonationRequest', {
                     headers: {
-                        'Authorization': `Bearer ${token}`, // Use the token here
+                        'Authorization': `Bearer ${token}`,
                     },
                 });
-
-                // Assuming the API response has a data property
                 setDonations(response.data);
+                setFilteredDonations(response.data); // Initialize filtered donations
             } catch (error) {
-                // Check if it's an authentication error
                 if (error.response && error.response.status === 401) {
                     setError('Unauthorized: You need to login again.');
-                    localStorage.removeItem("token"); // Remove invalid token
+                    localStorage.removeItem("token");
                 } else {
                     setError('Failed to fetch donations');
                 }
@@ -35,7 +45,6 @@ const DonationTable = () => {
             }
         };
 
-        // Ensure there is a token before attempting to fetch donations
         if (token) {
             fetchDonations();
         } else {
@@ -43,6 +52,23 @@ const DonationTable = () => {
             setLoading(false);
         }
     }, [token]);
+
+    // Filter donations whenever filters change
+    useEffect(() => {
+        let filtered = donations;
+
+        if (selectedBloodType) {
+            filtered = filtered.filter(donation => donation.bloodType === selectedBloodType);
+        }
+
+        if (selectedCondition) {
+            filtered = filtered.filter(donation =>
+                donation.medicalConditions.toLowerCase() === selectedCondition.toLowerCase()
+            );
+        }
+
+        setFilteredDonations(filtered);
+    }, [selectedBloodType, selectedCondition, donations]);
 
     if (loading) {
         return <div>Loading donations...</div>;
@@ -55,6 +81,39 @@ const DonationTable = () => {
     return (
         <div className="donation-table-container" style={styles.tableContainer}>
             <h2 style={styles.title}>Donation Requests</h2>
+
+            {/* Filters Section */}
+            <div style={styles.filterContainer}>
+                <select
+                    style={styles.filter}
+                    value={selectedBloodType}
+                    onChange={(e) => setSelectedBloodType(e.target.value)}
+                >
+                    <option value="">Filter by Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+
+                <select
+                    style={styles.filter}
+                    value={selectedCondition}
+                    onChange={(e) => setSelectedCondition(e.target.value)}
+                >
+                    <option value="">Filter by Medical Condition</option>
+                    {medicalConditionsOptions.map((condition) => (
+                        <option key={condition} value={condition}>
+                            {condition}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
             <table style={styles.table}>
                 <thead>
                     <tr style={styles.tableHeaderRow}>
@@ -69,16 +128,15 @@ const DonationTable = () => {
                         <th style={styles.tableHeader}>Date of Birth</th>
                         <th style={styles.tableHeader}>Last Donation</th>
                         <th style={styles.tableHeader}>Medical Conditions</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    {donations.length === 0 ? (
+                    {filteredDonations.length === 0 ? (
                         <tr>
-                            <td colSpan="10" style={styles.noData}>No donation requests found</td>
+                            <td colSpan="11" style={styles.noData}>No donation requests found</td>
                         </tr>
                     ) : (
-                        donations.map((donation) => (
+                        filteredDonations.map((donation) => (
                             <tr key={donation.id} style={styles.tableRow}>
                                 <td style={styles.tableData}>{donation.id}</td>
                                 <td style={styles.tableData}>{donation.firstName}</td>
@@ -100,31 +158,52 @@ const DonationTable = () => {
     );
 };
 
+
 // Inline styles
 const styles = {
     tableContainer: {
         padding: '20px',
-        backgroundColor: '#2c3e50', // Dark background for the container
+        backgroundColor: '#2c3e50',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         margin: '20px',
-        overflowX: 'auto', // Allow horizontal scrolling for wide content
+        overflowX: 'auto',
     },
     title: {
         color: '#fff',
         textAlign: 'center',
-        fontSize: '1.8rem', // Slightly smaller title size
+        fontSize: '1.8rem',
         marginBottom: '15px',
+    },
+    filterContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '15px',
+    },
+    filter: {
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #ccc',
+        fontSize: '1rem',
+        flex: 1,
+        marginRight: '10px',
+    },
+    filterInput: {
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #ccc',
+        fontSize: '1rem',
+        flex: 2,
     },
     table: {
         width: '100%',
         borderCollapse: 'collapse',
-        backgroundColor: '#8e1e2f', // Dark red for table background
+        backgroundColor: '#8e1e2f',
         color: '#fff',
-        fontSize: '0.9rem', // Smaller font size for better fit
+        fontSize: '0.9rem',
     },
     tableHeaderRow: {
-        backgroundColor: '#6a1b21', // Darker red for header row
+        backgroundColor: '#6a1b21',
     },
     tableHeader: {
         padding: '10px 12px',
@@ -133,19 +212,19 @@ const styles = {
         borderBottom: '2px solid #fff',
     },
     tableRow: {
-        backgroundColor: '#9b1b2f', // Slightly lighter red for rows
+        backgroundColor: '#9b1b2f',
     },
     tableData: {
-        padding: '8px 10px', // Smaller padding for better fit
+        padding: '8px 10px',
         textAlign: 'center',
         borderBottom: '1px solid #fff',
-        wordBreak: 'break-word', // Prevents text overflow
+        wordBreak: 'break-word',
     },
     noData: {
         color: '#ffcc00',
         textAlign: 'center',
         padding: '20px',
-        fontSize: '1.1rem', // Slightly smaller font for no data
+        fontSize: '1.1rem',
         fontWeight: 'bold',
     },
 };
