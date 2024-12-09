@@ -1,5 +1,7 @@
-﻿import React, { useState } from 'react';
+﻿/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import './Chat.css';
+import { FaPaperPlane } from 'react-icons/fa'; // Import the send icon from react-icons
 
 const ChatComponent = ({ handleClose }) => {
     const [messages, setMessages] = useState([]);
@@ -58,7 +60,9 @@ const ChatComponent = ({ handleClose }) => {
                     onChange={(e) => setUserMessage(e.target.value)}
                     placeholder="Ask a question..."
                 />
-                <button onClick={handleSendMessage}>Send</button>
+                <button onClick={handleSendMessage}>
+                    <FaPaperPlane size={20} />
+                </button>
             </div>
         </div>
     );
