@@ -22,7 +22,7 @@ import DonationTable from '../components/DonationTable';
 import DrivesTable from '../components/DrivesTable';
 import BloodStock from '../components/BloodStock';
 import BloodRequest from '../components/BloodRequest';
-
+import AdminTasks from '../components/AdminTasks';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const AdminDashboard = ({ adminName, onLogout }) => {
@@ -91,7 +91,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                 <ul>
                     <li onClick={() => setActiveSection('dashboard')}><a href="#">Dashboard</a></li>
                     <li onClick={() => setActiveSection('donationRequests')}><a href="#">Donation Requests</a></li>
-                    <li onClick={() => setActiveSection('adminTasks')}><a href="#">Admin Tasks</a></li>
+                    <li onClick={() => setActiveSection('tasks')}><a href="#">Admin Tasks</a></li>
                     <li onClick={() => setActiveSection('bloodInventory')}><a href="#">Blood Stock</a></li>
                     <li onClick={() => setActiveSection('blogs')}><a href="#">Blogs</a></li>
                     <li onClick={() => setActiveSection('users')}><a href="#">Users</a></li>
@@ -175,7 +175,8 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                     {activeSection === 'donationRequests' && <DonationTable />}
                     {activeSection === 'drive' && <DrivesTable />}
                     {activeSection === 'bloodInventory' && <BloodStock />}
-                    {activeSection === 'requests' && <BloodRequest/>}
+                    {activeSection === 'requests' && <BloodRequest />}
+                    {activeSection === 'tasks' && <AdminTasks />}
                 </div>
             </div>
         </div>

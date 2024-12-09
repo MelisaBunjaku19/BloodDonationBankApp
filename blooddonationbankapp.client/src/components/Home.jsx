@@ -1,4 +1,6 @@
-﻿/* eslint-disable react/prop-types */
+﻿/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 // src/pages/Home.jsx
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';

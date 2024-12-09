@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../pages/admin.css";

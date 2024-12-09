@@ -1,16 +1,25 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import './Profile.css';
+import React, { useState, useEffect } from 'react';
+import { decode as jwt_decode } from 'jwt-decode';
 
-const Profile = ({ loggedInUser }) => {
-    const [user] = useState(loggedInUser); // Use the user data passed as props
+const Profile = () => {
+    const [user, setUser] = useState(null);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isPasswordUpdating, setIsPasswordUpdating] = useState(false);
 
-    // Handle password change
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decodedToken = jwt_decode(token); // Decoding the token
+                setUser({ email: decodedToken.email, fullName: decodedToken.fullName });
+            } catch (error) {
+                console.error('Error decoding token:', error);
+            }
+        }
+    }, []);
+
     const handlePasswordChange = async (e) => {
         e.preventDefault();
 
@@ -21,7 +30,6 @@ const Profile = ({ loggedInUser }) => {
 
         try {
             setIsPasswordUpdating(true);
-            // Simulate password update logic (you can replace this with actual logic later)
             setTimeout(() => {
                 setMessage('Password updated successfully!');
                 setIsPasswordUpdating(false);
@@ -33,13 +41,17 @@ const Profile = ({ loggedInUser }) => {
         }
     };
 
+    if (!user) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="profile-container">
             <h2>Profile</h2>
 
             <div className="profile-details">
-                <p><strong>Username:</strong> {user?.userName || 'N/A'}</p>
-                <p><strong>Email:</strong> {user?.email || 'N/A'}</p>
+                <p><strong>Full Name:</strong> {user.fullName || 'N/A'}</p>
+                <p><strong>Email:</strong> {user.email || 'N/A'}</p>
             </div>
 
             <form onSubmit={handlePasswordChange}>

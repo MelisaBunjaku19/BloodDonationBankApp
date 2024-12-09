@@ -3,6 +3,7 @@ using BloodDonationBankApp.Server.Controllers;
 using BloodDonationBankApp.Server.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Task = BloodDonationBankApp.Server.Models.Task;
 
 namespace BloodDonationBankApp.Server.Data
 {
@@ -21,7 +22,7 @@ namespace BloodDonationBankApp.Server.Data
 
         public DbSet<BloodDrive> BloodDrives { get; set; }
         public DbSet<BloodRequest> BloodRequests { get; set; }
-
+        public DbSet<Task> Tasks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

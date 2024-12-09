@@ -205,7 +205,7 @@ const BloodStock = () => {
 
     return (
         <div className="blood-stock-container" style={styles.bankContainer}>
-            <h2 style={styles.title}>Blood Bank Dashboard</h2>
+            <h2 style={styles.title}>Blood Stock(Bank)</h2>
 
             {/* Notifications Section */}
             <div style={styles.notifications}>
