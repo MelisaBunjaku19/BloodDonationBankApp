@@ -129,8 +129,9 @@ const BloodRequest = () => {
                     <div className="modal-content">
                         <h3>Are you sure you want to cancel this blood request?</h3>
                         <div className="modal-actions">
-                            <button onClick={cancelBloodRequest}>Yes, Cancel</button>
+                          
                             <button onClick={handleCloseConfirmation}>No, Keep</button>
+                            <button onClick={cancelBloodRequest}>Yes, Cancel</button>
                         </div>
                     </div>
                 </div>
