@@ -82,7 +82,6 @@ namespace BloodDonationBankApp.Server.Controllers
 
             return Ok(bloodDrives);
         }
-
         // PATCH: api/BloodDrive/{id}/toggle-availability (Admin-only endpoint to toggle availability)
         [HttpPatch("{id}/toggle-availability")]
         [Authorize(Roles = "ADMIN")]
@@ -95,9 +94,16 @@ namespace BloodDonationBankApp.Server.Controllers
             }
 
             // Toggle the availability
-            bloodDrive.DriveEndTime = bloodDrive.DriveEndTime > DateTime.UtcNow
-                ? DateTime.UtcNow.AddMinutes(-1) // Mark as unavailable
-                : DateTime.UtcNow.AddHours(1);   // Extend availability for testing
+            bloodDrive.IsAvailable = !bloodDrive.IsAvailable; // Directly toggle the availability status
+
+            if (bloodDrive.IsAvailable)
+            {
+                bloodDrive.DriveEndTime = DateTime.UtcNow.AddHours(1); // Set the end time to 1 hour ahead if available
+            }
+            else
+            {
+                bloodDrive.DriveEndTime = DateTime.UtcNow.AddMinutes(-1); // Set the end time to a past time if unavailable
+            }
 
             _context.Entry(bloodDrive).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -113,8 +119,9 @@ namespace BloodDonationBankApp.Server.Controllers
                 bloodDrive.Longitude,
                 bloodDrive.DriveStartTime,
                 bloodDrive.DriveEndTime,
-                IsAvailable = bloodDrive.DriveEndTime > DateTime.UtcNow
+                IsAvailable = bloodDrive.IsAvailable
             });
         }
     }
 }
+

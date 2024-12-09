@@ -1,8 +1,8 @@
 ﻿/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Line, Pie } from 'react-chartjs-2';
+import React, { useState, useEffect } from 'react';
+import { Line, Pie, Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -23,6 +23,8 @@ import DrivesTable from '../components/DrivesTable';
 import BloodStock from '../components/BloodStock';
 import BloodRequest from '../components/BloodRequest';
 import AdminTasks from '../components/AdminTasks';
+import axios from 'axios';
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const AdminDashboard = ({ adminName, onLogout }) => {
@@ -30,18 +32,82 @@ const AdminDashboard = ({ adminName, onLogout }) => {
     const [activeSection, setActiveSection] = useState('dashboard');
     const [showNotifications, setShowNotifications] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
+    const [userStats, setUserStats] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [driveStats, setDriveStats] = useState(null);
 
     const toggleSidebar = () => setIsSidebarCollapsed(!isSidebarCollapsed);
     const toggleNotifications = () => setShowNotifications(!showNotifications);
     const toggleSettings = () => setShowSettings(!showSettings);
 
+    // Fetch User Data
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7003/api/auth/users', {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                });
+                const users = response.data;
+
+                // Process data for charts
+                const monthlyRegistrations = Array(12).fill(0);
+                users.forEach(user => {
+                    const month = new Date(user.createdAt).getMonth();
+                    monthlyRegistrations[month]++;
+                });
+
+                setUserStats({
+                    monthlyRegistrations,
+                    totalUsers: users.length,
+                    roles: users.reduce((acc, user) => {
+                        user.roles.forEach(role => {
+                            acc[role] = (acc[role] || 0) + 1;
+                        });
+                        return acc;
+                    }, {}),
+                });
+            } catch (err) {
+                setError('Failed to load user statistics.');
+            } finally {
+                setLoading(false);
+            }
+        };
+        const fetchDriveData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7003/api/BloodDrive', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token
+                    },
+                });
+                const drives = response.data;
+
+                // For example, count drives per city
+                const cityCounts = drives.reduce((acc, drive) => {
+                    acc[drive.city] = (acc[drive.city] || 0) + 1;
+                    return acc;
+                }, {});
+                setDriveStats({ cityCounts});
+            } catch (err) {
+                setError('Failed to load blood drives.');
+            }
+        };
+
+        fetchDriveData();
+
+        fetchUserData();
+    }, []);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p className="error">{error}</p>;
+
     // Chart Data
-    const donationData = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    const userRegistrationChartData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
             {
-                label: 'Donations Over Time',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                label: 'User Registrations',
+                data: userStats.monthlyRegistrations,
                 borderColor: '#b20d33',
                 backgroundColor: 'rgba(178, 13, 51, 0.2)',
                 fill: true,
@@ -49,21 +115,24 @@ const AdminDashboard = ({ adminName, onLogout }) => {
         ],
     };
 
-    const bloodStockData = {
-        labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+    const userRoleChartData = {
+        labels: Object.keys(userStats.roles),
         datasets: [
             {
-                data: [25, 15, 30, 10, 50, 5, 20, 8],
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F40',
-                    '#FF6384',
-                    '#36A2EB',
-                ],
+                data: Object.values(userStats.roles),
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            },
+        ],
+    };
+
+    // Chart Data for Drive Stats
+    const driveCityChartData = {
+        labels: Object.keys(driveStats.cityCounts),
+        datasets: [
+            {
+                label: 'Drives by City',
+                data: Object.values(driveStats.cityCounts),
+                backgroundColor: '#36A2EB',
             },
         ],
     };
@@ -122,8 +191,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                                 </ul>
                             </div>
                         )}
-                        
-                      
+
                         <button className="logout-btn" onClick={onLogout}>
                             <FaSignOutAlt size={20} style={{ marginRight: '5px' }} />
                             Logout
@@ -146,13 +214,16 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                                     </div>
                                 ))}
                             </div>
+        
+                            {/* User Role Chart */}
                             <div className="chart-container">
-                                <div className="chart">
-                                    <Line data={donationData} options={{ responsive: true }} />
-                                </div>
-                                <div className="chart">
-                                    <Pie data={bloodStockData} />
-                                </div>
+                                <h3>User Roles Distribution</h3>
+                                <Pie data={userRoleChartData} />
+                            </div>
+                            {/* Blood Drive City Chart */}
+                            <div className="chart-container">
+                                <h3>Blood Drives by City</h3>
+                                <Bar data={driveCityChartData} />
                             </div>
                         </div>
                     )}

@@ -71,20 +71,29 @@ const DrivesTable = () => {
     // Toggle drive status function
     const toggleDriveStatus = async (id) => {
         try {
+            const drive = drives.find((drive) => drive.id === id);
+            const newAvailability = !drive.isAvailable;
+
+            // Make API call to toggle the drive status
             const response = await axios.patch(
                 `https://localhost:7003/api/BloodDrive/${id}/toggle-availability`,
-                {},
+                { isAvailable: newAvailability }, // Send the new availability status
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token
                     },
                 }
             );
-            setDrives((prevDrives) =>
-                prevDrives.map((drive) =>
-                    drive.id === id ? { ...drive, ...response.data } : drive
-                )
-            );
+
+            // Ensure response contains updated status and update local state
+            if (response.data && response.data.isAvailable !== undefined) {
+                setDrives((prevDrives) =>
+                    prevDrives.map((drive) =>
+                        drive.id === id ? { ...drive, isAvailable: response.data.isAvailable } : drive
+                    )
+                );
+                alert(`Drive status updated to ${newAvailability ? "Available" : "Unavailable"}`);
+            }
         } catch (err) {
             alert("Failed to update status. Please try again.");
         }
