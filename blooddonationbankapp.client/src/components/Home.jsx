@@ -7,7 +7,8 @@ import { useLocation } from 'react-router-dom';
 import './Home.css';
 import CountUp from 'react-countup';
 import heroImage from '../assets/images/hero-image.jpg';
-import Chat from '../components/Chat';  // Import the Chat component
+import Chat from '../components/Chat';
+import { Link } from 'react-router-dom';// Import the Chat component
 
 const StatsCard = ({ count, label }) => (
     <div className="stats-card">
@@ -71,18 +72,27 @@ const Home = () => {
             <section className="latest-updates">
                 <h2>Latest Updates</h2>
                 <div className="updates-container">
-                    <UpdateCard
-                        title="New Partnership"
-                        description="We partnered with local hospitals to improve the blood distribution network."
-                    />
-                    <UpdateCard
-                        title="Volunteer Programs"
-                        description="Become a part of our volunteer team to help organize and manage our donation drives."
-                    />
-                    <UpdateCard
-                        title="Our Blogs"
-                        description="See the latest blogs and get informed about everything related to blood donation!"
-                    />
+                    <div className="update-card-container">
+                        <UpdateCard
+                            title="Our Blogs"
+                            description="See the latest blogs and get informed about everything related to blood donation!"
+                        />
+                        {/* Button below UpdateCard for Blogs */}
+                        <Link to="/blogs" className="btn view-button">
+                            View Blogs
+                        </Link>
+                    </div>
+
+                    <div className="update-card-container mt-4">
+                        <UpdateCard
+                            title="Find Drives"
+                            description="Discover upcoming blood drives and contribute to the cause!"
+                        />
+                        {/* Button below UpdateCard for Drives */}
+                        <Link to="/drives" className="btn view-button">
+                            Find Drives
+                        </Link>
+                    </div>
                 </div>
             </section>
 

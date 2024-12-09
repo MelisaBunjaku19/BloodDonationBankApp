@@ -25,18 +25,17 @@ const Footer = () => {
                         <li><Link to="/about">About Us</Link></li>
                         <li><Link to="/contact">Contact</Link></li>
                         <li><Link to="/help">Help</Link></li>
-                        <li><Link to="/blogs">Blogs</Link></li>
-                        <li><Link to="/donate">Donate Now</Link></li>
-                        <li><Link to="/drives">Find a Drive</Link></li>
+                      
                     </ul>
                 </div>
 
                 {/* Additional Resources */}
                 <div className="footer-resources">
-                    <h4>Resources</h4>
+                    <h4>More Links</h4>
                     <ul>
-                        <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-                        <li><Link to="/terms-of-service">Terms of Service</Link></li>
+                        <li><Link to="/blogs">Blogs</Link></li>
+                        <li><Link to="/donate">Donate Now</Link></li>
+                        <li><Link to="/drives">Find a Drive</Link></li>
                   
                     </ul>
                 </div>

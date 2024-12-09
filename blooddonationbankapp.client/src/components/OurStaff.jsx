@@ -12,12 +12,13 @@ import staff8 from '../assets/images/staff8.jpg'; // New staff image
 const OurStaff = () => {
     const [activeStaff, setActiveStaff] = useState(null); // Track the active staff member
 
-    // Toggle staff info based on index
     const toggleStaffInfo = (index) => {
-        setActiveStaff(activeStaff === index ? null : index); // If same index, collapse, else show new staff
+        // If the clicked staff member is already active, set activeStaff to null (collapse)
+        setActiveStaff(activeStaff === index ? null : index);
     };
 
     return (
+     
         <section className="staff-section">
             <div className="staff-container">
                 <h2>Meet Our Team</h2>

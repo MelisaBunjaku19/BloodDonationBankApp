@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card, Badge, Alert, Spinner, Button, Modal, Form } from "react-bootstrap"; // Bootstrap components for modern design
 import { Bar, Pie } from "react-chartjs-2"; // Chart components
@@ -160,8 +161,9 @@ const BloodStock = () => {
                 }
             );
             console.log(response.data);
-            alert(response.data.message); // Show success message
-            fetchDonations(); // Refresh the stock
+            alert(response.data.message);
+        // Show success message
+         // Refresh the stock
         } catch (error) {
             console.error("Error requesting blood: ", error);
             alert("Failed to request blood. Please try again later.");
@@ -254,7 +256,7 @@ const BloodStock = () => {
                                         style={{
                                             ...styles.fill,
                                             height: `${Math.min(count * 10, 100)}%`,
-                                            backgroundColor: count >= MAX_STOCK ? "#e74c3c" : "#1dd1a1", // Red for full stock
+                                            backgroundColor: count >= MAX_STOCK ? "#e74c3c" : "#8B0000", // Red for full stock
                                         }}
                                     />
                                 </div>
@@ -408,7 +410,7 @@ const styles = {
         position: "relative",
     },
     fill: {
-        backgroundColor: "#e74c3c",
+        backgroundColor: "#8B0000",
         position: "absolute",
         bottom: "0",
         width: "100%",

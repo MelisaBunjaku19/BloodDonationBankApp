@@ -285,6 +285,15 @@ html, body {
     font-size: 1rem;
     color: #777;
 }
+.staff-member .expanded-content {
+    display: none;
+    margin-top: 15px;
+}
+
+.staff-member.expanded .expanded-content {
+    display: block;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

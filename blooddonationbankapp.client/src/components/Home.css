@@ -163,18 +163,43 @@ body {
 
 .updates-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-wrap: wrap; /* Allows items to wrap if the screen is too small */
+    justify-content: center; /* Centers the cards horizontally */
+    gap: 20px; /* Adds space between the cards */
 }
+
+.update-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px; /* Ensures a consistent width for each card */
+    margin-bottom: 20px;
+}
+
+.view-button {
+    margin-top: 15px; /* Space between the card and button */
+    padding: 12px 30px; /* Makes the button a little larger */
+    font-size: 16px;
+    text-align: center;
+    background-color: #8B0000; /* Dark Red color */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    display: inline-block;
+}
+
+    .view-button:hover {
+        background-color: #b30000; /* Darker Red on hover */
+    }
 
 .update-card {
     background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    width: 300px;
     color: #000; /* Changed text color to black */
+    width: 100%; /* Ensures cards are responsive and fill available space */
 }
 
     .update-card h3 {
@@ -189,6 +214,7 @@ body {
         color: #555; /* Light gray for paragraph text */
     }
 
+/* Ensures buttons are inside the container and properly styled */
 .latest-updates .cta-button {
     background-color: #b20d33; /* Blood red color */
     color: white;
@@ -198,12 +224,14 @@ body {
     font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
 }
 
     .latest-updates .cta-button:hover {
         background-color: #9b182d;
         transform: translateY(-2px);
     }
+
 
 /* Call to Action Section */
 .cta-section {

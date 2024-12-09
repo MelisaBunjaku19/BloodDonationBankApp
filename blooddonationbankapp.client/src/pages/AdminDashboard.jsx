@@ -122,21 +122,8 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                                 </ul>
                             </div>
                         )}
-                        <FaCog
-                            size={20}
-                            style={{ color: '#b20d33', cursor: 'pointer', marginRight: '20px' }}
-                            onClick={toggleSettings}
-                        />
-                        {showSettings && (
-                            <div className="settings-panel active">
-                                <h4>Settings</h4>
-                                <ul>
-                                    <li><a href="#">Account Settings</a></li>
-                                    <li><a href="#">Privacy Settings</a></li>
-                                    <li><a href="#">System Preferences</a></li>
-                                </ul>
-                            </div>
-                        )}
+                        
+                      
                         <button className="logout-btn" onClick={onLogout}>
                             <FaSignOutAlt size={20} style={{ marginRight: '5px' }} />
                             Logout
