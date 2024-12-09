@@ -82,7 +82,7 @@ const DrivesTable = () => {
             );
             setDrives((prevDrives) =>
                 prevDrives.map((drive) =>
-                    drive.id === id ? { ...drive, ...response.data } : drive
+                    drive.id === id ? { ...drive, isAvailable: response.data.isAvailable } : drive
                 )
             );
         } catch (err) {
