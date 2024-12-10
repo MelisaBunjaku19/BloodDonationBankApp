@@ -12,6 +12,7 @@
         public DateTime DriveStartTime { get; set; }
         public DateTime DriveEndTime { get; set; }
 
-
+        // Computed property
+        public bool IsAvailable { get; set; }
     }
 }

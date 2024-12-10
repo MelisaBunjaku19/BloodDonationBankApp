@@ -9,6 +9,7 @@ import CountUp from 'react-countup';
 import heroImage from '../assets/images/hero-image.jpg';
 import Chat from '../components/Chat';
 import { Link } from 'react-router-dom';// Import the Chat component
+import Subscriber from '../components/Subscriber';
 
 const StatsCard = ({ count, label }) => (
     <div className="stats-card">
@@ -115,9 +116,14 @@ const Home = () => {
                 </div>
             </section>
 
+            <Subscriber />
+
             {/* Chat Component */}
+           
             <Chat isChatOpen={isChatOpen} toggleChat={toggleChat} />
         </div>
+
+        
     );
 };
 

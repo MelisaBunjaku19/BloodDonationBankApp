@@ -42,7 +42,7 @@ namespace BloodDonationBankApp.Server.Controllers
                     d.Longitude,
                     d.DriveStartTime,
                     d.DriveEndTime,
-                    IsAvailable = d.DriveEndTime > DateTime.UtcNow
+                    d.IsAvailable // Using the computed property
                 })
                 .ToListAsync();
 
@@ -71,7 +71,7 @@ namespace BloodDonationBankApp.Server.Controllers
                     d.Longitude,
                     d.DriveStartTime,
                     d.DriveEndTime,
-                    IsAvailable = d.DriveEndTime > DateTime.UtcNow // Ensuring availability logic
+                    d.IsAvailable // Using the computed property// Ensuring availability logic
                 })
                 .ToListAsync();
 
@@ -88,20 +88,36 @@ namespace BloodDonationBankApp.Server.Controllers
         [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ToggleAvailability(int id)
         {
+            // Retrieve the blood drive by its id
             var bloodDrive = await _context.BloodDrives.FindAsync(id);
+
+            // If the blood drive is not found, return a 404 response
             if (bloodDrive == null)
             {
                 return NotFound("Blood drive not found.");
             }
 
-            // Toggle the availability
-            bloodDrive.DriveEndTime = bloodDrive.DriveEndTime > DateTime.UtcNow
-                ? DateTime.UtcNow.AddMinutes(-1) // Mark as unavailable
-                : DateTime.UtcNow.AddHours(1);   // Extend availability for testing
+            // Toggle the availability based on the current end time
+            // If the current DriveEndTime is in the future, mark it as unavailable
+            // Otherwise, extend its availability for testing by 1 hour
+            if (bloodDrive.DriveEndTime > DateTime.UtcNow)
+            {
+                // Mark as unavailable by setting DriveEndTime to a past time
+                bloodDrive.DriveEndTime = DateTime.UtcNow.AddMinutes(-1);
+            }
+            else
+            {
+                // Mark as available by extending DriveEndTime by 1 hour
+                bloodDrive.DriveEndTime = DateTime.UtcNow.AddHours(1);
+            }
 
+            // Mark the entity as modified to ensure the changes are tracked
             _context.Entry(bloodDrive).State = EntityState.Modified;
+
+            // Save the changes to the database
             await _context.SaveChangesAsync();
 
+            // Return the updated blood drive information along with its availability status
             return Ok(new
             {
                 bloodDrive.Id,
@@ -113,8 +129,9 @@ namespace BloodDonationBankApp.Server.Controllers
                 bloodDrive.Longitude,
                 bloodDrive.DriveStartTime,
                 bloodDrive.DriveEndTime,
-                IsAvailable = bloodDrive.DriveEndTime > DateTime.UtcNow
+                IsAvailable = bloodDrive.DriveEndTime > DateTime.UtcNow // Recalculate availability
             });
         }
     }
 }
+

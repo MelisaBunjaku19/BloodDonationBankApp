@@ -9,31 +9,50 @@ const Subscriber = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(true); // Loading state for animation
 
-    // No need for useEffect to fetch animation, as it's now imported locally
     useEffect(() => {
         // Simulate loading for 1 second to show Lottie animation
         setTimeout(() => setLoading(false), 1000);
     }, []);
+
+    // Helper function to validate email format
+    const validateEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return regex.test(email);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccessMessage('');
         setErrorMessage('');
 
+        // Validate the email format before making the request
+        if (!validateEmail(email)) {
+            setErrorMessage('Please enter a valid email address.');
+            return;
+        }
+
         try {
             const response = await fetch('https://localhost:7003/api/subscriber', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({ email }), // Make sure email is being sent as expected
             });
+
+            const data = await response.json(); // Parse the response
 
             if (response.ok) {
                 setSuccessMessage('Thank you for subscribing! Please check your email for confirmation.');
-                setEmail('');
+                setEmail(''); // Clear email input after successful submission
             } else {
-                setErrorMessage('An error occurred. Please try again later.');
+                // Handle specific error message if email is already subscribed
+                if (data.message === 'This email is already subscribed.') {
+                    setErrorMessage('This email is already subscribed.');
+                } else {
+                    setErrorMessage(data.message || 'An error occurred. Please try again later.');
+                }
             }
         } catch (error) {
+            console.error('Error:', error);
             setErrorMessage('An error occurred. Please try again later.');
         }
     };
