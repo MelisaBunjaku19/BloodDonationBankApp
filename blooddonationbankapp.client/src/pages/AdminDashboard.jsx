@@ -36,6 +36,7 @@ const AdminDashboard = ({ adminName, onLogout }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [driveStats, setDriveStats] = useState(null);
+    const [donationStats, setDonationStats] = useState(null);
 
     const toggleSidebar = () => setIsSidebarCollapsed(!isSidebarCollapsed);
     const toggleNotifications = () => setShowNotifications(!showNotifications);
@@ -92,9 +93,28 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                 setError('Failed to load blood drives.');
             }
         };
+        const fetchDonationData = async () => {
+            try {
+                const response = await axios.get('https://localhost:7003/api/DonationRequest', {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                });
+                const donations = response.data;
+
+                // Group donations by medical condition
+                const conditionCounts = donations.reduce((acc, donation) => {
+                    const condition = donation.medicalConditions || 'Unknown';
+                    acc[condition] = (acc[condition] || 0) + 1;
+                    return acc;
+                }, {});
+
+                setDonationStats(conditionCounts);
+            } catch (error) {
+                console.error('Error fetching donation data:', error);
+            }
+        };
 
         fetchDriveData();
-
+        fetchDonationData();
         fetchUserData();
     }, []);
 
@@ -136,6 +156,17 @@ const AdminDashboard = ({ adminName, onLogout }) => {
             },
         ],
     };
+    const donationChartData = {
+        labels: donationStats ? Object.keys(donationStats) : [],
+        datasets: [
+            {
+                data: donationStats ? Object.values(donationStats) : [],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            },
+        ],
+    };
+
 
     // Quick Stats
     const quickStats = [
@@ -224,6 +255,30 @@ const AdminDashboard = ({ adminName, onLogout }) => {
                             <div className="chart-container">
                                 <h3>Blood Drives by City</h3>
                                 <Bar data={driveCityChartData} />
+                            </div>
+                            {/* Donation Requests by Medical Condition */}
+                            <div className="chart-container">
+                                <h3>Donation Requests by Medical Condition</h3>
+                                {donationStats ? (
+                                    <Bar
+                                        data={donationChartData}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: {
+                                                    display: true,
+                                                    position: 'top',
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: 'Donation Requests by Medical Condition',
+                                                },
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <p>Loading donation statistics...</p>
+                                )}
                             </div>
                         </div>
                     )}

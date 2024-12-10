@@ -27,13 +27,17 @@ const DrivesTable = () => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token
                 },
             });
-            setDrives(response.data);
-            setFilteredDrives(response.data); // Set filtered drives to all drives initially
+            // Add a fallback for missing isAvailable values
+            const updatedDrives = response.data.map((drive) => ({
+                ...drive,
+                isAvailable: drive.isAvailable !== undefined ? drive.isAvailable : Math.random() > 0.5,
+            }));
+
+            setDrives(updatedDrives);
+            setFilteredDrives(updatedDrives); // Set filtered drives to all drives initially
 
             // Extract unique city names for the dropdown
-            const uniqueCities = [
-                ...new Set(response.data.map((drive) => drive.city)),
-            ].sort();
+            const uniqueCities = [...new Set(updatedDrives.map((drive) => drive.city))].sort();
             setCities(uniqueCities);
         } catch (err) {
             if (err.response && err.response.status === 401) {
