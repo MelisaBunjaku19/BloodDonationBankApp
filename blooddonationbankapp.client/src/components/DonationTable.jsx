@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import "../pages/admin.css";
+import { saveAs } from 'file-saver';
+import { FaTrash, FaFileExport } from 'react-icons/fa';// Importing FileSaver for Word file export
 
 const DonationTable = () => {
     const [donations, setDonations] = useState([]);
@@ -85,6 +87,75 @@ const DonationTable = () => {
         }
     };
 
+    // Export a single donation to Word
+    const handleExportSingleDonationToWord = (donation) => {
+        const content = `
+            <table>
+                <tr><th>ID</th><td>${donation.id}</td></tr>
+                <tr><th>First Name</th><td>${donation.firstName}</td></tr>
+                <tr><th>Last Name</th><td>${donation.lastName}</td></tr>
+                <tr><th>Email</th><td>${donation.email}</td></tr>
+                <tr><th>Phone</th><td>${donation.phoneNumber}</td></tr>
+                <tr><th>Blood Type</th><td>${donation.bloodType}</td></tr>
+                <tr><th>Weight</th><td>${donation.weight}</td></tr>
+                <tr><th>Preferred Time</th><td>${donation.preferredHour} ${donation.preferredMinute} ${donation.preferredPeriod}</td></tr>
+                <tr><th>Date of Birth</th><td>${donation.dateOfBirth}</td></tr>
+                <tr><th>Last Donation</th><td>${donation.lastDonationDate}</td></tr>
+                <tr><th>Medical Conditions</th><td>${donation.medicalConditions}</td></tr>
+            </table>
+        `;
+
+        const blob = new Blob(['<html><body>' + content + '</body></html>'], {
+            type: 'application/msword',
+        });
+        saveAs(blob, `DonationRequest_${donation.id}.doc`);
+    };
+
+    // Export all filtered donations to Word document
+    const handleExportToWord = () => {
+        const tableContent = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Blood Type</th>
+                        <th>Weight</th>
+                        <th>Preferred Time</th>
+                        <th>Date of Birth</th>
+                        <th>Last Donation</th>
+                        <th>Medical Conditions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${filteredDonations.map(donation => `
+                        <tr>
+                            <td>${donation.id}</td>
+                            <td>${donation.firstName}</td>
+                            <td>${donation.lastName}</td>
+                            <td>${donation.email}</td>
+                            <td>${donation.phoneNumber}</td>
+                            <td>${donation.bloodType}</td>
+                            <td>${donation.weight}</td>
+                            <td>${donation.preferredHour} ${donation.preferredMinute} ${donation.preferredPeriod}</td>
+                            <td>${donation.dateOfBirth}</td>
+                            <td>${donation.lastDonationDate}</td>
+                            <td>${donation.medicalConditions}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+
+        const blob = new Blob(['<html><body>' + tableContent + '</body></html>'], {
+            type: 'application/msword',
+        });
+        saveAs(blob, 'DonationRequests.doc');
+    };
+
     if (loading) {
         return <div>Loading donations...</div>;
     }
@@ -127,6 +198,10 @@ const DonationTable = () => {
                         </option>
                     ))}
                 </select>
+
+                <button style={styles.exportButton} onClick={handleExportToWord}>
+                    <FaFileExport /> {/* Export icon */}
+                </button>
             </div>
 
             <table style={styles.table}>
@@ -161,17 +236,27 @@ const DonationTable = () => {
                                 <td style={styles.tableData}>{donation.phoneNumber}</td>
                                 <td style={styles.tableData}>{donation.bloodType}</td>
                                 <td style={styles.tableData}>{donation.weight}</td>
-                                <td style={styles.tableData}>{donation.preferredHour} {donation.preferredMinute} {donation.preferredPeriod}</td>
+                                <td style={styles.tableData}>
+                                    {donation.preferredHour}:{donation.preferredMinute} {donation.preferredPeriod}
+                                </td>
                                 <td style={styles.tableData}>{donation.dateOfBirth}</td>
                                 <td style={styles.tableData}>{donation.lastDonationDate}</td>
                                 <td style={styles.tableData}>{donation.medicalConditions}</td>
                                 <td style={styles.tableData}>
-                                    <button
-                                        onClick={() => handleDeleteDonation(donation.id)}
-                                        style={styles.deleteButton}
-                                    >
-                                        Delete
-                                    </button>
+                                    <div style={styles.buttonContainer}>
+                                        <button
+                                            style={styles.deleteButton}
+                                            onClick={() => handleDeleteDonation(donation.id)}
+                                        >
+                                            <FaTrash /> {/* Delete icon */}
+                                        </button>
+                                        <button
+                                            style={styles.exportButton}
+                                            onClick={() => handleExportSingleDonationToWord(donation)}
+                                        >
+                                            <FaFileExport />
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
@@ -185,13 +270,17 @@ const DonationTable = () => {
 // Inline styles
 const styles = {
     tableContainer: {
-        padding: '20px',
+        padding: '10px', /* Reduced padding for more space */
         backgroundColor: '#2c3e50',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         margin: '20px',
-        overflowX: 'auto',
-    },
+        overflowX: 'auto', /* Allows horizontal scrolling */
+        minWidth: '1000px', /* Set a minimum width if necessary */
+    }
+
+
+,
     title: {
         color: '#fff',
         textAlign: 'center',
@@ -241,7 +330,8 @@ const styles = {
         padding: '8px 10px',
         textAlign: 'center',
         borderBottom: '1px solid #fff',
-        wordBreak: 'break-word',
+        wordBreak: 'break-word', // Prevents words from breaking incorrectly
+        whiteSpace: 'normal', // Ensures text wraps correctly but doesn't break inside words
     },
     noData: {
         color: '#ffcc00',
@@ -250,18 +340,33 @@ const styles = {
         fontSize: '1.1rem',
         fontWeight: 'bold',
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        gap: '10px',  // Add space between buttons
+        marginTop: '10px',  // Adjust margin for spacing
+    },
     deleteButton: {
-        backgroundColor: '#e74c3c',
-        color: '#fff',
+        backgroundColor: '#dc3545',
+        color: 'white',
+        padding: '8px',
         border: 'none',
-        padding: '6px 16px',  // Adjust padding to make it look more balanced
         borderRadius: '4px',
         cursor: 'pointer',
-        fontSize: '1rem',
-        whiteSpace: 'nowrap',  // Prevent the text from wrapping
-        display: 'inline-flex', // Make sure the button behaves like a button, not block
-        alignItems: 'center',  // Ensure the button's content is centered
+    },
+    exportButton: {
+        backgroundColor: '#28a745',
+        color: 'white',
+        padding: '8px 12px',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+    exportIcon: {
+        fontSize: '1.2rem',  // Icon size
     },
 };
+
+
 
 export default DonationTable;

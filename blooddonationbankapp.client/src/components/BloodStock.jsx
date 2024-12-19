@@ -18,9 +18,9 @@ const BloodStock = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showRequestModal, setShowRequestModal] = useState(false); // State for Blood Request Modal
-    const [showImportModal, setShowImportModal] = useState(false); // State for Blood Import Modal
+ // State for Blood Import Modal
     const [bloodTypeToRequest, setBloodTypeToRequest] = useState(""); // Blood type for request
-    const [quantityToImport, setQuantityToImport] = useState(0);
+
     const [quantityToRequest, setQuantityToRequest] = useState(0); // Quantity for blood import
     const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -174,35 +174,6 @@ const BloodStock = () => {
 
 
 
-    // Modal for Blood Import
-    const handleImportModalShow = () => setShowImportModal(true);
-
-    const handleImportModalClose = () => setShowImportModal(false);
-
-    const handleImportBlood = async () => {
-        try {
-            // Update this with the correct API endpoint for importing blood
-            const response = await axios.post(
-                'https://localhost:7003/api/BloodImport',
-                {
-                    bloodType: bloodTypeToImport, // Ensure this is part of the request body
-                    quantity: quantityToImport,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            // Handle success - for example, show a success message
-            console.log(response.data);
-            setShowImportModal(false); // Close the modal after success
-        } catch (error) {
-            console.error("Error importing blood: ", error);
-            setError("Failed to import blood.");
-            setShowImportModal(false); // Close the modal in case of error
-        }
-    };
 
 
     return (
@@ -324,42 +295,6 @@ const BloodStock = () => {
                 </Modal.Footer>
             </Modal>
 
-            {/* Import Modal */}
-            <Modal show={showImportModal} onHide={handleImportModalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Import Blood</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBloodType">
-                            <Form.Label>Blood Type</Form.Label>
-                            <Form.Control type="text" placeholder="Enter blood type" />
-                        </Form.Group>
-                        <Form.Group controlId="formQuantity">
-                            <Form.Label>Quantity</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="1"
-                                placeholder="Enter quantity"
-                                value={quantityToImport}
-                                onChange={(e) => {
-                                    const value = Math.max(1, parseInt(e.target.value) || 0);
-                                    setQuantityToImport(value);
-                                }}
-                            />
-
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleImportModalClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleImportBlood}>
-                        Import Blood
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 };
