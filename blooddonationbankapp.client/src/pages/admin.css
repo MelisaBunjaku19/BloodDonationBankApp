@@ -241,7 +241,7 @@
     .dashboard-sections h2 {
         font-family: 'Montserrat', sans-serif; /* You can switch between Nunito or Montserrat */
         font-size: 30px; /* Adjust title font size */
-        color: #333; /* Dark color for the title */
+        color: darkred; /* Dark color for the title */
         text-align: center; /* Center the title */
         margin-bottom: 30px; /* Space below the title */
     }

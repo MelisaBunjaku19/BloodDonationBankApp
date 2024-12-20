@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card, Badge, Alert, Spinner, Button, Modal, Form } from "react-bootstrap"; // Bootstrap components for modern design
@@ -18,16 +17,15 @@ const BloodStock = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showRequestModal, setShowRequestModal] = useState(false); // State for Blood Request Modal
- // State for Blood Import Modal
     const [bloodTypeToRequest, setBloodTypeToRequest] = useState(""); // Blood type for request
-
     const [quantityToRequest, setQuantityToRequest] = useState(0); // Quantity for blood import
     const [token, setToken] = useState(localStorage.getItem("token"));
+    const [requestingBlood, setRequestingBlood] = useState(false); // Flag to track blood request state
 
     const MAX_STOCK = 10; // Define max stock per blood type
 
     // Helper function to handle API requests
-    const fetchDonations = async () => {
+    const fetchDonations = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
@@ -66,19 +64,53 @@ const BloodStock = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
     // Fetch donations and set a polling interval
     useEffect(() => {
         if (token) {
             fetchDonations();
             const interval = setInterval(fetchDonations, 10000); // Poll every 10 seconds
-            return () => clearInterval(interval);
+            return () => clearInterval(interval); // Cleanup on unmount
         } else {
             setError("Authorization token is missing");
             setLoading(false);
         }
-    }, [token]);
+    }, [token, fetchDonations]); // Ensure that fetchDonations is used as a dependency
+
+    const handleRequestBlood = async () => {
+        // Prevent requesting while a request is already in progress
+        if (requestingBlood) return;
+
+        setRequestingBlood(true); // Start the request process
+
+        try {
+            const response = await axios.post(
+                "https://localhost:7003/api/Blood/RequestBlood",
+                {
+                    bloodType: bloodTypeToRequest,
+                    requestedBy: "Admin", // Replace with dynamic user info if available
+                    quantity: quantityToRequest, // Send quantity here
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(response.data);
+            alert(response.data.message);
+
+            // Refresh the stock
+            fetchDonations();
+        } catch (error) {
+            console.error("Error requesting blood: ", error);
+            alert("Failed to request blood. Please try again later.");
+        } finally {
+            setRequestingBlood(false); // End the request process
+            setShowRequestModal(false); // Close the modal
+        }
+    };
 
     if (loading) {
         return (
@@ -145,36 +177,6 @@ const BloodStock = () => {
     };
 
     const handleRequestModalClose = () => setShowRequestModal(false);
-    const handleRequestBlood = async () => {
-        try {
-            const response = await axios.post(
-                "https://localhost:7003/api/Blood/RequestBlood",
-                {
-                    bloodType: bloodTypeToRequest,
-                    requestedBy: "Admin", // Replace with dynamic user info if available
-                    quantity: quantityToRequest, // Send quantity here
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(response.data);
-            alert(response.data.message);
-        // Show success message
-         // Refresh the stock
-        } catch (error) {
-            console.error("Error requesting blood: ", error);
-            alert("Failed to request blood. Please try again later.");
-        } finally {
-            setShowRequestModal(false);
-        }
-    };
-
-
-
-
 
     return (
         <div className="blood-stock-container" style={styles.bankContainer}>
@@ -243,7 +245,6 @@ const BloodStock = () => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-
                     ))
                 )}
             </div>
@@ -281,7 +282,6 @@ const BloodStock = () => {
                                 value={quantityToRequest}
                                 onChange={(e) => setQuantityToRequest(e.target.value)}
                             />
-
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -289,15 +289,16 @@ const BloodStock = () => {
                     <Button variant="secondary" onClick={handleRequestModalClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleRequestBlood}>
-                        Request Blood
+                    <Button variant="primary" onClick={handleRequestBlood} disabled={requestingBlood}>
+                        {requestingBlood ? "Requesting..." : "Request Blood"}
                     </Button>
                 </Modal.Footer>
             </Modal>
-
         </div>
     );
 };
+
+
 const styles = {
     bankContainer: {
         padding: "20px",

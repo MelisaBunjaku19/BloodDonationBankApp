@@ -271,7 +271,7 @@ const DonationTable = () => {
 const styles = {
     tableContainer: {
         padding: '10px', /* Reduced padding for more space */
-        backgroundColor: '#2c3e50',
+        backgroundColor: 'white',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         margin: '20px',
@@ -282,7 +282,7 @@ const styles = {
 
 ,
     title: {
-        color: '#fff',
+        color: 'darkred',
         textAlign: 'center',
         fontSize: '1.8rem',
         marginBottom: '15px',

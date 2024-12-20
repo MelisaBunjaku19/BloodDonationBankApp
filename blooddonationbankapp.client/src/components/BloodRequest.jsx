@@ -154,6 +154,7 @@ const BloodRequest = () => {
                     color: darkred;
                     font-size: 2rem;
                     margin-bottom: 20px;
+                 font-family: 'Montserrat', sans-serif;
                 }
 
                 .blood-requests-table {
@@ -181,10 +182,7 @@ const BloodRequest = () => {
                     background-color: #f4f4f4;
                 }
 
-                .blood-requests-table tr:hover {
-                    color: white;
-                    background-color: #c0392b;
-                }
+                
 
                 .blood-requests-table td {
                     color: #000;
