@@ -138,6 +138,7 @@ const DrivesTable = () => {
                                 <th>ID</th>
                                 <th>Facility Name</th>
                                 <th>Address</th>
+<th> Postal Code</th>
                                 <th>City</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
@@ -151,6 +152,7 @@ const DrivesTable = () => {
                                     <td>{drive.id}</td>
                                     <td>{drive.facilityName}</td>
                                     <td>{drive.address}</td>
+                                    <td>{drive.postalCode}</td>
                                     <td>{drive.city}</td>
                                     <td>{new Date(drive.driveStartTime).toLocaleString()}</td>
                                     <td>{new Date(drive.driveEndTime).toLocaleString()}</td>
