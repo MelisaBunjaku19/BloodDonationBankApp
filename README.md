@@ -28,7 +28,7 @@ The **Blood Donation Bank App** is a web-based application designed for managing
 1. Clone the repository:
    ```sh
    git clone <https://github.com/MelisaBunjaku19/BloodDonationBankApp>
-   cd blood-donation-bank
+
    ```
 
 2. Install frontend dependencies:
@@ -55,10 +55,10 @@ The **Blood Donation Bank App** is a web-based application designed for managing
 ## API Endpoints (Example)
 | Endpoint            | Method | Description |
 |---------------------|--------|-------------|
-| `/api/donors`      | GET    | Get all donors |
-| `/api/donors`      | POST   | Register a new donor |
-| `/api/requests`    | GET    | Get all blood requests |
-| `/api/requests`    | POST   | Create a new request |
+| `/api/users`      | GET    | Get all donors |
+| `/api/users`      | POST   | Register a new donor |
+| `/api/bloodrequest`    | GET    | Get all blood requests |
+| `/api/bloodrequest`    | POST   | Create a new blood request |
 
 ## Contribution
 If you would like to contribute, please fork the repository and submit a pull request.
