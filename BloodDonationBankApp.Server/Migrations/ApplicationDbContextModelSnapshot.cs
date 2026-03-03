@@ -54,7 +54,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Controllers.BloodRequest", b =>
@@ -81,7 +81,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodRequests");
+                    b.ToTable("BloodRequests", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.ApplicationUser", b =>
@@ -182,7 +182,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.BloodDrive", b =>
@@ -223,7 +223,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodDrives");
+                    b.ToTable("BloodDrives", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.DonationRequest", b =>
@@ -286,7 +286,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DonationRequests");
+                    b.ToTable("DonationRequests", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.Subscriber", b =>
@@ -306,7 +306,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscribers");
+                    b.ToTable("Subscribers", (string)null);
                 });
 
             modelBuilder.Entity("BloodDonationBankApp.Server.Models.Task", b =>
@@ -333,7 +333,7 @@ namespace BloodDonationBankApp.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

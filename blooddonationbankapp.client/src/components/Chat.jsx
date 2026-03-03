@@ -1,7 +1,8 @@
-﻿/* eslint-disable react/prop-types */
+﻿/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import './Chat.css';
-import { FaPaperPlane } from 'react-icons/fa'; // Import the send icon from react-icons
+import { FaPaperPlane } from 'react-icons/fa'; // Import the sends icon from react-icons
 
 const ChatComponent = ({ handleClose }) => {
     const [messages, setMessages] = useState([]);

@@ -145,13 +145,12 @@ const AdminDashboard = ({ adminName, onLogout }) => {
         ],
     };
 
-    // Chart Data for Drive Stats
     const driveCityChartData = {
-        labels: Object.keys(driveStats.cityCounts),
+        labels: Object.keys(driveStats?.cityCounts || {}),
         datasets: [
             {
                 label: 'Drives by City',
-                data: Object.values(driveStats.cityCounts),
+                data: Object.values(driveStats?.cityCounts || {}),
                 backgroundColor: '#36A2EB',
             },
         ],
